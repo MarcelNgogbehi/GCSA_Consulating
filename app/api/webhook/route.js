@@ -34,9 +34,11 @@ import Stripe from "stripe";
 
 export const runtime = "nodejs";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-12-18.acacia",
-});
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
+  return new Stripe(key, { apiVersion: "2024-12-18.acacia" });
+}
 
 export async function POST(req) {
   const sig = req.headers.get("stripe-signature");
@@ -52,7 +54,7 @@ export async function POST(req) {
   let event;
   try {
     const rawBody = await req.text(); // raw, unparsed body
-    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+    event = getStripe().webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     console.error("[/api/webhook] signature verification failed:", err.message);
     return NextResponse.json(
