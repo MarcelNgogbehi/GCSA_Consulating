@@ -6,22 +6,19 @@ import Image from "next/image";
 import { FiArrowUpRight } from "react-icons/fi";
 
 /**
- * FeaturedProduct — Charles Adakole Consulting | The Process
+ * About — GCSA Consulting | Our Story + What Sets Us Apart
  *
- * Content (per brand brief, Section 5): four phases of engagement.
- *   1. The Clarity Audit
- *   2. The Blueprint
- *   3. Implementation
- *   4. Continuous Optimization
+ * Content (per gcsaconsulting.co.uk About page):
+ * - "Founded with a passion for transforming businesses, GCSA was born
+ *    from a vision to redefine how organizations approach challenges
+ *    and embrace opportunities."
+ * - 4 differentiators: Tailored Solutions, Innovation at the Core,
+ *   Collaborative Approach, Proven Expertise
  *
- * Sits below HomeProducts. Dark, editorial, process-focused.
- * Tab structure: each phase is its own tab panel with a big step-number
- * metric, phase title, explanation paragraph, and a signature principle quote.
- *
- * Dependencies: react-icons (npm install react-icons)
+ * Brand: navy + gold + warm cream backdrop for editorial feel
  */
 
-function useReveal(options = { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }) {
+function useReveal(options = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -29,349 +26,310 @@ function useReveal(options = { threshold: 0.12, rootMargin: "0px 0px -60px 0px" 
     if (!node) return;
     if (typeof window !== "undefined") {
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReduced) { setVisible(true); return; }
+      if (prefersReduced) {
+        setVisible(true);
+        return;
+      }
     }
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
-    }, options);
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      options
+    );
     obs.observe(node);
     return () => obs.disconnect();
   }, []);
   return [ref, visible];
 }
 
-// ─── Four process phases (from brief) ───────────────────────────────
-const PHASES = [
+const DIFFERENTIATORS = [
   {
-    phase: "Phase One",
-    name: "The Clarity Audit",
-    title: "We begin by naming what's really in the way.",
-    summary:
-      "A deep dive into your current workflows, vision, and bottlenecks. We surface the hidden constraints holding your organization back — not the symptoms, the underlying system that produces them.",
-    metric: "01",
-    metricLabel: "Discovery",
-    duration: "2–3 weeks",
-    quote:
-      "Before we prescribe, we diagnose. Most organizations mistake their symptoms for their disease — the Audit separates the two.",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "A workspace with notebooks, pen, and a focused planning session",
-    href: "/process/clarity-audit",
+    number: "01",
+    title: "Tailored Solutions",
+    copy: "Every business is unique. We take the time to understand your specific challenges and goals, delivering customized strategies that fit your organisation's DNA.",
   },
   {
-    phase: "Phase Two",
-    name: "The Blueprint",
-    title: "A custom roadmap designed around your specific challenge.",
-    summary:
-      "Tailored SOPs, leadership structures, and decision frameworks engineered for your context. Not templates — the exact architecture your organization needs to reach its next level.",
-    metric: "02",
-    metricLabel: "Design",
-    duration: "3–4 weeks",
-    quote:
-      "A Blueprint is not a document — it is the moment your organization stops improvising and starts building.",
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "An architectural blueprint and technical drawings on a desk",
-    href: "/process/blueprint",
+    number: "02",
+    title: "Innovation at the Core",
+    copy: "We don't just solve problems; we innovate. Our consultants bring fresh perspectives and creative thinking, ensuring you not only adapt to change but thrive in it.",
   },
   {
-    phase: "Phase Three",
-    name: "Implementation",
-    title: "I walk with you as the systems take root.",
-    summary:
-      "Direct, side-by-side rollout of the systems into daily operations. Team alignment sessions, accountability check-ins, and the coaching needed to ensure the Blueprint becomes lived reality — not shelved theory.",
-    metric: "03",
-    metricLabel: "Execution",
-    duration: "2–6 months",
-    quote:
-      "Strategy only counts when it survives contact with Monday morning. Implementation is where I am most present.",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "A leader in collaborative session with team members",
-    href: "/process/implementation",
+    number: "03",
+    title: "Collaborative Approach",
+    copy: "We work hand-in-hand with your team, fostering a dynamic partnership that leverages collective expertise and drives sustainable success.",
   },
   {
-    phase: "Phase Four",
-    name: "Continuous Optimization",
-    title: "Systems that grow as your organization grows.",
-    summary:
-      "Periodic reviews that ensure your systems scale and evolve with you. Quarterly retros, refinement cycles, and the ongoing partnership that keeps your architecture matched to your ambition.",
-    metric: "04",
-    metricLabel: "Refinement",
-    duration: "Ongoing retainer",
-    quote:
-      "What I build must outlive my engagement. Optimization is how we make sure it does.",
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "A modern office skyline at twilight",
-    href: "/process/optimization",
+    number: "04",
+    title: "Proven Expertise",
+    copy: "Backed by seasoned professionals with diverse industry backgrounds, we bring decades of experience navigating complex challenges and delivering impactful results worldwide.",
   },
 ];
 
-const FeaturedProduct = () => {
+const PORTRAIT_IMAGE =
+  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1600&q=85";
+
+const About = () => {
   const [headerRef, headerVisible] = useReveal();
-  const [bodyRef, bodyVisible] = useReveal();
-  const [active, setActive] = useState(0);
-  const tabsRef = useRef([]);
-
-  const handleTabKey = (e) => {
-    const n = PHASES.length;
-    let nextIndex = null;
-    if (e.key === "ArrowRight") nextIndex = (active + 1) % n;
-    if (e.key === "ArrowLeft") nextIndex = (active - 1 + n) % n;
-    if (e.key === "Home") nextIndex = 0;
-    if (e.key === "End") nextIndex = n - 1;
-    if (nextIndex !== null) {
-      e.preventDefault();
-      setActive(nextIndex);
-      tabsRef.current[nextIndex]?.focus();
-    }
-  };
-
-  const current = PHASES[active];
+  const [mainRef, mainVisible] = useReveal();
+  const [listRef, listVisible] = useReveal();
 
   return (
     <section
-      aria-labelledby="process-heading"
-      className="relative bg-[#0A0A0B] text-white py-20 md:py-28 lg:py-36 overflow-hidden"
+      id="about"
+      aria-labelledby="about-heading"
+      className="relative bg-[#FBF8F1] py-20 md:py-28 lg:py-36"
+      style={{ fontFamily: "'Montserrat', ui-sans-serif, system-ui, sans-serif" }}
     >
+      {/* Paper-grain texture */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-60"
+        className="pointer-events-none absolute inset-0 opacity-[0.04] mix-blend-multiply"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 85% 20%, rgba(201,162,39,0.10), transparent 55%), radial-gradient(circle at 10% 85%, rgba(201,162,39,0.05), transparent 50%)",
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         }}
         aria-hidden="true"
       />
 
       <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-        {/* Header */}
-        <div ref={headerRef} className="max-w-4xl mb-14 md:mb-20">
-          <p
+        {/* ── Header ───────────────────────────────────────────── */}
+        <div
+          ref={headerRef}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 mb-14 md:mb-20"
+        >
+          <div className="max-w-2xl">
+            <p
+              className={[
+                "flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60 mb-6 transition-all duration-700",
+                headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+              ].join(" ")}
+            >
+              <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+              About GCSA
+            </p>
+            <h2
+              id="about-heading"
+              className={[
+                "font-extrabold leading-[1.02] tracking-[-0.02em] text-[#0A1A36] text-[40px] md:text-[52px] lg:text-[60px] transition-all duration-[900ms] delay-100",
+                headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+              ].join(" ")}
+            >
+              Born from a vision to{" "}
+              <span className="font-light italic" style={{ color: "#FFC72C" }}>
+                redefine
+              </span>{" "}
+              consulting.
+            </h2>
+          </div>
+
+          <div
             className={[
-              "flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-[#C9A227] mb-6 transition-all duration-700",
+              "shrink-0 transition-all duration-700 delay-200",
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
             ].join(" ")}
           >
-            <span className="inline-block w-8 h-px" style={{ backgroundColor: "#C9A227" }} />
-            The Process
-          </p>
-
-          <h2
-            id="process-heading"
-            className={[
-              "font-light leading-[1.05] tracking-tight text-white text-[38px] md:text-[52px] lg:text-[64px] transition-all duration-[900ms] delay-100",
-              headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-            ].join(" ")}
-          >
-            How we{" "}
-            <span className="italic font-normal" style={{ color: "#C9A227" }}>
-              work
-            </span>{" "}
-            together.
-          </h2>
-
-          <p
-            className={[
-              "mt-6 md:mt-8 text-[15px] md:text-[16px] leading-[1.75] text-white/70 max-w-xl transition-all duration-700 delay-200",
-              headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-            ].join(" ")}
-          >
-            Every engagement follows a four-phase rhythm — diagnostic before
-            prescriptive, partnership over transaction. This is how we move
-            from overwhelm to operational peace, together.
-          </p>
-        </div>
-
-        {/* Tabs */}
-        <div
-          ref={bodyRef}
-          className={[
-            "border-t border-white/10 transition-all duration-700",
-            bodyVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-          ].join(" ")}
-        >
-          <div role="tablist" aria-label="Engagement phases" className="flex flex-wrap gap-x-1 gap-y-0">
-            {PHASES.map((p, i) => {
-              const selected = active === i;
-              return (
-                <button
-                  key={p.name}
-                  ref={(el) => (tabsRef.current[i] = el)}
-                  role="tab"
-                  aria-selected={selected}
-                  aria-controls={`phase-panel-${i}`}
-                  id={`phase-tab-${i}`}
-                  tabIndex={selected ? 0 : -1}
-                  onClick={() => setActive(i)}
-                  onKeyDown={handleTabKey}
-                  className="group relative px-5 md:px-7 py-5 md:py-6 text-left focus:outline-none"
-                >
-                  <span
-                    className={[
-                      "block text-[10px] font-semibold tracking-[0.24em] uppercase transition-colors duration-300",
-                      selected ? "text-[#C9A227]" : "text-white/40 group-hover:text-white/70 group-focus-visible:text-white/90",
-                    ].join(" ")}
-                  >
-                    {p.phase}
-                  </span>
-                  <span
-                    className={[
-                      "block mt-1.5 text-[14px] md:text-[15px] font-light transition-colors duration-300",
-                      selected ? "text-white" : "text-white/60 group-hover:text-white group-focus-visible:text-white",
-                    ].join(" ")}
-                  >
-                    {p.name}
-                  </span>
-
-                  <span
-                    className={[
-                      "absolute left-0 right-0 -top-px h-[2px] origin-center transition-transform duration-500 ease-out",
-                      selected ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50",
-                    ].join(" ")}
-                    style={{ backgroundColor: "#C9A227" }}
-                    aria-hidden="true"
-                  />
-                </button>
-              );
-            })}
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.16em] uppercase text-[#0A1A36] hover:text-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm transition-colors duration-200"
+            >
+              <span className="relative">
+                Read our full story
+                <span
+                  className="absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-100 transition-transform duration-300"
+                  style={{ backgroundColor: "#FFC72C" }}
+                  aria-hidden="true"
+                />
+              </span>
+              <FiArrowUpRight
+                className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+              />
+            </Link>
           </div>
         </div>
 
-        {/* Panel */}
+        {/* ── Story panel ──────────────────────────────────────── */}
         <div
-          role="tabpanel"
-          id={`phase-panel-${active}`}
-          aria-labelledby={`phase-tab-${active}`}
-          className="mt-10 md:mt-16"
+          ref={mainRef}
+          className={[
+            "mb-16 md:mb-24 transition-all duration-[900ms] ease-out",
+            mainVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+          ].join(" ")}
         >
-          <div
-            key={active}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start animate-[caseFade_600ms_cubic-bezier(0.22,1,0.36,1)_forwards]"
-          >
-            {/* Image */}
-            <div className="lg:col-span-6 relative group">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-neutral-800">
-                <Image
-                  src={current.image}
-                  alt={current.imageAlt}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-                />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            {/* Image column */}
+            <div className="lg:col-span-5">
+              <div className="relative overflow-hidden rounded-sm bg-[#0A1A36] group">
+                <div className="relative aspect-[4/5]">
+                  <Image
+                    src={PORTRAIT_IMAGE}
+                    alt="GCSA Consulting team in strategic session"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                  />
+                  <div
+                    className="absolute inset-0 mix-blend-multiply opacity-30"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, transparent 50%, rgba(10,26,54,0.5) 100%)",
+                    }}
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {/* Badge */}
+                <div className="absolute left-5 bottom-5 md:left-7 md:bottom-7 pointer-events-none">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm">
+                    <span
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{ backgroundColor: "#FFC72C" }}
+                      aria-hidden="true"
+                    />
+                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]">
+                      GCSA · London HQ
+                    </span>
+                  </span>
+                </div>
+
+                {/* Decorative gold corner */}
                 <div
-                  className="absolute inset-0"
+                  className="absolute top-0 right-0 w-16 h-16 md:w-20 md:h-20 pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(160deg, rgba(10,10,11,0) 55%, rgba(10,10,11,0.5) 100%)",
+                      "linear-gradient(225deg, #FFC72C 0%, #FFC72C 50%, transparent 50%)",
+                    opacity: 0.95,
                   }}
                   aria-hidden="true"
                 />
-
-                <div className="absolute left-5 bottom-5 md:left-7 md:bottom-7">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/15">
-                    <span
-                      className="w-1.5 h-1.5 rounded-full"
-                      style={{ backgroundColor: "#C9A227" }}
-                      aria-hidden="true"
-                    />
-                    <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/90">
-                      {current.duration}
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
 
-            {/* Content */}
-            <div className="lg:col-span-6 lg:pl-4 lg:pt-4">
-              {/* Step number metric */}
-              <div className="flex items-baseline gap-4 mb-8 pb-8 border-b border-white/10">
-                <span
-                  className="font-light tracking-tight leading-none text-[56px] md:text-[72px] lg:text-[84px]"
-                  style={{ color: "#C9A227" }}
-                >
-                  {current.metric}
+            {/* Story column */}
+            <div className="lg:col-span-7 lg:pl-4 lg:pt-4">
+              <p className="font-light leading-[1.18] tracking-[-0.01em] text-[#0A1A36] text-[26px] md:text-[32px] lg:text-[38px] max-w-2xl">
+                A consulting firm built on{" "}
+                <span className="italic font-medium" style={{ color: "#FFC72C" }}>
+                  collaboration, innovation
                 </span>
-                <span className="text-[12px] md:text-[13px] tracking-[0.15em] uppercase text-white/60 font-semibold pb-2">
-                  {current.metricLabel}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h3 className="font-light leading-[1.1] tracking-tight text-white text-[26px] md:text-[32px] lg:text-[38px]">
-                {current.title}
-              </h3>
-
-              {/* Summary */}
-              <p className="mt-5 md:mt-6 text-[15px] md:text-[16px] leading-[1.75] text-white/75 max-w-xl">
-                {current.summary}
+                , and the relentless pursuit of client success.
               </p>
 
-              {/* Principle pull-quote */}
-              <figure className="relative mt-10 md:mt-12 pl-8">
+              <div className="mt-6 md:mt-8 space-y-5 text-[15px] md:text-[16px] leading-[1.8] text-[#0A1A36]/80 max-w-xl">
+                <p>
+                  Founded with a passion for transforming businesses, GCSA was
+                  born from a vision to redefine how organisations approach
+                  challenges and embrace opportunities. Our journey began with
+                  a simple yet powerful idea: to create a consulting firm that
+                  not only delivers exceptional results but also prioritises
+                  partnership at every level.
+                </p>
+                <p>
+                  Whether you're a startup aiming to disrupt the market, or
+                  an established enterprise exploring{" "}
+                  <em className="not-italic font-bold text-[#0A1A36]">
+                    new geographies in Africa, Europe, and Asia
+                  </em>
+                  , GCSA is your trusted partner for strategic excellence and
+                  business transformation.
+                </p>
+              </div>
+
+              {/* Pull quote */}
+              <figure
+                className="relative mt-10 md:mt-12 pl-8 border-l-[3px]"
+                style={{ borderLeftColor: "#FFC72C" }}
+              >
                 <span
                   aria-hidden="true"
-                  className="absolute left-0 top-0 text-[56px] leading-[0.9] italic"
-                  style={{ color: "#C9A227" }}
-                >
-                  &ldquo;
-                </span>
-                <blockquote className="text-[16px] md:text-[18px] lg:text-[20px] leading-[1.55] italic font-light text-white/85 max-w-xl">
-                  {current.quote}
+                  className="absolute -left-[8px] top-0 w-4 h-4 rounded-full"
+                  style={{ backgroundColor: "#FFC72C" }}
+                />
+                <blockquote className="text-[18px] md:text-[22px] leading-[1.45] italic font-light text-[#0A1A36] max-w-xl">
+                  Explore the possibilities with us. Let's redefine success,
+                  together.
                 </blockquote>
-                <figcaption className="mt-4 text-[11px] font-semibold tracking-[0.2em] uppercase text-white/50">
-                  Charles Adakole — Principle of the Phase
+                <figcaption className="mt-4 text-[10.5px] font-bold tracking-[0.24em] uppercase text-[#0A1A36]/60">
+                  GCSA Consulting · Founding Principle
                 </figcaption>
               </figure>
-
-              {/* CTA */}
-              <div className="mt-10 md:mt-12 flex flex-wrap items-center gap-4">
-                <Link
-                  href={current.href}
-                  className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#C9A227] hover:bg-[#B8901C] text-neutral-900 text-[11.5px] font-semibold tracking-[0.16em] uppercase shadow-[0_8px_24px_-8px_rgba(201,162,39,0.5)] hover:shadow-[0_12px_32px_-8px_rgba(201,162,39,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0B] focus-visible:ring-[#C9A227] transition-all duration-300"
-                >
-                  Learn about this phase
-                  <FiArrowUpRight
-                    className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden="true"
-                  />
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-2 text-[11.5px] font-semibold tracking-[0.16em] uppercase text-white/70 hover:text-[#C9A227] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A227]/40 rounded-sm transition-colors duration-200"
-                >
-                  <span className="relative">
-                    Begin with a Clarity Audit
-                    <span
-                      className="absolute left-0 right-0 -bottom-0.5 h-px origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
-                      style={{ backgroundColor: "#C9A227" }}
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Link>
-              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <style jsx>{`
-        @keyframes caseFade {
-          from { opacity: 0; transform: translateY(16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          section[aria-labelledby="process-heading"] *[class*="animate-"] {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-          }
-        }
-      `}</style>
+        {/* ── 4 Differentiators ─────────────────────────────── */}
+        <div ref={listRef} className="pt-12 md:pt-14 border-t border-[#0A1A36]/15">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-14">
+            <p className="text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60">
+              <span
+                className="inline-block w-10 h-px mr-3 align-middle"
+                style={{ backgroundColor: "#FFC72C" }}
+              />
+              What Sets Us Apart
+            </p>
+            <p className="text-[14px] text-[#0A1A36]/65 max-w-md">
+              A unique blend of experience, creativity, and commitment that
+              defines every GCSA engagement.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#0A1A36]/10">
+            {DIFFERENTIATORS.map((d, i) => (
+              <DifferentiatorCard
+                key={d.number}
+                differentiator={d}
+                index={i}
+                visible={listVisible}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
 
-export default FeaturedProduct;
+const DifferentiatorCard = ({ differentiator, index, visible }) => {
+  const { number, title, copy } = differentiator;
+  return (
+    <article
+      className={[
+        "group relative bg-[#FBF8F1] p-8 md:p-10 lg:p-12 transition-all duration-[700ms] ease-out hover:bg-white",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+      ].join(" ")}
+      style={{ transitionDelay: visible ? `${120 * index}ms` : "0ms" }}
+    >
+      {/* Hover gold bar */}
+      <span
+        className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
+        style={{ backgroundColor: "#FFC72C" }}
+        aria-hidden="true"
+      />
+
+      <div className="flex items-baseline gap-4 mb-6">
+        <span
+          className="text-[36px] md:text-[44px] font-extrabold leading-none transition-all duration-500"
+          style={{ color: "#FFC72C" }}
+        >
+          {number}
+        </span>
+        <span
+          className="inline-block w-10 h-px mb-2"
+          style={{ backgroundColor: "#0A1A36", opacity: 0.3 }}
+        />
+      </div>
+
+      <h3 className="font-extrabold leading-[1.15] tracking-[-0.01em] text-[#0A1A36] text-[22px] md:text-[26px] mb-4">
+        {title}
+      </h3>
+      <p className="text-[14px] md:text-[15px] leading-[1.75] text-[#0A1A36]/70 max-w-md">
+        {copy}
+      </p>
+    </article>
+  );
+};
+
+export default About;

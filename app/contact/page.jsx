@@ -1,115 +1,90 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Script from "next/script";
+import toast from "react-hot-toast";
 import {
   FiArrowRight,
   FiArrowUpRight,
-  FiMail,
   FiMapPin,
-  FiCalendar,
-  FiCheck,
-  FiAlertCircle,
+  FiMail,
+  FiPhone,
+  FiClock,
+  FiPlus,
+  FiMinus,
 } from "react-icons/fi";
+import { FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Contact page — /contact
+ * Contact — GCSA Consulting UK LTD
  *
- * Structure:
- *  1. Hero
- *  2. Split layout: form (left) + contact details (right)
- *  3. FAQ (three-item accordion)
+ * Full contact page:
+ *  1. Page hero
+ *  2. Two-column form + contact methods
+ *  3. London HQ address strip with map placeholder
+ *  4. FAQs
  *
- * Form:
- *  - Client-side validation (name, email, message required)
- *  - Honeypot field for spam
- *  - POSTs to /api/contact (swap for your backend / Resend / Formspree / etc.)
- *  - Loading / success / error states
- *  - Subject of inquiry selector (maps to which pillar)
+ * Brand: navy + gold + Montserrat
+ * The form posts to /api/contact (TODO: implement endpoint).
  */
 
-function useReveal(options = { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    if (typeof window !== "undefined") {
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReduced) { setVisible(true); return; }
-    }
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
-    }, options);
-    obs.observe(node);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, visible];
-}
-
-const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim());
-
-const INQUIRY_OPTIONS = [
-  { value: "", label: "Select an area of focus" },
-  { value: "strategic-clarity", label: "Strategic Clarity & Brand Positioning" },
-  { value: "sop-systems", label: "SOP & Systems Consulting" },
-  { value: "leadership", label: "Team Management & Leadership" },
-  { value: "life-ministry", label: "Life & Ministry Advisory" },
-  { value: "not-sure", label: "I'm not sure yet — let's talk" },
+const SUBJECTS = [
+  "General Enquiry",
+  "Consulting Engagement",
+  "Training Programme",
+  "Career / Application",
+  "Partnership",
+  "Press / Media",
 ];
 
-const FAQ = [
+const FAQS = [
   {
-    q: "How do engagements typically begin?",
-    a: "Every engagement starts with The Clarity Audit — a focused diagnostic phase (2–3 weeks) where we surface what's actually in the way before designing any solution. Most relationships begin with a 30-minute introductory call at no charge.",
+    q: "How does an engagement begin?",
+    a: "Every engagement starts with a discovery call to understand your goals, context, and constraints. From there we propose a Phase 1 (Diagnose) scope — typically 2–4 weeks — that produces a written assessment and recommended next steps. There's no obligation beyond Phase 1.",
   },
   {
-    q: "Do you work with ministry leaders and faith-based organizations?",
-    a: "Yes. Life & Ministry Advisory is one of the four pillars of the practice. I specialize in aligning vision with administration for ministry leaders — including ministry operations architecture, personal stewardship planning, and leadership integrity reviews.",
+    q: "Do you serve clients outside the UK?",
+    a: "Yes. While GCSA is headquartered in London, we serve clients across Africa, Europe, and Asia. We work both on-site and virtually, and we routinely deliver multi-country programmes.",
   },
   {
-    q: "Are engagements available outside Nigeria?",
-    a: "Yes. Based in Abuja, I serve clients globally through Virtual Advisory engagements — including video sessions, async deliverables, and periodic in-person intensives where the engagement warrants them.",
+    q: "What sectors do you work with?",
+    a: "Both public and private institutions across financial services, telecommunications, energy, healthcare, government, manufacturing, retail, education, and non-profit. Our frameworks are sector-agnostic; the application is sector-specific.",
+  },
+  {
+    q: "How are your training programmes structured?",
+    a: "Programmes like Transition to Architecture in 6 Weeks combine live sessions with practical workshops, run on a small-cohort basis, and conclude with a Certificate of Completion. We can also design custom in-house programmes for corporate clients.",
+  },
+  {
+    q: "How quickly will you respond to my enquiry?",
+    a: "Within one UK business day. For urgent matters, please call our London office directly.",
   },
 ];
 
-// SEO — ContactPage + ContactPoint JSON-LD
 const CONTACT_LD = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Contact Charles Adakole Consulting",
-  mainEntity: {
-    "@type": "Organization",
-    name: "Charles Adakole Consulting",
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "customer support",
-        email: "hello@charlesadakole.com",
-        areaServed: "Worldwide",
-        availableLanguage: "English",
-      },
-    ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Abuja",
-      addressCountry: "NG",
-    },
-  },
+  "@id": "https://www.gcsaconsulting.co.uk/contact/#webpage",
+  url: "https://www.gcsaconsulting.co.uk/contact",
+  name: "Contact GCSA Consulting",
+  description:
+    "Get in touch with GCSA Consulting UK LTD. Call, email, or schedule a consultation. London headquarters serving Africa, Europe, and Asia.",
+  isPartOf: { "@id": "https://www.gcsaconsulting.co.uk/#website" },
+  about: { "@id": "https://www.gcsaconsulting.co.uk/#organization" },
+  inLanguage: "en-GB",
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// Page
+// PAGE
 // ═══════════════════════════════════════════════════════════════════════
-export default function ContactPage() {
+const ContactPage = () => {
   return (
     <>
       <Script
-        id="ld-contact"
+        id="ld-json-contact"
         type="application/ld+json"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(CONTACT_LD) }}
@@ -117,167 +92,316 @@ export default function ContactPage() {
 
       <Navbar />
 
-      <main id="main-content" role="main">
-        <ContactHero />
-        <ContactBody />
-        <ContactFAQ />
+      <main
+        id="main-content"
+        role="main"
+        className="bg-white"
+        style={{ fontFamily: "'Montserrat', ui-sans-serif, system-ui, sans-serif" }}
+      >
+        <PageHero />
+        <FormAndDetails />
+        <HQAddress />
+        <FAQ />
       </main>
 
       <Footer />
     </>
   );
-}
+};
 
 // ═══════════════════════════════════════════════════════════════════════
-// Hero
+// 1. Page hero
 // ═══════════════════════════════════════════════════════════════════════
-const ContactHero = () => (
-  <section
-    aria-labelledby="contact-hero-heading"
-    className="relative bg-[#0A0A0B] text-white overflow-hidden pt-36 md:pt-44 lg:pt-52 pb-20 md:pb-28"
-  >
-    <div
-      className="absolute inset-0 opacity-70 pointer-events-none"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 85% 20%, rgba(201,162,39,0.16), transparent 55%), radial-gradient(circle at 10% 90%, rgba(201,162,39,0.06), transparent 50%)",
-      }}
-      aria-hidden="true"
-    />
-    <div
-      className="absolute inset-0 opacity-[0.04] pointer-events-none"
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-        backgroundSize: "80px 80px",
-      }}
-      aria-hidden="true"
-    />
+const PageHero = () => {
+  return (
+    <section
+      aria-labelledby="contact-hero-heading"
+      className="relative bg-[#0A1A36] text-white overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28"
+    >
+      <div
+        className="absolute inset-0 opacity-60 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 88% 15%, rgba(255,199,44,0.18), transparent 50%), radial-gradient(circle at 8% 90%, rgba(255,199,44,0.06), transparent 55%)",
+        }}
+        aria-hidden="true"
+      />
 
-    <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-      <div className="max-w-4xl">
-        <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-[#C9A227] mb-6">
-          <span className="inline-block w-8 h-px" style={{ backgroundColor: "#C9A227" }} />
-          Contact
+      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-2 text-[11px] font-bold tracking-[0.22em] uppercase text-white/50 mb-8"
+        >
+          <Link href="/" className="hover:text-[#FFC72C] transition-colors">Home</Link>
+          <span aria-hidden="true">·</span>
+          <span className="text-[#FFC72C]">Contact</span>
+        </nav>
+
+        <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
+          <span className="inline-block w-12 h-px" style={{ backgroundColor: "#FFC72C" }} />
+          Get in touch
         </p>
 
         <h1
           id="contact-hero-heading"
-          className="font-light leading-[1.02] tracking-[-0.015em] text-white text-[44px] sm:text-[56px] md:text-[72px] lg:text-[84px]"
+          className="font-extrabold leading-[0.98] tracking-[-0.02em] text-white text-[44px] sm:text-[60px] md:text-[80px] lg:text-[96px] max-w-5xl"
         >
-          Ready to find your{" "}
-          <span className="italic font-normal" style={{ color: "#C9A227" }}>
-            focus
+          Let's start the{" "}
+          <span className="font-light italic" style={{ color: "#FFC72C" }}>
+            conversation
           </span>
-          ?
+          .
         </h1>
 
-        <p className="mt-8 md:mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.7] text-white/75">
-          Take the first step toward a more organized, impactful future.
-          Whether you are scaling a business, leading a ministry, or refining
-          your life&apos;s vision, I am here to help you execute with
-          precision.
+        <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
+          Whether you're planning a transformation, exploring a new market, or
+          ready to apply for a training cohort — tell us where you want to go,
+          and we'll show you how we can help.
         </p>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ═══════════════════════════════════════════════════════════════════════
-// Contact body — form + details
+// 2. Form + contact methods
 // ═══════════════════════════════════════════════════════════════════════
-const ContactBody = () => {
-  const [ref, visible] = useReveal();
+const FormAndDetails = () => {
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    company: "",
+    subject: "General Enquiry",
+    message: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((s) => ({ ...s, [name]: value }));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      !formState.firstName ||
+      !formState.lastName ||
+      !formState.email ||
+      !formState.message
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formState.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      // TODO: wire to real /api/contact endpoint
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      toast.success("Message sent. We'll be in touch within 1 business day.");
+      setFormState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        company: "",
+        subject: "General Enquiry",
+        message: "",
+      });
+    } catch {
+      toast.error("Something went wrong. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <section className="relative bg-white py-20 md:py-28 lg:py-32">
-      <div ref={ref} className="px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Form */}
-          <div
-            className={[
-              "lg:col-span-7 transition-all duration-[900ms] ease-out",
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-            ].join(" ")}
-          >
-            <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-neutral-500 mb-6">
-              <span className="inline-block w-8 h-px" style={{ backgroundColor: "#C9A227" }} />
-              Start the Conversation
+    <section
+      aria-labelledby="form-heading"
+      className="relative bg-white py-20 md:py-28 lg:py-32"
+    >
+      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* LEFT — contact methods */}
+          <aside className="lg:col-span-4 lg:sticky lg:top-32">
+            <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60 mb-6">
+              <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+              Reach us directly
             </p>
 
-            <h2 className="font-light leading-[1.1] tracking-tight text-neutral-900 text-[30px] md:text-[40px] lg:text-[44px] max-w-xl">
-              Tell me what you&apos;re{" "}
-              <span className="italic font-normal" style={{ color: "#C9A227" }}>
-                facing
+            <h2
+              id="form-heading"
+              className="font-extrabold leading-[1.02] tracking-[-0.02em] text-[#0A1A36] text-[32px] md:text-[40px] mb-8"
+            >
+              Three ways to{" "}
+              <span className="font-light italic" style={{ color: "#FFC72C" }}>
+                connect
               </span>
               .
             </h2>
 
-            <p className="mt-5 max-w-xl text-[15px] leading-[1.7] text-neutral-700">
-              A senior advisor reads every inquiry. You can expect a personal
-              response within two business days.
-            </p>
-
-            <div className="mt-10">
-              <ContactForm />
+            <div className="space-y-5">
+              <ContactMethod
+                Icon={FiMail}
+                label="Email"
+                value="info@gcsaconsulting.co.uk"
+                href="mailto:info@gcsaconsulting.co.uk"
+              />
+              <ContactMethod
+                Icon={FiPhone}
+                label="Call"
+                value="123-456-7890"
+                href="tel:+441234567890"
+              />
+              <ContactMethod
+                Icon={FiMapPin}
+                label="Visit"
+                value="71-75 Shelton Street, London WC2H 9JQ"
+                href="#hq"
+              />
+              <ContactMethod
+                Icon={FiClock}
+                label="Hours"
+                value="Mon–Fri · 9:00–18:00 GMT"
+              />
             </div>
-          </div>
 
-          {/* Details */}
-          <div
-            className={[
-              "lg:col-span-5 lg:pl-6 transition-all duration-[900ms] ease-out delay-200",
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-            ].join(" ")}
-          >
-            <div className="sticky lg:top-32">
-              <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-neutral-500 mb-6">
-                <span className="inline-block w-8 h-px" style={{ backgroundColor: "#C9A227" }} />
-                Or Reach Me Directly
+            <div className="mt-10 pt-8 border-t border-[#0A1A36]/10">
+              <p className="text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#0A1A36]/60 mb-4">
+                Follow GCSA
               </p>
-
-              <ul className="space-y-8">
-                <ContactDetail
-                  Icon={FiMail}
-                  label="Email"
-                  value="hello@charlesadakole.com"
-                  href="mailto:hello@charlesadakole.com"
-                  note="For inquiries and introductions"
-                />
-                <ContactDetail
-                  Icon={FiCalendar}
-                  label="Schedule"
-                  value="Book a 30-min call"
-                  href="/contact"
-                  note="Complimentary introductory conversation"
-                />
-                <ContactDetail
-                  Icon={FiMapPin}
-                  label="Location"
-                  value="Abuja, Nigeria"
-                  note="Global Virtual Advisory · In-person engagements by arrangement"
-                />
+              <ul className="flex items-center gap-2.5">
+                <li>
+                  <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-[#0A1A36]/20 text-[#0A1A36] hover:bg-[#FFC72C] hover:border-[#FFC72C] transition-all"
+                  >
+                    <FaLinkedinIn className="w-3.5 h-3.5" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X (Twitter)"
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-[#0A1A36]/20 text-[#0A1A36] hover:bg-[#FFC72C] hover:border-[#FFC72C] transition-all"
+                  >
+                    <FaXTwitter className="w-3.5 h-3.5" />
+                  </a>
+                </li>
               </ul>
+            </div>
+          </aside>
 
-              {/* Response-time card */}
-              <div className="mt-12 p-6 md:p-7 bg-[#F4F0E8] rounded-sm relative overflow-hidden">
-                <div
-                  className="absolute -top-10 -right-10 w-36 h-36 rounded-full opacity-[0.12]"
-                  style={{ backgroundColor: "#C9A227" }}
-                  aria-hidden="true"
+          {/* RIGHT — form */}
+          <div className="lg:col-span-8">
+            <form
+              onSubmit={onSubmit}
+              noValidate
+              className="bg-[#FBF8F1] border border-[#0A1A36]/10 rounded-sm p-6 md:p-10 lg:p-12"
+            >
+              <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-3">
+                <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+                Send a message
+              </p>
+              <h3 className="font-extrabold tracking-[-0.01em] text-[#0A1A36] text-[24px] md:text-[28px] mb-8">
+                We'll respond within one UK business day.
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                <Field
+                  label="First Name"
+                  name="firstName"
+                  value={formState.firstName}
+                  onChange={onChange}
+                  required
                 />
-                <p className="relative text-[10.5px] font-semibold tracking-[0.26em] uppercase" style={{ color: "#C9A227" }}>
-                  Response Promise
-                </p>
-                <p className="relative mt-3 text-[17px] font-light leading-[1.4] text-neutral-900">
-                  A personal reply from me — not an auto-responder — within{" "}
-                  <span className="italic font-normal" style={{ color: "#8a6b18" }}>
-                    two business days
-                  </span>
-                  .
+                <Field
+                  label="Last Name"
+                  name="lastName"
+                  value={formState.lastName}
+                  onChange={onChange}
+                  required
+                />
+                <Field
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={formState.email}
+                  onChange={onChange}
+                  required
+                />
+                <Field
+                  label="Phone"
+                  name="phone"
+                  type="tel"
+                  value={formState.phone}
+                  onChange={onChange}
+                />
+                <Field
+                  label="Company / Organisation"
+                  name="company"
+                  value={formState.company}
+                  onChange={onChange}
+                  full
+                />
+                <SelectField
+                  label="Subject"
+                  name="subject"
+                  value={formState.subject}
+                  onChange={onChange}
+                  options={SUBJECTS}
+                  full
+                />
+                <Field
+                  label="Tell us about your project or question"
+                  name="message"
+                  value={formState.message}
+                  onChange={onChange}
+                  required
+                  full
+                  textarea
+                />
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#0A1A36] hover:bg-[#06122A] text-white text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300"
+                >
+                  {submitting ? (
+                    <>
+                      <span className="w-3.5 h-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </>
+                  )}
+                </button>
+                <p className="text-[12px] text-[#0A1A36]/60 leading-[1.6] sm:flex-1">
+                  By submitting, you agree to our privacy practices. Required
+                  fields marked <span className="text-[#FFC72C] font-bold">*</span>.
                 </p>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -285,421 +409,203 @@ const ContactBody = () => {
   );
 };
 
-const ContactDetail = ({ Icon, label, value, href, note }) => {
-  const Wrapper = href ? Link : "div";
-  const wrapperProps = href ? { href } : {};
-
-  return (
-    <li>
-      <Wrapper
-        {...wrapperProps}
-        className={href ? "group block focus:outline-none" : "block"}
-      >
-        <div className="flex items-start gap-4">
-          <span
-            className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center border"
-            style={{
-              borderColor: "#C9A227",
-              backgroundColor: "rgba(201,162,39,0.08)",
-            }}
-          >
-            <Icon className="w-4 h-4" style={{ color: "#C9A227" }} aria-hidden="true" />
-          </span>
-
-          <div className="flex-1 min-w-0 pt-1">
-            <p className="text-[10.5px] font-semibold tracking-[0.22em] uppercase text-neutral-500 mb-1.5">
-              {label}
-            </p>
-            <p
-              className={[
-                "text-[17px] font-light text-neutral-900 leading-tight",
-                href && "group-hover:text-[#C9A227] transition-colors flex items-center gap-2",
-              ].filter(Boolean).join(" ")}
-            >
-              {value}
-              {href && (
-                <FiArrowUpRight
-                  className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-                  aria-hidden="true"
-                />
-              )}
-            </p>
-            {note && <p className="mt-2 text-[12.5px] text-neutral-600 leading-[1.6]">{note}</p>}
-          </div>
-        </div>
-      </Wrapper>
-    </li>
-  );
-};
-
-// ═══════════════════════════════════════════════════════════════════════
-// ContactForm — validated, honeypot, real states
-// ═══════════════════════════════════════════════════════════════════════
-const ContactForm = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    organization: "",
-    inquiry: "",
-    message: "",
-    website: "", // honeypot
-  });
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
-  const [errors, setErrors] = useState({});
-
-  const update = (field) => (e) => {
-    setForm((f) => ({ ...f, [field]: e.target.value }));
-    if (errors[field]) setErrors((e) => ({ ...e, [field]: null }));
-  };
-
-  const validate = () => {
-    const next = {};
-    if (!form.name.trim()) next.name = "Please share your name.";
-    if (!form.email.trim()) next.email = "Please share your email.";
-    else if (!isValidEmail(form.email)) next.email = "Please enter a valid email.";
-    if (!form.message.trim() || form.message.trim().length < 20) {
-      next.message = "Please share at least a few sentences so I can respond thoughtfully.";
-    }
-    setErrors(next);
-    return Object.keys(next).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Honeypot — if a bot filled this, silently succeed without sending
-    if (form.website.trim() !== "") {
-      setStatus("success");
-      return;
-    }
-
-    if (!validate()) return;
-
-    setStatus("submitting");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          organization: form.organization.trim(),
-          inquiry: form.inquiry,
-          message: form.message.trim(),
-        }),
-      });
-      if (!res.ok) throw new Error("submission failed");
-      setStatus("success");
-      setForm({ name: "", email: "", organization: "", inquiry: "", message: "", website: "" });
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  if (status === "success") {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        className="rounded-sm border border-[#C9A227]/40 bg-[#C9A227]/[0.06] p-8 md:p-10"
-      >
-        <div
-          className="w-12 h-12 rounded-full flex items-center justify-center mb-5"
-          style={{ backgroundColor: "#C9A227" }}
-        >
-          <FiCheck className="w-6 h-6 text-neutral-900" strokeWidth={3} aria-hidden="true" />
-        </div>
-        <h3 className="text-[22px] md:text-[26px] font-light text-neutral-900 leading-tight mb-3">
-          Thank you — your note has been received.
-        </h3>
-        <p className="text-[14.5px] leading-[1.75] text-neutral-700 max-w-lg">
-          I&apos;ll respond personally within two business days. In the
-          meantime, feel free to{" "}
-          <Link href="/services" className="underline underline-offset-2 hover:text-[#C9A227] transition-colors">
-            explore the four pillars
-          </Link>{" "}
-          if you haven&apos;t already.
-        </p>
-        <button
-          type="button"
-          onClick={() => setStatus("idle")}
-          className="mt-6 text-[11.5px] font-semibold tracking-[0.16em] uppercase text-neutral-900 hover:text-[#C9A227] transition-colors"
-        >
-          Send another message →
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-6">
-      {/* Honeypot — hidden from humans, catches bots */}
-      <div className="absolute -left-[10000px] top-0" aria-hidden="true">
-        <label>
-          Do not fill this in
-          <input
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            value={form.website}
-            onChange={update("website")}
-          />
-        </label>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <Field
-          id="name"
-          label="Your name"
-          required
-          value={form.name}
-          onChange={update("name")}
-          error={errors.name}
-          autoComplete="name"
-        />
-        <Field
-          id="email"
-          label="Email"
-          type="email"
-          required
-          value={form.email}
-          onChange={update("email")}
-          error={errors.email}
-          autoComplete="email"
-        />
-      </div>
-
-      <Field
-        id="organization"
-        label="Organization (optional)"
-        value={form.organization}
-        onChange={update("organization")}
-        autoComplete="organization"
-      />
-
-      <SelectField
-        id="inquiry"
-        label="Area of focus"
-        value={form.inquiry}
-        onChange={update("inquiry")}
-        options={INQUIRY_OPTIONS}
-      />
-
-      <TextAreaField
-        id="message"
-        label="What are you facing?"
-        required
-        value={form.message}
-        onChange={update("message")}
-        error={errors.message}
-        placeholder="A few sentences on the challenge, the stakes, and what you've already tried."
-      />
-
-      {status === "error" && (
-        <div
-          role="alert"
-          className="flex items-start gap-3 p-4 rounded-sm border border-red-200 bg-red-50"
-        >
-          <FiAlertCircle className="shrink-0 w-5 h-5 text-red-600 mt-0.5" aria-hidden="true" />
-          <p className="text-[13.5px] leading-[1.6] text-red-800">
-            Something went wrong. Please try again, or email me directly at{" "}
-            <a href="mailto:hello@charlesadakole.com" className="underline underline-offset-2">
-              hello@charlesadakole.com
-            </a>
-            .
-          </p>
-        </div>
-      )}
-
-      <div className="pt-2">
-        <button
-          type="submit"
-          disabled={status === "submitting"}
-          className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#C9A227] hover:bg-[#B8901C] text-neutral-900 text-[11.5px] font-semibold tracking-[0.16em] uppercase shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#C9A227] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-        >
-          {status === "submitting" ? (
-            <>
-              <span
-                className="w-3.5 h-3.5 rounded-full border-2 border-neutral-900/40 border-t-neutral-900 animate-spin"
-                aria-hidden="true"
-              />
-              Sending…
-            </>
-          ) : (
-            <>
-              Send Message
-              <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </>
-          )}
-        </button>
-        <p className="mt-4 text-[12px] text-neutral-500">
-          By submitting, you agree that I may reply to you at the email
-          provided. I don&apos;t share your message with anyone.
-        </p>
-      </div>
-    </form>
-  );
-};
-
-const Field = ({ id, label, type = "text", required, value, onChange, error, ...rest }) => (
-  <div>
+const Field = ({ label, name, type = "text", value, onChange, required, full, textarea }) => (
+  <div className={full ? "md:col-span-2" : ""}>
     <label
-      htmlFor={id}
-      className="block text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-700 mb-2"
+      htmlFor={name}
+      className="block text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]/65 mb-2"
     >
-      {label}
-      {required && <span className="ml-1" style={{ color: "#C9A227" }}>*</span>}
+      {label} {required && <span className="text-[#FFC72C]">*</span>}
     </label>
-    <input
-      id={id}
-      name={id}
-      type={type}
-      value={value}
-      onChange={onChange}
-      required={required}
-      aria-invalid={!!error}
-      aria-describedby={error ? `${id}-error` : undefined}
-      className={[
-        "w-full px-4 py-3 text-[14.5px] text-neutral-900 bg-white border rounded-sm transition-colors",
-        "focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]",
-        error ? "border-red-400" : "border-neutral-300",
-      ].join(" ")}
-      {...rest}
-    />
-    {error && (
-      <p id={`${id}-error`} className="mt-1.5 text-[12px] text-red-600">
-        {error}
-      </p>
+    {textarea ? (
+      <textarea
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        rows={5}
+        className="w-full px-4 py-3 bg-white border border-[#0A1A36]/15 rounded-sm text-[14px] text-[#0A1A36] placeholder:text-[#0A1A36]/40 focus:outline-none focus:border-[#FFC72C] focus:ring-2 focus:ring-[#FFC72C]/20 transition-all resize-none"
+      />
+    ) : (
+      <input
+        id={name}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full px-4 py-3 bg-white border border-[#0A1A36]/15 rounded-sm text-[14px] text-[#0A1A36] placeholder:text-[#0A1A36]/40 focus:outline-none focus:border-[#FFC72C] focus:ring-2 focus:ring-[#FFC72C]/20 transition-all"
+      />
     )}
   </div>
 );
 
-const SelectField = ({ id, label, value, onChange, options }) => (
-  <div>
+const SelectField = ({ label, name, value, onChange, options, full }) => (
+  <div className={full ? "md:col-span-2" : ""}>
     <label
-      htmlFor={id}
-      className="block text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-700 mb-2"
+      htmlFor={name}
+      className="block text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]/65 mb-2"
     >
       {label}
     </label>
     <select
-      id={id}
-      name={id}
+      id={name}
+      name={name}
       value={value}
       onChange={onChange}
-      className="w-full px-4 py-3 text-[14.5px] text-neutral-900 bg-white border border-neutral-300 rounded-sm focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227] transition-colors appearance-none bg-no-repeat bg-right"
+      className="w-full px-4 py-3 bg-white border border-[#0A1A36]/15 rounded-sm text-[14px] text-[#0A1A36] focus:outline-none focus:border-[#FFC72C] focus:ring-2 focus:ring-[#FFC72C]/20 transition-all appearance-none cursor-pointer"
       style={{
         backgroundImage:
-          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23C9A227' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\")",
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230A1A36'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E\")",
+        backgroundRepeat: "no-repeat",
         backgroundPosition: "right 1rem center",
-        backgroundSize: "16px",
-        paddingRight: "2.5rem",
+        backgroundSize: "1.25em",
+        paddingRight: "2.75rem",
       }}
     >
-      {options.map((opt) => (
-        <option key={opt.value} value={opt.value}>
-          {opt.label}
+      {options.map((o) => (
+        <option key={o} value={o}>
+          {o}
         </option>
       ))}
     </select>
   </div>
 );
 
-const TextAreaField = ({ id, label, required, value, onChange, error, placeholder }) => (
-  <div>
-    <label
-      htmlFor={id}
-      className="block text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-700 mb-2"
-    >
-      {label}
-      {required && <span className="ml-1" style={{ color: "#C9A227" }}>*</span>}
-    </label>
-    <textarea
-      id={id}
-      name={id}
-      rows={6}
-      value={value}
-      onChange={onChange}
-      required={required}
-      placeholder={placeholder}
-      aria-invalid={!!error}
-      aria-describedby={error ? `${id}-error` : undefined}
-      className={[
-        "w-full px-4 py-3 text-[14.5px] text-neutral-900 bg-white border rounded-sm transition-colors resize-y",
-        "focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]",
-        error ? "border-red-400" : "border-neutral-300",
-      ].join(" ")}
-    />
-    {error && (
-      <p id={`${id}-error`} className="mt-1.5 text-[12px] text-red-600">
-        {error}
-      </p>
-    )}
-  </div>
-);
+const ContactMethod = ({ Icon, label, value, href }) => {
+  const Inner = (
+    <>
+      <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#FFC72C]/15 border border-[#FFC72C]/30 group-hover:bg-[#FFC72C] group-hover:border-[#FFC72C] transition-colors duration-300 shrink-0">
+        <Icon className="w-4 h-4 text-[#0A1A36]" />
+      </span>
+      <span className="flex flex-col">
+        <span className="text-[10.5px] font-bold tracking-[0.24em] uppercase text-[#0A1A36]/55 group-hover:text-[#0A1A36]/80 transition-colors">
+          {label}
+        </span>
+        <span className="text-[14.5px] md:text-[15px] font-bold text-[#0A1A36] group-hover:text-[#FFC72C] transition-colors">
+          {value}
+        </span>
+      </span>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a href={href} className="group flex items-center gap-4 py-2 focus:outline-none">
+        {Inner}
+      </a>
+    );
+  }
+  return <div className="group flex items-center gap-4 py-2">{Inner}</div>;
+};
 
 // ═══════════════════════════════════════════════════════════════════════
-// FAQ
+// 3. HQ address
 // ═══════════════════════════════════════════════════════════════════════
-const ContactFAQ = () => {
-  const [ref, visible] = useReveal();
-  const [open, setOpen] = useState(0);
-
+const HQAddress = () => {
   return (
     <section
-      aria-labelledby="faq-heading"
-      className="relative bg-[#F4F0E8] py-20 md:py-28 lg:py-32"
+      id="hq"
+      aria-labelledby="hq-heading"
+      className="relative bg-[#FBF8F1] py-20 md:py-28 lg:py-32 overflow-hidden"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        }}
-        aria-hidden="true"
-      />
+      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
+          {/* Map placeholder */}
+          <div className="lg:col-span-7 relative aspect-[4/3] lg:aspect-auto bg-[#0A1A36] rounded-sm overflow-hidden">
+            {/* Replace this with a Google Maps / Mapbox embed when available */}
+            <iframe
+              title="GCSA Consulting London Headquarters"
+              src="https://www.google.com/maps?q=71-75+Shelton+Street,+Covent+Garden,+London+WC2H+9JQ&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: "420px" }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <div
+              className="absolute top-0 left-0 w-16 h-16 pointer-events-none z-10"
+              style={{
+                background:
+                  "linear-gradient(135deg, #FFC72C 0%, #FFC72C 50%, transparent 50%)",
+              }}
+              aria-hidden="true"
+            />
+          </div>
 
-      <div ref={ref} className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          <div className="lg:col-span-4">
-            <p
-              className={[
-                "flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-neutral-500 mb-6 transition-all duration-700",
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
-              ].join(" ")}
-            >
-              <span className="inline-block w-8 h-px" style={{ backgroundColor: "#C9A227" }} />
-              Common Questions
+          {/* Address card */}
+          <div className="lg:col-span-5 bg-[#0A1A36] text-white p-8 md:p-10 lg:p-12 rounded-sm relative overflow-hidden">
+            <div
+              className="absolute top-0 left-0 right-0 h-1"
+              style={{ backgroundColor: "#FFC72C" }}
+              aria-hidden="true"
+            />
+
+            <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
+              <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+              London Headquarters
             </p>
+
             <h2
-              id="faq-heading"
-              className={[
-                "font-light leading-[1.08] tracking-tight text-neutral-900 text-[32px] md:text-[42px] lg:text-[46px] transition-all duration-[900ms] delay-100",
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-              ].join(" ")}
+              id="hq-heading"
+              className="font-extrabold leading-[1.05] tracking-[-0.01em] text-[28px] md:text-[34px] lg:text-[38px] mb-8"
             >
-              Before you{" "}
-              <span className="italic font-normal" style={{ color: "#C9A227" }}>
-                write
+              Visit us in{" "}
+              <span className="font-light italic" style={{ color: "#FFC72C" }}>
+                Covent Garden
               </span>
               .
             </h2>
-          </div>
 
-          <div className="lg:col-span-8">
-            <dl className="divide-y divide-neutral-300/60 border-t border-neutral-300/60">
-              {FAQ.map((item, i) => (
-                <FAQItem
-                  key={item.q}
-                  question={item.q}
-                  answer={item.a}
-                  isOpen={open === i}
-                  onToggle={() => setOpen(open === i ? -1 : i)}
-                  visible={visible}
-                  delay={200 + i * 100}
-                />
-              ))}
-            </dl>
+            <div className="space-y-5">
+              <div className="flex items-start gap-4">
+                <FiMapPin className="shrink-0 mt-1 w-4 h-4 text-[#FFC72C]" />
+                <div>
+                  <div className="text-[10.5px] font-bold tracking-[0.24em] uppercase text-white/50 mb-1">
+                    Address
+                  </div>
+                  <div className="text-[14.5px] text-white">
+                    71-75 Shelton Street,<br />
+                    Covent Garden, London<br />
+                    WC2H 9JQ, United Kingdom
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <FiClock className="shrink-0 mt-1 w-4 h-4 text-[#FFC72C]" />
+                <div>
+                  <div className="text-[10.5px] font-bold tracking-[0.24em] uppercase text-white/50 mb-1">
+                    Hours
+                  </div>
+                  <div className="text-[14.5px] text-white">
+                    Monday – Friday<br />
+                    09:00 – 18:00 GMT
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-8 border-t border-white/10">
+              <p className="text-[14px] text-white/70 leading-[1.7] mb-6">
+                Visiting from outside the UK? Let us know in advance — we'll
+                make sure the right consultants are available to meet with you.
+              </p>
+              <Link
+                href="mailto:info@gcsaconsulting.co.uk?subject=Office%20Visit"
+                className="group inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] uppercase text-[#FFC72C] hover:text-white transition-colors"
+              >
+                <span className="relative">
+                  Plan your visit
+                  <span
+                    className="absolute left-0 right-0 -bottom-0.5 h-px scale-x-100 origin-left"
+                    style={{ backgroundColor: "#FFC72C" }}
+                    aria-hidden="true"
+                  />
+                </span>
+                <FiArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -707,59 +613,94 @@ const ContactFAQ = () => {
   );
 };
 
-const FAQItem = ({ question, answer, isOpen, onToggle, visible, delay }) => (
-  <div
-    className={[
-      "transition-all duration-700",
-      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-    ].join(" ")}
-    style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
-  >
-    <dt>
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        className="w-full flex items-start justify-between gap-6 py-6 md:py-7 text-left group focus:outline-none"
-      >
-        <span className="text-[17px] md:text-[19px] font-light leading-[1.4] tracking-tight text-neutral-900 group-hover:text-[#B8901C] transition-colors">
-          {question}
-        </span>
-        <span
-          className={[
-            "shrink-0 mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300",
-            isOpen ? "bg-[#C9A227] border-[#C9A227]" : "border-neutral-400 group-hover:border-[#C9A227]",
-          ].join(" ")}
-          aria-hidden="true"
-        >
-          <svg
-            className={[
-              "w-3.5 h-3.5 transition-transform duration-300",
-              isOpen ? "rotate-45 text-neutral-900" : "text-neutral-700 group-hover:text-[#C9A227]",
-            ].join(" ")}
-            viewBox="0 0 14 14"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.25"
-            strokeLinecap="round"
-          >
-            <line x1="7" y1="1" x2="7" y2="13" />
-            <line x1="1" y1="7" x2="13" y2="7" />
-          </svg>
-        </span>
-      </button>
-    </dt>
-    <dd
-      className={[
-        "grid transition-[grid-template-rows] duration-500 ease-out",
-        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-      ].join(" ")}
+// ═══════════════════════════════════════════════════════════════════════
+// 4. FAQ
+// ═══════════════════════════════════════════════════════════════════════
+const FAQ = () => {
+  const [openIdx, setOpenIdx] = useState(0);
+
+  return (
+    <section
+      aria-labelledby="faq-heading"
+      className="relative bg-white py-20 md:py-28 lg:py-32"
     >
-      <div className="overflow-hidden">
-        <p className="pb-6 md:pb-7 pr-12 text-[14.5px] md:text-[15px] leading-[1.8] text-neutral-700 max-w-3xl">
-          {answer}
-        </p>
+      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-4 lg:sticky lg:top-32">
+            <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60 mb-6">
+              <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+              FAQs
+            </p>
+            <h2
+              id="faq-heading"
+              className="font-extrabold leading-[1.02] tracking-[-0.02em] text-[#0A1A36] text-[32px] md:text-[42px] lg:text-[48px]"
+            >
+              Common{" "}
+              <span className="font-light italic" style={{ color: "#FFC72C" }}>
+                questions
+              </span>
+              .
+            </h2>
+            <p className="mt-6 text-[15px] leading-[1.75] text-[#0A1A36]/70 max-w-md">
+              Don't see what you're looking for?{" "}
+              <a
+                href="mailto:info@gcsaconsulting.co.uk"
+                className="font-bold text-[#0A1A36] hover:text-[#FFC72C] underline underline-offset-4 transition-colors"
+              >
+                Email us
+              </a>{" "}
+              and we'll respond within one business day.
+            </p>
+          </div>
+
+          <div className="lg:col-span-8">
+            <ul className="divide-y divide-[#0A1A36]/15 border-t border-[#0A1A36]/15">
+              {FAQS.map((f, i) => (
+                <li key={f.q}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenIdx(openIdx === i ? -1 : i)}
+                    aria-expanded={openIdx === i}
+                    className="group w-full flex items-center justify-between gap-6 py-6 md:py-7 text-left focus:outline-none"
+                  >
+                    <span className="text-[16px] md:text-[18px] font-extrabold tracking-[-0.01em] text-[#0A1A36] group-hover:text-[#FFC72C] transition-colors">
+                      {f.q}
+                    </span>
+                    <span
+                      className={[
+                        "shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full border-2 transition-all duration-300",
+                        openIdx === i
+                          ? "bg-[#FFC72C] border-[#FFC72C] text-[#0A1A36]"
+                          : "border-[#0A1A36]/20 text-[#0A1A36] group-hover:border-[#FFC72C]",
+                      ].join(" ")}
+                    >
+                      {openIdx === i ? (
+                        <FiMinus className="w-4 h-4" strokeWidth={2.5} />
+                      ) : (
+                        <FiPlus className="w-4 h-4" strokeWidth={2.5} />
+                      )}
+                    </span>
+                  </button>
+                  <div
+                    className={[
+                      "grid transition-[grid-template-rows] duration-500 ease-out",
+                      openIdx === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                    ].join(" ")}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="pb-7 pr-12 text-[14.5px] md:text-[15px] leading-[1.75] text-[#0A1A36]/75 max-w-2xl">
+                        {f.a}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-    </dd>
-  </div>
-);
+    </section>
+  );
+};
+
+export default ContactPage;

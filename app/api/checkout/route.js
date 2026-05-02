@@ -1,0 +1,147 @@
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+import { getProgramme } from "@/lib/programmes";
+
+/**
+ * POST /api/checkout
+ *
+ * Creates a Stripe Checkout Session for a programme registration.
+ *
+ * Request body:
+ * {
+ *   programmeId: "transition-to-architecture",
+ *   programmeName: "...",
+ *   firstName, lastName, email, phone, country,
+ *   currentRole, experience, company, linkedin,
+ *   motivation, hearAbout
+ * }
+ *
+ * Response:
+ *   200 → { url: "https://checkout.stripe.com/..." }
+ *   400/500 → { error: "..." }
+ *
+ * Security:
+ *  - Server reads price from /lib/programmes.js, never from client
+ *  - Stores ALL registration data in session.metadata (≤500 chars per field)
+ *    and reads it back in the webhook handler when payment succeeds
+ *
+ * Required env vars:
+ *  - STRIPE_SECRET_KEY        (sk_test_... or sk_live_...)
+ *  - NEXT_PUBLIC_SITE_URL     (https://www.gcsaconsulting.co.uk)
+ */
+
+export const runtime = "nodejs";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2024-12-18.acacia",
+});
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.gcsaconsulting.co.uk";
+
+// Stripe metadata values must be strings ≤ 500 chars; clamp defensively.
+const clamp = (v, max = 490) =>
+  typeof v === "string" ? v.slice(0, max) : String(v ?? "").slice(0, max);
+
+const isEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(s || "").trim());
+
+export async function POST(req) {
+  try {
+    const body = await req.json();
+
+    const {
+      programmeId,
+      firstName,
+      lastName,
+      email,
+      phone,
+      country,
+      currentRole,
+      experience,
+      company,
+      linkedin,
+      motivation,
+      hearAbout,
+    } = body || {};
+
+    // ── Validate ─────────────────────────────────────────────────────
+    if (!programmeId || typeof programmeId !== "string") {
+      return NextResponse.json({ error: "Missing programmeId" }, { status: 400 });
+    }
+    const programme = getProgramme(programmeId);
+    if (!programme) {
+      return NextResponse.json({ error: "Unknown programme" }, { status: 404 });
+    }
+    if (!firstName || !lastName || !isEmail(email) || !phone || !country) {
+      return NextResponse.json(
+        { error: "Missing or invalid personal details" },
+        { status: 400 }
+      );
+    }
+    if (!motivation || String(motivation).trim().length < 20) {
+      return NextResponse.json(
+        { error: "Motivation must be at least 20 characters" },
+        { status: 400 }
+      );
+    }
+
+    // ── Create Checkout Session ──────────────────────────────────────
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+
+      // Customer info — Stripe will pre-fill these on the hosted checkout
+      customer_email: clamp(email, 200),
+
+      // Line items — price is server-controlled
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: programme.currency,
+            unit_amount: programme.priceInPence,
+            product_data: {
+              name: programme.name,
+              description: programme.description,
+              metadata: { programmeId: programme.id },
+            },
+          },
+        },
+      ],
+
+      // Where Stripe sends the user back
+      success_url: `${SITE_URL}${programme.successPath}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${SITE_URL}${programme.cancelPath}?session_id={CHECKOUT_SESSION_ID}`,
+
+      // Capture full registration in metadata; the webhook reads it back
+      metadata: {
+        programmeId: clamp(programme.id, 100),
+        firstName: clamp(firstName, 100),
+        lastName: clamp(lastName, 100),
+        email: clamp(email, 200),
+        phone: clamp(phone, 50),
+        country: clamp(country, 100),
+        currentRole: clamp(currentRole, 100),
+        experience: clamp(experience, 50),
+        company: clamp(company, 200),
+        linkedin: clamp(linkedin, 300),
+        motivation: clamp(motivation, 490),
+        hearAbout: clamp(hearAbout, 100),
+      },
+
+      // Locale + UI niceties
+      locale: "auto",
+      billing_address_collection: "required",
+      allow_promotion_codes: true,
+      submit_type: "pay",
+    });
+
+    return NextResponse.json({ url: session.url, id: session.id });
+  } catch (err) {
+    console.error("[/api/checkout] error:", err);
+    return NextResponse.json(
+      { error: err?.message || "Checkout creation failed" },
+      { status: 500 }
+    );
+  }
+}

@@ -1,57 +1,48 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   FaLinkedinIn,
-  FaFacebookF,
   FaXTwitter,
-  FaInstagram,
-  FaYoutube,
+  FaEnvelope,
 } from "react-icons/fa6";
 import { FiArrowUpRight, FiMapPin, FiMail, FiPhone } from "react-icons/fi";
 
 /**
- * Footer — Charles Adakole Consulting
+ * Footer — GCSA Consulting UK LTD
  *
- * Content (per brand brief):
- * - Brand: Charles Adakole Consulting
- * - Tagline: Strategic Advisor & Executive Coach for Business, Life, and Ministry
- * - Primary nav: About Us · Services · Contact
- * - Location: Abuja, Nigeria | Global Virtual Advisory
- * - Closing line: Establishing Clarity, Enabling Impact
+ * Content (per gcsaconsulting.co.uk):
+ * - Brand: GCSA Consulting · Business Consultants
+ * - Address: 71-75 Shelton Street, Covent Garden, London WC2H 9JQ
+ * - Email: info@gcsaconsulting.co.uk
+ * - Tel: 123-456-7890 (placeholder from original site)
+ * - Newsletter: "Stay Connected. Learn from Our Experts. Subscribe."
+ * - Socials: Twitter, LinkedIn, Email (per original)
+ * - Footer nav: About · Industries · Careers · Contact
+ * - Copyright: © 2024 by GCSA Consulting UK LTD
  *
- * Visual system matches the rest of the site (dark, gold, Montserrat,
- * italic gold accents on key words, eyebrow hairlines, animated
- * origin-left underlines on interactive elements).
- *
- * Dependencies: react-icons (npm install react-icons)
+ * Brand: navy + gold + Montserrat
  */
 
-// ─── Data ────────────────────────────────────────────────────────────
 const PRIMARY_LINKS = [
-  { label: "About Us", href: "/about" },
-  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/#services" },
+  { label: "Plans & Pricing", href: "/plans-pricing" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
 
-const SERVICE_PILLARS = [
-  {
-    label: "Strategic Clarity & Brand Positioning",
-    href: "/services/strategic-clarity",
-  },
-  {
-    label: "SOP & Systems Consulting",
-    href: "/services/sop-systems",
-  },
-  {
-    label: "Team Management & Leadership",
-    href: "/services/leadership-architecture",
-  },
-  {
-    label: "Life & Ministry Advisory",
-    href: "/services/life-ministry",
-  },
+const SERVICES_LINKS = [
+  { label: "Corporate Governance", href: "/services#corporate-governance" },
+  { label: "Infrastructure Consulting", href: "/services#infrastructure-consulting" },
+  { label: "Enterprise Architecture", href: "/services#enterprise-architecture" },
+  { label: "Strategy Management", href: "/services#strategy-management" },
+  { label: "Technology Advisory", href: "/services#technology-advisory" },
+];
+
+const TRAINING_LINKS = [
+  { label: "All Programmes", href: "/training" },
 ];
 
 const LEGAL_LINKS = [
@@ -62,41 +53,50 @@ const LEGAL_LINKS = [
 
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/", Icon: FaLinkedinIn },
-  { label: "Facebook", href: "https://www.facebook.com/", Icon: FaFacebookF },
   { label: "X (Twitter)", href: "https://x.com/", Icon: FaXTwitter },
-  { label: "Instagram", href: "https://www.instagram.com/", Icon: FaInstagram },
-  { label: "YouTube", href: "https://www.youtube.com/", Icon: FaYoutube },
+  { label: "Email", href: "mailto:info@gcsaconsulting.co.uk", Icon: FaEnvelope },
 ];
 
-// ═══════════════════════════════════════════════════════════════════════
-// Footer
-// ═══════════════════════════════════════════════════════════════════════
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const onSubscribe = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    // TODO: wire to real subscription endpoint
+    setSubmitted(true);
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+  };
 
   return (
     <footer
-      className="relative bg-[#0A0A0B] text-white overflow-hidden"
+      className="relative bg-[#06122A] text-white overflow-hidden"
       style={{ fontFamily: "'Montserrat', ui-sans-serif, system-ui, sans-serif" }}
       aria-labelledby="footer-heading"
     >
       <h2 id="footer-heading" className="sr-only">
-        Charles Adakole Consulting — site footer
+        GCSA Consulting — site footer
       </h2>
 
-      {/* Ambient warm glow */}
+      {/* Ambient glow */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        className="pointer-events-none absolute inset-0 opacity-50"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 92% 8%, rgba(201,162,39,0.12), transparent 48%), radial-gradient(circle at 6% 95%, rgba(201,162,39,0.04), transparent 50%)",
+            "radial-gradient(circle at 92% 8%, rgba(255,199,44,0.15), transparent 48%), radial-gradient(circle at 6% 95%, rgba(255,199,44,0.05), transparent 50%)",
         }}
         aria-hidden="true"
       />
 
       {/* Grid texture */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
@@ -105,120 +105,164 @@ const Footer = () => {
         aria-hidden="true"
       />
 
-      {/* Gold hairline transition at the very top */}
+      {/* Top gold hairline */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(201,162,39,0.6) 30%, rgba(201,162,39,0.8) 50%, rgba(201,162,39,0.6) 70%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(255,199,44,0.6) 30%, rgba(255,199,44,0.9) 50%, rgba(255,199,44,0.6) 70%, transparent 100%)",
         }}
         aria-hidden="true"
       />
 
       <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-        {/* ── Zone 1: Brand + tagline + CTA ────────────────────────── */}
+        {/* ── Zone 1: Brand + Newsletter ─────────────────────────── */}
         <div className="pt-20 md:pt-24 lg:pt-28 pb-14 md:pb-20 border-b border-white/10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            {/* Brand + tagline */}
+            {/* Brand block */}
             <div className="lg:col-span-7">
               <Link
                 href="/"
-                className="inline-flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A227]/40 rounded-sm mb-10 md:mb-14"
-                aria-label="Charles Adakole Consulting — home"
+                className="inline-flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm mb-10 md:mb-14"
+                aria-label="GCSA Consulting — home"
               >
-                <span className="text-[15px] md:text-[16px] font-bold tracking-[0.04em] text-white">
-                  CHARLES ADAKOLE{" "}
-                  <span className="font-light">CONSULTING</span>
-                </span>
                 <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 32 32"
                   fill="none"
                   aria-hidden="true"
-                  className="shrink-0 transition-transform duration-500 group-hover:rotate-45"
+                  className="shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
                 >
-                  <circle cx="11" cy="11" r="10" fill="#C9A227" />
                   <path
-                    d="M7 11 L10 14 L15 8"
-                    stroke="#0A0A0B"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    d="M16 2 L28 6 V16 C28 22 22.6 27.5 16 30 C9.4 27.5 4 22 4 16 V6 L16 2 Z"
+                    fill="#FFC72C"
+                    stroke="#FFFFFF"
+                    strokeWidth="1.5"
                   />
+                  <text
+                    x="16"
+                    y="20"
+                    textAnchor="middle"
+                    fontSize="9"
+                    fontWeight="800"
+                    fill="#0A1A36"
+                    fontFamily="Montserrat, sans-serif"
+                    letterSpacing="0.5"
+                  >
+                    GCSA
+                  </text>
                 </svg>
+                <div className="flex flex-col leading-none">
+                  <span className="text-[16px] md:text-[17px] font-extrabold tracking-[0.04em] text-white">
+                    GCSA <span className="font-light">CONSULTING</span>
+                  </span>
+                  <span className="text-[9px] font-bold tracking-[0.28em] uppercase mt-1 text-[#FFC72C]">
+                    Business Consultants
+                  </span>
+                </div>
               </Link>
 
-              <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-[#C9A227] mb-6">
+              <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
                 <span
-                  className="inline-block w-8 h-px"
-                  style={{ backgroundColor: "#C9A227" }}
+                  className="inline-block w-10 h-px"
+                  style={{ backgroundColor: "#FFC72C" }}
                 />
-                Establishing Clarity, Enabling Impact
+                Strategic excellence meets innovation
               </p>
 
-              <p className="font-light leading-[1.15] tracking-tight text-white text-[28px] md:text-[36px] lg:text-[44px] max-w-2xl">
-                Strategic Advisor &amp; Executive Coach for{" "}
-                <span
-                  className="italic font-normal"
-                  style={{ color: "#C9A227" }}
-                >
-                  Business, Life, and Ministry
-                </span>
-                .
+              <p className="font-light leading-[1.15] tracking-[-0.01em] text-white text-[28px] md:text-[36px] lg:text-[42px] max-w-2xl">
+                Helping organisations{" "}
+                <span className="italic font-normal" style={{ color: "#FFC72C" }}>
+                  adapt, grow, and thrive
+                </span>{" "}
+                across Africa, Europe, and Asia.
               </p>
 
-              <p className="mt-6 md:mt-8 text-[14.5px] md:text-[15px] leading-[1.75] text-white/65 max-w-lg">
-                Helping leaders move from overwhelm to high-impact leadership —
-                through strategic clarity, structural precision, and the
-                coordination of resources and people toward high-level goals.
+              <p className="mt-6 md:mt-8 text-[14px] md:text-[15px] leading-[1.75] text-white/65 max-w-lg">
+                Trusted partner for strategic excellence and business
+                transformation — from corporate governance and enterprise
+                architecture to performance improvement and technology advisory.
               </p>
             </div>
 
-            {/* Contact CTA card */}
+            {/* Newsletter card */}
             <div className="lg:col-span-5 lg:pl-8 lg:border-l lg:border-white/10">
-              <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.28em] uppercase text-[#C9A227] mb-6">
+              <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
                 <span
-                  className="inline-block w-8 h-px"
-                  style={{ backgroundColor: "#C9A227" }}
+                  className="inline-block w-10 h-px"
+                  style={{ backgroundColor: "#FFC72C" }}
                 />
-                Ready to find your focus?
+                Stay Connected
               </p>
 
-              <p className="text-[15px] md:text-[16px] leading-[1.75] text-white/70 mb-8 max-w-md">
-                Take the first step toward a more organized, impactful future —
-                whether you&apos;re scaling a business, leading a ministry, or
-                refining your life&apos;s vision.
+              <p className="text-[15px] md:text-[16px] leading-[1.7] text-white/75 mb-8 max-w-md">
+                Stay connected. Learn from our experts. Subscribe to receive
+                strategic insights, training updates, and industry briefings.
               </p>
 
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#C9A227] hover:bg-[#B8901C] text-neutral-900 text-[11.5px] font-semibold tracking-[0.16em] uppercase shadow-[0_8px_24px_-8px_rgba(201,162,39,0.5)] hover:shadow-[0_12px_32px_-8px_rgba(201,162,39,0.75)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0B] focus-visible:ring-[#C9A227] transition-all duration-300"
-              >
-                Schedule a Consultation
-                <FiArrowUpRight
-                  className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  aria-hidden="true"
+              <form onSubmit={onSubscribe} className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    aria-label="First name"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/15 rounded-sm text-[13.5px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#FFC72C] focus:bg-white/[0.10] transition-colors"
+                  />
+                  <input
+                    type="text"
+                    aria-label="Last name"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/15 rounded-sm text-[13.5px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#FFC72C] focus:bg-white/[0.10] transition-colors"
+                  />
+                </div>
+                <input
+                  type="email"
+                  required
+                  aria-label="Email address"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 bg-white/[0.06] border border-white/15 rounded-sm text-[13.5px] text-white placeholder:text-white/40 focus:outline-none focus:border-[#FFC72C] focus:bg-white/[0.10] transition-colors"
                 />
-              </Link>
+                <button
+                  type="submit"
+                  className="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-[0_8px_24px_-8px_rgba(255,199,44,0.5)] hover:shadow-[0_12px_32px_-8px_rgba(255,199,44,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06122A] focus-visible:ring-[#FFC72C] transition-all duration-300"
+                >
+                  Subscribe
+                  <FiArrowUpRight
+                    className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    aria-hidden="true"
+                  />
+                </button>
+                {submitted && (
+                  <p className="text-[12px] text-[#FFC72C] mt-2" role="status">
+                    Thanks for subscribing!
+                  </p>
+                )}
+              </form>
 
               {/* Contact anchors */}
               <div className="mt-10 space-y-1.5">
                 <FooterMetaLine
                   Icon={FiMapPin}
-                  label="Location"
-                  value="Abuja, Nigeria · Global Virtual Advisory"
+                  label="Address"
+                  value="71-75 Shelton Street, Covent Garden, London WC2H 9JQ"
                 />
                 <FooterContactLink
                   Icon={FiMail}
                   label="Email"
-                  value="hello@charlesadakole.com"
-                  href="mailto:hello@charlesadakole.com"
+                  value="info@gcsaconsulting.co.uk"
+                  href="/contact"
                 />
                 <FooterContactLink
                   Icon={FiPhone}
-                  label="Schedule"
-                  value="Book a call"
+                  label="Tel"
+                  value="123-456-7890"
                   href="/contact"
                 />
               </div>
@@ -226,38 +270,20 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* ── Zone 2: Navigation ────────────────────────────────────── */}
+        {/* ── Zone 2: Navigation ────────────────────────────────── */}
         <div className="py-14 md:py-16 border-b border-white/10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
-            {/* Primary nav */}
-            <nav aria-label="Footer primary" className="md:col-span-4">
-              <h3 className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] uppercase text-[#C9A227] mb-6">
+            {/* Explore */}
+            <nav aria-label="Footer primary" className="md:col-span-3">
+              <h3 className="flex items-center gap-3 text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-6">
                 <span
-                  className="inline-block w-6 h-px"
-                  style={{ backgroundColor: "#C9A227" }}
+                  className="inline-block w-7 h-px"
+                  style={{ backgroundColor: "#FFC72C" }}
                 />
                 Explore
               </h3>
-              <ul className="space-y-4">
-                {PRIMARY_LINKS.map((link) => (
-                  <li key={link.label}>
-                    <FooterNavLink {...link} size="lg" />
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {/* Service pillars */}
-            <nav aria-label="Footer services" className="md:col-span-5">
-              <h3 className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] uppercase text-[#C9A227] mb-6">
-                <span
-                  className="inline-block w-6 h-px"
-                  style={{ backgroundColor: "#C9A227" }}
-                />
-                Core Services
-              </h3>
               <ul className="space-y-3.5">
-                {SERVICE_PILLARS.map((link) => (
+                {PRIMARY_LINKS.map((link) => (
                   <li key={link.label}>
                     <FooterNavLink {...link} />
                   </li>
@@ -265,12 +291,55 @@ const Footer = () => {
               </ul>
             </nav>
 
-            {/* Social */}
-            <div className="md:col-span-3">
-              <h3 className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] uppercase text-[#C9A227] mb-6">
+            {/* Services */}
+            <nav aria-label="Footer services" className="md:col-span-4">
+              <h3 className="flex items-center gap-3 text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-6">
                 <span
-                  className="inline-block w-6 h-px"
-                  style={{ backgroundColor: "#C9A227" }}
+                  className="inline-block w-7 h-px"
+                  style={{ backgroundColor: "#FFC72C" }}
+                />
+                Services
+              </h3>
+              <ul className="space-y-3.5">
+                {SERVICES_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <FooterNavLink {...link} />
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Training */}
+            <nav aria-label="Footer training" className="md:col-span-3">
+              <h3 className="flex items-center gap-3 text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-6">
+                <span
+                  className="inline-block w-7 h-px"
+                  style={{ backgroundColor: "#FFC72C" }}
+                />
+                Training
+              </h3>
+              <ul className="space-y-3.5">
+                {TRAINING_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <FooterNavLink {...link} />
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/training"
+                className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFC72C]/[0.12] border border-[#FFC72C]/30 text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#FFC72C] hover:bg-[#FFC72C] hover:text-[#0A1A36] transition-colors"
+              >
+                Apply Now
+                <FiArrowUpRight className="w-3 h-3" aria-hidden="true" />
+              </Link>
+            </nav>
+
+            {/* Social */}
+            <div className="md:col-span-2">
+              <h3 className="flex items-center gap-3 text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-6">
+                <span
+                  className="inline-block w-7 h-px"
+                  style={{ backgroundColor: "#FFC72C" }}
                 />
                 Follow
               </h3>
@@ -282,22 +351,21 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={label}
-                      className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/80 hover:bg-[#C9A227] hover:border-[#C9A227] hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A227]/60 transition-all duration-300"
+                      className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/80 hover:bg-[#FFC72C] hover:border-[#FFC72C] hover:text-[#0A1A36] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60 transition-all duration-300"
                     >
                       <Icon className="w-[13px] h-[13px]" aria-hidden="true" />
                     </a>
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-[12px] leading-[1.6] text-white/50 max-w-[220px]">
-                Follow for weekly reflections on strategy, leadership, and
-                stewardship.
+              <p className="mt-6 text-[11.5px] leading-[1.6] text-white/50">
+                Insights from our consultants — delivered weekly.
               </p>
             </div>
           </div>
         </div>
 
-        {/* ── Zone 3: Legal + copyright ────────────────────────────── */}
+        {/* ── Zone 3: Legal + copyright ─────────────────────────── */}
         <div className="py-10 md:py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
             {LEGAL_LINKS.map((link) => (
@@ -308,12 +376,12 @@ const Footer = () => {
           </ul>
 
           <p className="text-[11.5px] text-white/45 md:text-right">
-            © {currentYear} Charles Adakole Consulting.{" "}
+            © {currentYear} GCSA Consulting UK LTD.{" "}
             <span className="hidden md:inline" aria-hidden="true">
               ·{" "}
             </span>
             <span className="block md:inline mt-1 md:mt-0">
-              Establishing Clarity, Enabling Impact.
+              All rights reserved.
             </span>
           </p>
         </div>
@@ -322,46 +390,40 @@ const Footer = () => {
   );
 };
 
-// ═══════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════
 // Sub-components
-// ═══════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════
 
-const FooterNavLink = ({ label, href, size = "md" }) => {
-  const sizeClass =
-    size === "lg"
-      ? "text-[17px] md:text-[18px] font-light text-white"
-      : "text-[14px] text-white/75";
-  return (
-    <Link
-      href={href}
-      className={`group relative inline-block ${sizeClass} hover:text-white focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A227]/40 rounded-sm transition-colors duration-200`}
-    >
-      <span className="relative">
-        {label}
-        <span
-          className="absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 transition-transform duration-[400ms] ease-out"
-          style={{ backgroundColor: "#C9A227" }}
-          aria-hidden="true"
-        />
-      </span>
-    </Link>
-  );
-};
+const FooterNavLink = ({ label, href }) => (
+  <Link
+    href={href}
+    className="group relative inline-block text-[14px] text-white/75 hover:text-white focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm transition-colors duration-200"
+  >
+    <span className="relative">
+      {label}
+      <span
+        className="absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 transition-transform duration-[400ms] ease-out"
+        style={{ backgroundColor: "#FFC72C" }}
+        aria-hidden="true"
+      />
+    </span>
+  </Link>
+);
 
 const FooterContactLink = ({ Icon, label, value, href }) => (
   <Link
     href={href}
-    className="group flex items-center gap-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A227]/40 rounded-sm"
+    className="group flex items-center gap-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm"
   >
     <Icon
-      className="shrink-0 w-4 h-4 text-[#C9A227] transition-transform duration-300 group-hover:scale-110"
+      className="shrink-0 w-4 h-4 text-[#FFC72C] transition-transform duration-300 group-hover:scale-110"
       aria-hidden="true"
     />
     <span className="flex items-baseline gap-2 flex-wrap">
-      <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-white/40 group-hover:text-white/70 transition-colors duration-300">
+      <span className="text-[10px] font-bold tracking-[0.24em] uppercase text-white/40 group-hover:text-white/70 transition-colors duration-300">
         {label}
       </span>
-      <span className="text-[14px] text-white/85 group-hover:text-[#C9A227] transition-colors duration-300 flex items-center gap-1.5">
+      <span className="text-[13.5px] text-white/85 group-hover:text-[#FFC72C] transition-colors duration-300 flex items-center gap-1.5">
         {value}
         <FiArrowUpRight
           className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
@@ -373,13 +435,13 @@ const FooterContactLink = ({ Icon, label, value, href }) => (
 );
 
 const FooterMetaLine = ({ Icon, label, value }) => (
-  <div className="flex items-center gap-3 py-2">
-    <Icon className="shrink-0 w-4 h-4 text-[#C9A227]" aria-hidden="true" />
-    <span className="flex items-baseline gap-2 flex-wrap">
-      <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-white/40">
+  <div className="flex items-start gap-3 py-2">
+    <Icon className="shrink-0 mt-0.5 w-4 h-4 text-[#FFC72C]" aria-hidden="true" />
+    <span className="flex flex-col gap-0.5">
+      <span className="text-[10px] font-bold tracking-[0.24em] uppercase text-white/40">
         {label}
       </span>
-      <span className="text-[14px] text-white/85">{value}</span>
+      <span className="text-[13.5px] text-white/85">{value}</span>
     </span>
   </div>
 );
@@ -387,13 +449,13 @@ const FooterMetaLine = ({ Icon, label, value }) => (
 const LegalLink = ({ label, href }) => (
   <Link
     href={href}
-    className="group relative text-[10.5px] font-semibold tracking-[0.16em] uppercase text-white/60 hover:text-white focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A227]/40 rounded-sm transition-colors duration-200"
+    className="group relative text-[10.5px] font-bold tracking-[0.18em] uppercase text-white/60 hover:text-white focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm transition-colors duration-200"
   >
     <span className="relative">
       {label}
       <span
         className="absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100 transition-transform duration-[400ms] ease-out"
-        style={{ backgroundColor: "#C9A227" }}
+        style={{ backgroundColor: "#FFC72C" }}
         aria-hidden="true"
       />
     </span>

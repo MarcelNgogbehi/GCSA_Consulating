@@ -5,116 +5,99 @@ import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
 
 /**
- * RootLayout — Charles Adakole Consulting
+ * RootLayout — GCSA Consulting UK LTD
  *
- * Responsibilities:
- *  - Load Montserrat with the exact weights used site-wide (trimmed from 9 to 5
- *    for a lighter CSS payload; swap/variable-font if your brand grows)
- *  - Declare global metadata (title template, OG, Twitter, robots, canonical)
- *  - Emit root-level JSON-LD (Organization + ProfessionalService + WebSite)
- *    so every page inherits rich-result eligibility without duplicating markup
- *  - Wrap the app in AppContextProvider and mount a brand-styled Toaster
+ * Brand:
+ *  - Navy:  #0A1A36
+ *  - Gold:  #FFC72C
+ *  - Font:  Montserrat
  *
  * Environment:
- *  - Set NEXT_PUBLIC_SITE_URL to your production domain (e.g. https://charlesadakole.com)
+ *  - Set NEXT_PUBLIC_SITE_URL to your production domain
  *  - Replace /og-image.jpg (1200x630) in /public before launch
  *  - Replace /favicon.ico, /apple-touch-icon.png, /site.webmanifest
  */
 
-// ─── Font ────────────────────────────────────────────────────────────
-// Weights actually used across the site:
-//   300 — large light headlines
-//   400 — body default
-//   500 — nav links, buttons (semibold-leaning)
-//   600 — eyebrows, small-caps labels
-//   700 — wordmark, emphatic copy
-// Italic 300/400 for the signature gold-accent words.
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-montserrat",
 });
 
-// ─── URLs ────────────────────────────────────────────────────────────
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://charlesadakole.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.gcsaconsulting.co.uk";
 
-// ─── Metadata (Next.js App Router picks this up automatically) ───────
 export const metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default:
-      "Charles Adakole Consulting | Strategic Advisor & Executive Coach",
-    template: "%s · Charles Adakole Consulting",
+    default: "GCSA Consulting UK LTD | Business Consultants",
+    template: "%s · GCSA Consulting",
   },
 
   description:
-    "Strategic advisory and executive coaching for leaders in business, life, and ministry. Helping founders, executives, and ministry leaders move from overwhelm to high-impact leadership through strategic clarity and structural precision.",
+    "Taking your business to the next level. GCSA helps organisations identify, acquire, and deploy the key capabilities required to adapt, grow, gain competitive advantage, defend a strategic position, or exit a crisis. Serving Africa, Europe, and Asia from our London headquarters.",
 
-  applicationName: "Charles Adakole Consulting",
-  authors: [{ name: "Charles Adakole" }],
-  creator: "Charles Adakole",
-  publisher: "Charles Adakole Consulting",
+  applicationName: "GCSA Consulting",
+  authors: [{ name: "GCSA Consulting UK LTD" }],
+  creator: "GCSA Consulting UK LTD",
+  publisher: "GCSA Consulting UK LTD",
   generator: "Next.js",
   referrer: "strict-origin-when-cross-origin",
 
   keywords: [
-    "strategic advisor",
-    "executive coach",
-    "leadership consulting",
-    "business consulting Nigeria",
-    "SOP consulting",
-    "standard operating procedures",
-    "brand positioning",
-    "ministry consulting",
-    "organizational management",
-    "Charles Adakole",
-    "Abuja consulting",
+    "GCSA Consulting",
+    "Business Consultants",
+    "Management Consulting",
+    "Corporate Governance",
+    "Enterprise Architecture",
+    "Strategy Management",
+    "Technology Advisory",
+    "Infrastructure Consulting",
+    "London Consultants",
+    "Architecture Training",
+    "Transition to Architecture",
   ],
 
   category: "Business Consulting",
 
   alternates: {
     canonical: "/",
-    languages: { "en-US": "/" },
+    languages: { "en-GB": "/" },
   },
 
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: SITE_URL,
-    siteName: "Charles Adakole Consulting",
-    title:
-      "Charles Adakole Consulting | Strategic Advisor & Executive Coach",
+    siteName: "GCSA Consulting",
+    title: "GCSA Consulting UK LTD | Business Consultants",
     description:
-      "Clarity of Vision. Precision of Execution. Advisory and coaching for leaders in business, life, and ministry — from Abuja to the world.",
+      "Strategic excellence meets innovation. Helping organisations adapt, grow, and thrive across Africa, Europe, and Asia.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Charles Adakole Consulting — Strategic Advisor & Executive Coach",
+        alt: "GCSA Consulting — Taking Your Business to the Next Level",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title:
-      "Charles Adakole Consulting | Strategic Advisor & Executive Coach",
+    title: "GCSA Consulting UK LTD | Business Consultants",
     description:
-      "Clarity of Vision. Precision of Execution. Advisory and coaching for leaders in business, life, and ministry.",
+      "Strategic excellence meets innovation. Serving Africa, Europe, and Asia from London.",
     images: ["/og-image.jpg"],
-    creator: "@charlesadakole",
+    creator: "@gcsaconsulting",
   },
 
   robots: {
     index: true,
     follow: true,
-    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -131,43 +114,35 @@ export const metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#C9A227" }],
+    other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#FFC72C" }],
   },
 
   manifest: "/site.webmanifest",
-
-  verification: {
-    // Replace with real verification strings when you have them.
-    // google: "your-google-site-verification",
-    // other: { "me": ["hello@charlesadakole.com"] },
-  },
 
   other: {
     "format-detection": "telephone=no, address=no, email=no",
   },
 };
 
-// ─── Viewport (must be a separate export in Next.js 14+) ────────────
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5, // accessibility: allow users to zoom
+  maximumScale: 5,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A0A0B" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A1A36" },
   ],
   colorScheme: "light",
 };
 
-// ─── JSON-LD (rendered at the root; applies to every page) ───────────
 const STRUCTURED_DATA = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
-      name: "Charles Adakole Consulting",
-      alternateName: "Charles Adakole & Co",
+      name: "GCSA Consulting UK LTD",
+      alternateName: "GCSA Consulting",
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
@@ -176,90 +151,72 @@ const STRUCTURED_DATA = {
         height: 512,
       },
       sameAs: [
-        "https://www.linkedin.com/in/charles-adakole",
-        "https://x.com/charlesadakole",
+        "https://www.linkedin.com/company/gcsa-consulting",
+        "https://x.com/gcsaconsulting",
       ],
-      founder: {
-        "@type": "Person",
-        name: "Charles Adakole",
-        jobTitle: "Strategic Advisor & Executive Coach",
-      },
       contactPoint: [
         {
           "@type": "ContactPoint",
           contactType: "customer support",
-          email: "hello@charlesadakole.com",
-          areaServed: "Worldwide",
+          email: "info@gcsaconsulting.co.uk",
+          telephone: "+44-123-456-7890",
+          areaServed: ["GB", "Africa", "Europe", "Asia"],
           availableLanguage: ["English"],
         },
       ],
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Abuja",
-        addressCountry: "NG",
+        streetAddress: "71-75 Shelton Street, Covent Garden",
+        addressLocality: "London",
+        postalCode: "WC2H 9JQ",
+        addressCountry: "GB",
       },
     },
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#service`,
-      name: "Charles Adakole Consulting",
+      name: "GCSA Consulting — Management & Technology Advisory",
       parentOrganization: { "@id": `${SITE_URL}/#organization` },
       description:
-        "Strategic advisory and executive coaching for business leaders, executives, and ministry principals. Four pillars: Strategic Clarity & Brand Positioning, SOP & Systems Consulting, Team Management & Leadership Architecture, Life & Ministry Advisory.",
+        "Management consulting services for public and private institutions: corporate governance, infrastructure consulting, enterprise architecture, strategy management, and technology advisory.",
       areaServed: [
-        { "@type": "Country", name: "Nigeria" },
-        { "@type": "Place", name: "Global (Virtual Advisory)" },
+        { "@type": "Place", name: "Africa" },
+        { "@type": "Place", name: "Europe" },
+        { "@type": "Place", name: "Asia" },
       ],
       serviceType: [
-        "Strategic Clarity & Brand Positioning",
-        "SOP & Systems Consulting",
-        "Team Management & Leadership Architecture",
-        "Life & Ministry Advisory",
+        "Corporate Governance",
+        "Infrastructure Consulting",
+        "Enterprise Architecture",
+        "Strategy Management",
+        "Technology Advisory",
       ],
-      slogan: "Establishing Clarity, Enabling Impact.",
+      slogan: "Taking Your Business to the Next Level",
       priceRange: "$$$",
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "Charles Adakole Consulting",
+      name: "GCSA Consulting",
       publisher: { "@id": `${SITE_URL}/#organization` },
-      inLanguage: "en-US",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
+      inLanguage: "en-GB",
     },
   ],
 };
 
-// ═══════════════════════════════════════════════════════════════════════
-// RootLayout
-// ═══════════════════════════════════════════════════════════════════════
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={montserrat.variable}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={montserrat.variable} suppressHydrationWarning>
       <head>
-        {/* Preconnect hints — resources we'll request early and often */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        {/* DNS prefetch for any CDN-served images (update/remove per your setup) */}
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-        {/* JSON-LD structured data */}
         <Script
           id="ld-root"
           type="application/ld+json"
@@ -270,23 +227,20 @@ export default function RootLayout({ children }) {
 
       <body
         suppressHydrationWarning
-        className={`${montserrat.className} antialiased text-neutral-900 bg-white selection:bg-[#C9A227]/30 selection:text-neutral-900`}
+        className={`${montserrat.className} antialiased text-[#0A1A36] bg-white selection:bg-[#FFC72C]/30 selection:text-[#0A1A36]`}
       >
-        {/* Skip-to-content link — accessible focus target for keyboard users */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#C9A227] focus:text-neutral-900 focus:font-semibold focus:tracking-[0.14em] focus:uppercase focus:text-[11px] focus:rounded-full focus:shadow-lg focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#FFC72C] focus:text-[#0A1A36] focus:font-bold focus:tracking-[0.14em] focus:uppercase focus:text-[11px] focus:rounded-full focus:shadow-lg focus:outline-none"
         >
           Skip to content
         </a>
 
-        {/* Brand-styled toast system */}
         <Toaster
           position="top-center"
           gutter={12}
           toastOptions={{
             duration: 4000,
-            className: "",
             style: {
               fontFamily:
                 "var(--font-montserrat), ui-sans-serif, system-ui, sans-serif",
@@ -294,39 +248,37 @@ export default function RootLayout({ children }) {
               fontWeight: 500,
               padding: "14px 18px",
               borderRadius: "9999px",
-              background: "#0A0A0B",
+              background: "#0A1A36",
               color: "#FFFFFF",
-              border: "1px solid rgba(201,162,39,0.35)",
+              border: "1px solid rgba(255,199,44,0.4)",
               boxShadow:
-                "0 12px 40px -12px rgba(0,0,0,0.35), 0 0 0 1px rgba(201,162,39,0.15)",
+                "0 12px 40px -12px rgba(10,26,54,0.45), 0 0 0 1px rgba(255,199,44,0.15)",
               maxWidth: "420px",
             },
             success: {
-              iconTheme: { primary: "#C9A227", secondary: "#0A0A0B" },
+              iconTheme: { primary: "#FFC72C", secondary: "#0A1A36" },
               style: {
-                background: "#0A0A0B",
+                background: "#0A1A36",
                 color: "#FFFFFF",
-                border: "1px solid rgba(201,162,39,0.5)",
+                border: "1px solid rgba(255,199,44,0.55)",
               },
             },
             error: {
               iconTheme: { primary: "#EF4444", secondary: "#FFFFFF" },
               style: {
-                background: "#0A0A0B",
+                background: "#0A1A36",
                 color: "#FFFFFF",
-                border: "1px solid rgba(239,68,68,0.5)",
+                border: "1px solid rgba(239,68,68,0.55)",
               },
             },
             loading: {
-              iconTheme: { primary: "#C9A227", secondary: "#0A0A0B" },
+              iconTheme: { primary: "#FFC72C", secondary: "#0A1A36" },
             },
           }}
         />
 
         <AppContextProvider>{children}</AppContextProvider>
 
-        {/* Analytics gate — only loads if cookie consent has been given.
-            Wire your GA / GTM / Plausible / Umami script ID into the env var. */}
         {process.env.NEXT_PUBLIC_ANALYTICS_ID && (
           <Script
             id="analytics-gate"
@@ -335,10 +287,8 @@ export default function RootLayout({ children }) {
               __html: `
                 (function () {
                   try {
-                    var consent = localStorage.getItem('cac.cookieConsent');
+                    var consent = localStorage.getItem('gcsa.cookieConsent');
                     if (consent === 'accepted') {
-                      // Load your analytics here, or dispatch an event
-                      // your provider-specific loader listens for.
                       window.dispatchEvent(new Event('load-analytics'));
                     }
                     window.addEventListener('cookie-consent-change', function (e) {
