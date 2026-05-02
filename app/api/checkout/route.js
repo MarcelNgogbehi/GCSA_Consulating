@@ -32,12 +32,14 @@ import { getProgramme } from "@/lib/programmes";
 
 export const runtime = "nodejs";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-12-18.acacia",
-});
-
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.gcsaconsulting.co.uk";
+
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
+  return new Stripe(key, { apiVersion: "2024-12-18.acacia" });
+}
 
 // Stripe metadata values must be strings ≤ 500 chars; clamp defensively.
 const clamp = (v, max = 490) =>
@@ -86,7 +88,7 @@ export async function POST(req) {
     }
 
     // ── Create Checkout Session ──────────────────────────────────────
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
 
