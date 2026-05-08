@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FiArrowUpRight } from "react-icons/fi";
-
+import { assets } from "../assets/assets";
 /**
  * About — GCSA Consulting | Our Story + What Sets Us Apart
  *
@@ -69,8 +69,7 @@ const DIFFERENTIATORS = [
   },
 ];
 
-const PORTRAIT_IMAGE =
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1600&q=85";
+const PORTRAIT_IMAGE = assets.Mr_Marcel;
 
 const About = () => {
   const [headerRef, headerVisible] = useReveal();

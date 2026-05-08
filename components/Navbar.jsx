@@ -50,7 +50,6 @@ const NAV_ITEMS = [
     label: "Training",
     href: "/training",
   },
-  { label: "Plans & Pricing", href: "/plans-pricing" },
   { label: "Contact", href: "/contact" },
 ];
 

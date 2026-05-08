@@ -1,4 +1,8 @@
 import logo from "./logo.svg";
+import Mr_Marcel from "./Mr Marcel.jpg";
+import GCSA1 from "./GCSA1.jpg";
+import GCSA2 from "./GCSA2.jpg";
+import GCSA3 from "./GCSA3.jpg";
 import search_icon from "./search_icon.svg";
 import user_icon from "./user_icon.svg";
 import cart_icon from "./cart_icon.svg";
@@ -50,6 +54,11 @@ import charles from "./charles.jpg";
 
 export const assets = {
   logo,
+  Mr_Marcel,
+  GCSA1,
+  GCSA2,
+  GCSA3,
+  checkmark,
   search_icon,
   user_icon,
   cart_icon,

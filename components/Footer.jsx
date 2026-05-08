@@ -29,7 +29,6 @@ const PRIMARY_LINKS = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/#services" },
   { label: "Plans & Pricing", href: "/plans-pricing" },
-  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
 

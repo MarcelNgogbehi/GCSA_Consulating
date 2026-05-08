@@ -6,6 +6,7 @@ import Image from "next/image";
 import Script from "next/script";
 import { FiArrowRight, FiArrowUpRight, FiLinkedin } from "react-icons/fi";
 import { LuTarget, LuLightbulb, LuHandshake, LuAward } from "react-icons/lu";
+import { assets } from "@/assets/assets";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -131,32 +132,28 @@ const TEAM = [
     name: "Marcel Ngogbehei",
     role: "CEO",
     bio: "Founder and chief strategist. Leads GCSA's global consulting practice with a focus on transformation, governance, and growth.",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=85",
+    image: assets.Mr_Marcel,
     linkedin: "#",
   },
   {
     name: "Don Francis",
     role: "Tech Lead",
     bio: "Heads the Technology Advisory and Enterprise Architecture practices. Specialist in cloud strategy, integration, and digital transformation.",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85",
+    image: assets.GCSA3,
     linkedin: "#",
   },
   {
     name: "Alexa Young",
     role: "Product Manager",
     bio: "Drives product strategy and delivery across client engagements. Expert in roadmapping, market expansion, and stakeholder alignment.",
-    image:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=85",
+    image: assets.GCSA2,
     linkedin: "#",
   },
   {
     name: "Robert Rose",
     role: "Product Designer",
     bio: "Leads design thinking and customer-experience workstreams. Translates strategy into elegant, usable, business-ready interfaces.",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=900&q=85",
+    image: assets.GCSA1,
     linkedin: "#",
   },
 ];
@@ -769,7 +766,7 @@ const TeamSection = () => {
           </div>
 
           <Link
-            href="/careers"
+            href="/contact"
             className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#0A1A36] text-[#0A1A36] hover:bg-[#0A1A36] hover:text-white text-[11px] font-bold tracking-[0.16em] uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 transition-all duration-300 self-start"
           >
             Join the team

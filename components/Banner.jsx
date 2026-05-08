@@ -45,23 +45,12 @@ function useReveal(options = { threshold: 0.12, rootMargin: "0px 0px -60px 0px" 
 }
 
 const REGIONS = [
+
   {
     code: "01",
-    name: "Africa",
-    description: "Supporting growth-stage enterprises and public-sector reform across emerging African economies.",
-    keywords: ["Market entry", "Public sector", "Infrastructure"],
-  },
-  {
-    code: "02",
     name: "Europe",
-    description: "Headquartered in London. Advising regulated industries, scale-ups, and established enterprises across the UK and EU.",
-    keywords: ["London HQ", "Regulated industries", "Governance"],
-  },
-  {
-    code: "03",
-    name: "Asia",
-    description: "Partnering with organisations expanding into and across Asian markets — from strategy through execution.",
-    keywords: ["Expansion", "Operating models", "Technology"],
+    description: "Our sole office is headquartered in London, from which we advise regulated industries, scale-ups, and established enterprises across the UK, EU, Africa, and Asia.",
+    keywords: ["London HQ", "Regulated industries", "Governance", "Africa", "Europe", "Asia"],
   },
 ];
 
@@ -109,11 +98,11 @@ const GlobalReach = () => {
                 headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
               ].join(" ")}
             >
-              Three continents.{" "}
+              One office.{" "}
               <span className="font-light italic" style={{ color: "#FFC72C" }}>
-                One
+                Global
               </span>{" "}
-              standard of work.
+              impact.
             </h2>
           </div>
 
@@ -124,11 +113,13 @@ const GlobalReach = () => {
                 headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
               ].join(" ")}
             >
-              From our London HQ, we serve clients across Africa, Europe, and
-              Asia — supporting startups disrupting their markets and
-              established enterprises exploring new geographies. Whatever the
-              continent, the consulting standard is the same: tailored,
-              collaborative, and proven.
+              Whether you&rsquo;re a startup aiming to disrupt the market or an
+              established enterprise seeking to explore new geographic locations
+              in Africa, Europe and Asia — or you want to elevate your
+              performance — GCSA is your trusted partner for strategic
+              excellence and business transformation.
+              <br /><br />
+              Explore the possibilities with us. Let&rsquo;s redefine success, together.
             </p>
             <Link
               href="/contact"
@@ -150,8 +141,8 @@ const GlobalReach = () => {
           </div>
         </div>
 
-        {/* 3 columns */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {/* Single office card */}
+        <div ref={gridRef} className="grid grid-cols-1 gap-6 md:gap-8">
           {REGIONS.map((r, i) => (
             <RegionCard key={r.code} region={r} index={i} visible={gridVisible} />
           ))}
@@ -206,7 +197,7 @@ const RegionCard = ({ region, index, visible }) => {
   return (
     <article
       className={[
-        "group relative bg-white p-7 md:p-9 lg:p-10 rounded-sm border border-[#0A1A36]/10 hover:border-[#FFC72C] hover:-translate-y-1 transition-all duration-500 ease-out",
+        "group relative bg-white p-7 md:p-10 lg:p-12 rounded-sm border border-[#0A1A36]/10 hover:border-[#FFC72C] hover:-translate-y-1 transition-all duration-500 ease-out",
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
       ].join(" ")}
       style={{ transitionDelay: visible ? `${140 * index}ms` : "0ms" }}
@@ -218,35 +209,41 @@ const RegionCard = ({ region, index, visible }) => {
         aria-hidden="true"
       />
 
-      <div className="flex items-baseline justify-between mb-6">
-        <span
-          className="text-[36px] md:text-[44px] font-extrabold leading-none"
-          style={{ color: "#FFC72C" }}
-        >
-          {code}
-        </span>
-        <span className="text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#0A1A36]/40">
-          Region
-        </span>
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div>
+          <div className="flex items-baseline justify-between mb-6">
+            <span
+              className="text-[36px] md:text-[44px] font-extrabold leading-none"
+              style={{ color: "#FFC72C" }}
+            >
+              {code}
+            </span>
+            <span className="text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#0A1A36]/40">
+              Region
+            </span>
+          </div>
 
-      <h3 className="font-extrabold leading-[1.1] tracking-[-0.01em] text-[#0A1A36] text-[28px] md:text-[34px] mb-4">
-        {name}
-      </h3>
+          <h3 className="font-extrabold leading-[1.1] tracking-[-0.01em] text-[#0A1A36] text-[28px] md:text-[34px] mb-4">
+            {name}
+          </h3>
+        </div>
 
-      <p className="text-[14px] md:text-[14.5px] leading-[1.7] text-[#0A1A36]/70 mb-6 min-h-[80px]">
-        {description}
-      </p>
+        <div className="flex flex-col justify-between">
+          <p className="text-[14px] md:text-[15px] leading-[1.75] text-[#0A1A36]/70 mb-6">
+            {description}
+          </p>
 
-      <div className="flex flex-wrap gap-2 pt-5 border-t border-[#0A1A36]/10">
-        {keywords.map((k) => (
-          <span
-            key={k}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0A1A36]/[0.04] text-[10.5px] font-semibold tracking-[0.06em] uppercase text-[#0A1A36]/65"
-          >
-            {k}
-          </span>
-        ))}
+          <div className="flex flex-wrap gap-2 pt-5 border-t border-[#0A1A36]/10">
+            {keywords.map((k) => (
+              <span
+                key={k}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0A1A36]/[0.04] text-[10.5px] font-semibold tracking-[0.06em] uppercase text-[#0A1A36]/65"
+              >
+                {k}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </article>
   );
