@@ -95,10 +95,11 @@ const TARGET_ROLES = [
 ];
 
 const PROGRAMME_BENEFITS = [
-  "Real-world architecture experience",
-  "Portfolio to showcase your skills",
-  "Confidence to apply for architect roles",
-  "A clear roadmap for your next step",
+  "Intensive hands-on training with industry experts",
+  "Real-life enterprise case studies",
+  "Portfolio-ready architecture artefacts",
+  "Expert-led coaching & mentorship",
+  "Designed for professionals ready to level up",
 ];
 
 const Training = () => {
@@ -142,11 +143,11 @@ const Training = () => {
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
             ].join(" ")}
           >
-            Build the skills.{" "}
+            Ready to Become an{" "}
             <span className="font-light italic" style={{ color: "#FFC72C" }}>
-              Lead
+              Architect
             </span>{" "}
-            the change.
+            in Just 6 Weeks?
           </h2>
 
           <p
@@ -155,11 +156,10 @@ const Training = () => {
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
             ].join(" ")}
           >
-            Beyond consulting, we run intensive, hands-on training programmes
-            that turn ambitious professionals into the architects, leaders, and
-            strategists their organisations need next. Live sessions, practical
-            workshops, and a certificate of completion — all designed to
-            fast-track your next career chapter.
+            Stop watching others lead transformation programmes while you remain
+            stuck delivering requirements. This is your opportunity to
+            transition into high-impact Architecture roles with real-world,
+            hands-on experience.
           </p>
         </div>
 
@@ -235,10 +235,11 @@ const Training = () => {
                     aria-hidden="true"
                   />
                   <p className="text-[14px] md:text-[16px] leading-[1.65] text-white/90 font-medium">
-                    A 6-week intensive, hands-on programme to{" "}
+                    This is your opportunity to transition into{" "}
                     <span className="font-extrabold" style={{ color: "#FFC72C" }}>
-                      fast-track you into architecture roles.
-                    </span>
+                      high-impact Architecture roles
+                    </span>{" "}
+                    with hands-on experience across Solution, Business, Data, Application, Platform, and Technology Architecture.
                   </p>
                 </div>
 
@@ -270,7 +271,7 @@ const Training = () => {
                 {/* Walk-away outcomes */}
                 <div className="mt-9 md:mt-11">
                   <p className="text-[10.5px] md:text-[11px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-4">
-                    You Will Walk Away With
+                    You'll be part of:
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
                     {PROGRAMME_BENEFITS.map((b) => (
@@ -293,7 +294,7 @@ const Training = () => {
                     href="/training"
                     className="group inline-flex items-center gap-2 px-7 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] md:text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] hover:shadow-[0_14px_36px_-8px_rgba(255,199,44,0.75)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A1A36] focus-visible:ring-[#FFC72C] transition-all duration-300"
                   >
-                    Register Today
+                    Secure Your Spot Today
                     <FiArrowUpRight
                       className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       aria-hidden="true"
@@ -332,6 +333,27 @@ const Training = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Location & contact strip */}
+                <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <FiUsers className="shrink-0 w-4 h-4" style={{ color: "#FFC72C" }} aria-hidden="true" />
+                    <span className="text-[12px] md:text-[13px] text-white/80 font-medium">
+                      Classes in <span className="font-bold text-white">London, Wales, Scotland &amp; North Ireland</span>
+                    </span>
+                  </div>
+                  <a
+                    href="mailto:info@gcsaconsulting.co.uk"
+                    className="text-[12px] md:text-[13px] font-bold text-[#FFC72C] hover:text-white transition-colors"
+                  >
+                    info@gcsaconsulting.co.uk
+                  </a>
+                </div>
+
+                {/* Sign-off */}
+                <p className="mt-5 text-[13px] md:text-[14px] leading-[1.6] italic text-white/60 font-medium">
+                  "Your next career breakthrough is only 6 weeks away."
+                </p>
               </div>
 
               {/* RIGHT — Skillsets panel */}
@@ -415,10 +437,10 @@ const Training = () => {
                 </span>
                 <div>
                   <div className="text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]/70">
-                    Limited Seats
+                    Limited Cohort · High Demand
                   </div>
                   <div className="text-[14px] md:text-[15px] font-extrabold text-[#0A1A36] leading-tight">
-                    Next cohort starting soon — secure your spot
+                    If you're serious about your career, the time to act is NOW.
                   </div>
                 </div>
               </div>
@@ -426,7 +448,7 @@ const Training = () => {
                 href="/training"
                 className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0A1A36] hover:bg-[#06122A] text-white text-[10.5px] font-extrabold tracking-[0.18em] uppercase transition-all duration-300 self-start sm:self-auto"
               >
-                Secure your spot
+                Secure Your Spot Today
                 <FiArrowUpRight
                   className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"

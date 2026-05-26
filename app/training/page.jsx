@@ -393,18 +393,18 @@ const PageHero = () => {
           id="training-hero-heading"
           className="font-extrabold leading-[0.98] tracking-[-0.02em] text-white text-[44px] sm:text-[60px] md:text-[80px] lg:text-[96px] max-w-5xl"
         >
-          Build the skills.{" "}
+          Ready to Become an{" "}
           <span className="font-light italic" style={{ color: "#FFC72C" }}>
-            Lead
+            Architect
           </span>{" "}
-          the change.
+          in Just 6 Weeks?
         </h1>
 
         <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
-          Intensive, hands-on programmes that turn ambitious professionals into
-          the architects, strategists, and leaders their organisations need
-          next. Live sessions, practical workshops, and a Certificate of
-          Completion — all delivered by practising GCSA consultants.
+          Stop watching others lead transformation programmes while you remain
+          stuck delivering requirements. This is your opportunity to transition
+          into high-impact Architecture roles with real-world, hands-on
+          experience — delivered by practising GCSA consultants.
         </p>
 
         <div className="mt-10 md:mt-12 flex flex-wrap gap-3">
@@ -500,7 +500,7 @@ const ProgrammeDivider = () => {
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-[#0A1A36] text-white">
             <span className="w-2 h-2 rounded-full bg-[#FFC72C] animate-pulse" />
             <span className="text-[10px] md:text-[11px] font-extrabold tracking-[0.22em] uppercase">
-              Now Enrolling — Active Programme
+              Limited Cohort · High Demand — Now Enrolling
             </span>
           </span>
           <span className="flex-1 h-px bg-[#0A1A36]/15" />
@@ -574,10 +574,10 @@ const ProgrammeHero = ({ onRegister }) => {
             </div>
 
             <p className="mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
-              A 6-week intensive, hands-on programme that fast-tracks
-              professionals from any background into architecture roles.
-              Practising GCSA consultants, real transformation cases, and a
-              portfolio you can show in interviews.
+              This is your opportunity to transition into high-impact
+              Architecture roles with real-world, hands-on experience across
+              Solution, Business, Data, Application, Platform, and Technology
+              Architecture — led by practising GCSA consultants.
             </p>
           </div>
 
@@ -621,12 +621,12 @@ const ProgrammeHero = ({ onRegister }) => {
                 className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C] transition-all duration-300"
               >
                 <FiCreditCard className="w-4 h-4" />
-                Register Today
+                Secure Your Spot Today
                 <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
 
               <p className="mt-4 text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#0A1A36]/55 text-center">
-                Limited Seats · Next cohort starting soon
+                Limited Cohort · High Demand
               </p>
             </div>
           </div>
@@ -941,7 +941,7 @@ const Included = ({ onRegister }) => {
               onClick={onRegister}
               className="group inline-flex items-center gap-2 px-7 py-4 rounded-full bg-[#0A1A36] hover:bg-[#06122A] text-white text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-md hover:shadow-lg transition-all duration-300"
             >
-              Reserve your seat
+              Secure Your Spot Today
               <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
           </div>
@@ -1046,13 +1046,25 @@ const ScheduleInvestment = ({ onRegister }) => {
                 className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C] transition-all duration-300"
               >
                 <FiCreditCard className="w-4 h-4" />
-                Register & Pay
+                Secure Your Spot Today
                 <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
 
               <p className="mt-4 text-[11px] text-white/55 text-center">
                 Secure checkout via Stripe · Cards accepted globally
               </p>
+
+              <div className="mt-6 pt-5 border-t border-white/10 space-y-2">
+                <p className="text-[11.5px] font-bold text-white/80">
+                  📍 Classes in London, Wales, Scotland &amp; North Ireland
+                </p>
+                <a
+                  href="mailto:info@gcsaconsulting.co.uk"
+                  className="block text-[11.5px] font-bold text-[#FFC72C] hover:text-white transition-colors"
+                >
+                  📩 info@gcsaconsulting.co.uk
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1267,16 +1279,16 @@ const FinalCta = ({ onRegister }) => {
       <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto py-20 md:py-28 lg:py-32 text-center">
         <p className="flex items-center justify-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
           <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
-          Limited Seats · Next cohort starting soon
+          Limited Cohort · High Demand
           <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
         </p>
         <h2 className="font-extrabold leading-[0.98] tracking-[-0.025em] text-white text-[44px] md:text-[68px] lg:text-[88px] max-w-4xl mx-auto">
-          Secure your spot{" "}
-          <span className="font-light italic" style={{ color: "#FFC72C" }}>now</span>.
+          Your next career breakthrough is only{" "}
+          <span className="font-light italic" style={{ color: "#FFC72C" }}>6 weeks</span>{" "}away.
         </h2>
         <p className="mt-8 max-w-xl mx-auto text-[15px] md:text-[17px] leading-[1.7] text-white/75">
-          Six weeks from registration to a portfolio-ready architect's toolkit.
-          One investment. One career step.
+          If you're serious about accelerating your career and positioning
+          yourself for Architecture opportunities, the time to act is NOW.
         </p>
         <button
           type="button"
@@ -1284,9 +1296,17 @@ const FinalCta = ({ onRegister }) => {
           className="group mt-10 inline-flex items-center gap-2 px-9 py-5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[13px] font-extrabold tracking-[0.2em] uppercase shadow-[0_14px_40px_-10px_rgba(255,199,44,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06122A] focus-visible:ring-[#FFC72C] transition-all duration-300"
         >
           <FiCreditCard className="w-5 h-5" />
-          Register Today — {PRICE_LABEL}
+          Secure Your Spot Today — {PRICE_LABEL}
           <FiArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
         </button>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-[13px] text-white/60">
+          <span>📍 Classes in London, Wales, Scotland &amp; North Ireland</span>
+          <span className="hidden sm:inline text-white/30">·</span>
+          <a href="mailto:info@gcsaconsulting.co.uk" className="font-bold text-[#FFC72C] hover:text-white transition-colors">
+            📩 info@gcsaconsulting.co.uk
+          </a>
+        </div>
       </div>
     </section>
   );
