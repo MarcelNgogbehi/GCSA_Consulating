@@ -589,17 +589,6 @@ const ProgrammeHero = ({ onRegister }) => {
                 style={{ backgroundColor: "#FFC72C" }}
                 aria-hidden="true"
               />
-              <p className="text-[10.5px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-3">
-                Investment
-              </p>
-              <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-[44px] md:text-[52px] font-extrabold leading-none tracking-[-0.02em]">
-                  {PRICE_LABEL}
-                </span>
-              </div>
-              <p className="text-[12px] text-[#0A1A36]/60 mb-6">
-                One-time payment · GBP · Inclusive
-              </p>
 
               <ul className="space-y-2 mb-7">
                 {[
@@ -1028,17 +1017,6 @@ const ScheduleInvestment = ({ onRegister }) => {
             </div>
 
             <div className="lg:col-span-5 p-8 md:p-12 lg:p-14 bg-gradient-to-br from-[#06122A] to-[#0A1A36] lg:border-l border-white/10 flex flex-col justify-center">
-              <p className="text-[10.5px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-4">
-                Investment
-              </p>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-[64px] md:text-[80px] font-extrabold leading-none tracking-[-0.02em] text-white">
-                  {PRICE_LABEL}
-                </span>
-              </div>
-              <p className="text-[13px] text-white/65 mb-8">
-                One-time payment · GBP · Inclusive of all programme materials
-              </p>
 
               <button
                 type="button"
