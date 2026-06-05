@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getProgramme } from "@/lib/programmes";
+import {
+  getProgramme,
+  getCheckoutLineItem,
+  PAYMENT_PLANS,
+} from "@/lib/programmes";
 
 /**
  * POST /api/checkout
@@ -53,6 +57,7 @@ export async function POST(req) {
 
     const {
       programmeId,
+      plan,
       firstName,
       lastName,
       email,
@@ -74,6 +79,15 @@ export async function POST(req) {
     if (!programme) {
       return NextResponse.json({ error: "Unknown programme" }, { status: 404 });
     }
+
+    // Default to the registration fee if no plan is supplied. The amount is
+    // resolved server-side — the client only ever sends the plan name.
+    const selectedPlan = PAYMENT_PLANS.includes(plan) ? plan : "registration";
+    const lineItem = getCheckoutLineItem(programme, selectedPlan);
+    if (!lineItem) {
+      return NextResponse.json({ error: "Invalid payment plan" }, { status: 400 });
+    }
+
     if (!firstName || !lastName || !isEmail(email) || !phone || !country) {
       return NextResponse.json(
         { error: "Missing or invalid personal details" },
@@ -95,17 +109,17 @@ export async function POST(req) {
       // Customer info — Stripe will pre-fill these on the hosted checkout
       customer_email: clamp(email, 200),
 
-      // Line items — price is server-controlled
+      // Line items — price is server-controlled (derived from the plan)
       line_items: [
         {
           quantity: 1,
           price_data: {
             currency: programme.currency,
-            unit_amount: programme.priceInPence,
+            unit_amount: lineItem.unitAmount,
             product_data: {
-              name: programme.name,
-              description: programme.description,
-              metadata: { programmeId: programme.id },
+              name: lineItem.name,
+              description: lineItem.description,
+              metadata: { programmeId: programme.id, plan: selectedPlan },
             },
           },
         },
@@ -118,6 +132,7 @@ export async function POST(req) {
       // Capture full registration in metadata; the webhook reads it back
       metadata: {
         programmeId: clamp(programme.id, 100),
+        plan: clamp(selectedPlan, 40),
         firstName: clamp(firstName, 100),
         lastName: clamp(lastName, 100),
         email: clamp(email, 200),

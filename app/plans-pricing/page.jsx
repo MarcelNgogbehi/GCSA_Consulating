@@ -13,6 +13,17 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PROGRAMMES, formatGBP, totalInPence } from "@/lib/programmes";
+
+// ── Training pricing — derived from the single source of truth ──────────
+const TRAINING = PROGRAMMES["transition-to-architecture"];
+const TRAINING_PRICE = {
+  registration: formatGBP(TRAINING.registrationFeeInPence),
+  course: formatGBP(TRAINING.courseFeeInPence),
+  total: formatGBP(totalInPence(TRAINING)),
+  instalments: TRAINING.instalments,
+  instalmentAmount: formatGBP(TRAINING.instalmentAmountInPence),
+};
 
 /**
  * Plans & Pricing — GCSA Consulting UK LTD
@@ -28,7 +39,9 @@ import Footer from "@/components/Footer";
  * Pricing strategy:
  *  - Consulting engagements are quoted bespoke; we show a "starting from"
  *    indicator and lead every tier to /contact for a tailored proposal.
- *  - Training is fixed-price; we show £1,495 and link to the registration page.
+ *  - Training is fixed-price: £300 registration fee + £1,200 course fee
+ *    (£1,500 total), with the course fee payable in 4 weekly instalments
+ *    of £300. Links to /training for registration.
  */
 
 function useReveal(options = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }) {
@@ -520,20 +533,45 @@ const TrainingCallout = () => {
 
             <div className="lg:col-span-5">
               <div className="bg-gradient-to-br from-white to-[#FBF8F1] text-[#0A1A36] rounded-xl p-7 md:p-8 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.4)]">
-                <p className="text-[10.5px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-3">
-                  Investment
+
+                <p className="text-[10px] font-bold tracking-[0.26em] uppercase text-[#0A1A36]/50 mb-1.5">
+                  Reserve your seat from
                 </p>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-[56px] md:text-[64px] font-extrabold leading-none tracking-[-0.02em]">
-                    £1,495
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-[44px] md:text-[48px] font-extrabold leading-none tracking-[-0.02em] text-[#0A1A36]">
+                    {TRAINING_PRICE.registration}
+                  </span>
+                  <span className="text-[12px] font-bold text-[#0A1A36]/55">
+                    registration fee
                   </span>
                 </div>
-                <p className="text-[12px] text-[#0A1A36]/60 mb-6">
-                  One-time payment · GBP · Inclusive
+
+                <dl className="space-y-2.5 mb-5 pb-5 border-b border-[#0A1A36]/10">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[12.5px] text-[#0A1A36]/70">Registration fee</dt>
+                    <dd className="text-[13px] font-extrabold text-[#0A1A36]">{TRAINING_PRICE.registration}</dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[12.5px] text-[#0A1A36]/70">Course fee</dt>
+                    <dd className="text-[13px] font-extrabold text-[#0A1A36]">{TRAINING_PRICE.course}</dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#FFC72C]">Total</dt>
+                    <dd className="text-[16px] font-extrabold text-[#0A1A36]">{TRAINING_PRICE.total}</dd>
+                  </div>
+                </dl>
+
+                <p className="text-[12px] leading-[1.6] text-[#0A1A36]/65 mb-6">
+                  Pay the {TRAINING_PRICE.registration} registration fee to secure your
+                  place — the {TRAINING_PRICE.course} course fee can be spread over{" "}
+                  <span className="font-bold text-[#0A1A36]">
+                    {TRAINING_PRICE.instalments} weekly instalments of {TRAINING_PRICE.instalmentAmount}
+                  </span>
+                  .
                 </p>
 
                 <Link
-                  href="/training/transition-to-architecture"
+                  href="/training"
                   className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] transition-all duration-300"
                 >
                   Register Today

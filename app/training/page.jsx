@@ -26,6 +26,7 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PROGRAMMES, formatGBP, totalInPence } from "@/lib/programmes";
 
 /**
  * /training — GCSA Training (single-page)
@@ -45,11 +46,9 @@ import Footer from "@/components/Footer";
  *   7.  Who it's for
  *   8.  What's included
  *   9.  Schedule + Investment block (registration trigger)
- *   10. Testimonials
- *   11. Programme FAQs
- *   12. Coming-soon programmes
- *   13. Corporate / in-house training
- *   14. Final CTA
+ *   10. Programme FAQs
+ *   11. Corporate / in-house training
+ *   12. Final CTA
  *
  * Plus the embedded RegistrationModal (Stripe Checkout flow).
  *
@@ -58,7 +57,36 @@ import Footer from "@/components/Footer";
 
 const PROGRAMME_ID = "transition-to-architecture";
 const PROGRAMME_NAME = "Transition to Architecture in 6 Weeks";
-const PRICE_LABEL = "£1,495";
+
+// ── Pricing — derived from the single source of truth (lib/programmes.js)
+const PROGRAMME = PROGRAMMES[PROGRAMME_ID];
+const PRICING = {
+  registration: formatGBP(PROGRAMME.registrationFeeInPence), // £300
+  course: formatGBP(PROGRAMME.courseFeeInPence), //             £1,200
+  total: formatGBP(totalInPence(PROGRAMME)), //                 £1,500
+  instalments: PROGRAMME.instalments, //                        4
+  instalmentAmount: formatGBP(PROGRAMME.instalmentAmountInPence), // £300
+};
+
+// Payment plans offered in the registration modal
+const PAYMENT_PLAN_OPTIONS = [
+  {
+    id: "registration",
+    label: "Secure my place",
+    amount: PRICING.registration,
+    amountNote: "Registration fee · due today",
+    blurb: `Pay the ${PRICING.registration} registration fee now to lock in your seat. The ${PRICING.course} course fee is then spread across ${PRICING.instalments} weekly instalments of ${PRICING.instalmentAmount}.`,
+    highlight: true,
+  },
+  {
+    id: "full",
+    label: "Pay in full",
+    amount: PRICING.total,
+    amountNote: "Registration + course · due today",
+    blurb: `Settle everything in one payment — ${PRICING.registration} registration + ${PRICING.course} course fee. Nothing further to pay.`,
+    highlight: false,
+  },
+];
 
 // ═══════════════════════════════════════════════════════════════════════
 // Reveal-on-scroll hook
@@ -203,20 +231,11 @@ const INCLUDED = [
   "Certificate of Completion",
 ];
 
-const TESTIMONIALS = [
-  {
-    quote: "This programme gave me the practical experience and confidence I needed to step into an Architecture role.",
-    name: "Past Participant",
-    role: "Now: Solution Architect",
-  },
-  {
-    quote: "The combination of live sessions, real cases, and direct feedback from practising consultants is exactly what made the difference.",
-    name: "Past Participant",
-    role: "Now: Enterprise Architect",
-  },
-];
-
 const FAQS = [
+  {
+    q: "How much does the programme cost, and can I pay in instalments?",
+    a: "The programme is £1,500 in total — a £300 registration fee plus a £1,200 course fee. You can pay everything in one go, or pay the £300 registration fee to secure your place and spread the £1,200 course fee across 4 weekly instalments of £300. You choose your plan at checkout.",
+  },
   {
     q: "What's the time commitment per week?",
     a: "Plan for around 6–8 hours per week: live sessions, workshops, and self-paced exercises. Sessions are scheduled outside standard working hours where possible to accommodate working professionals.",
@@ -289,9 +308,10 @@ const COURSE_LD = {
   },
   offers: {
     "@type": "Offer",
-    price: "1495",
+    category: "Paid",
+    price: (totalInPence(PROGRAMME) / 100).toFixed(2),
     priceCurrency: "GBP",
-    availability: "https://schema.org/InStock",
+    availability: "https://schema.org/LimitedAvailability",
     url: "https://www.gcsaconsulting.co.uk/training",
   },
   inLanguage: "en-GB",
@@ -334,7 +354,6 @@ const TrainingPage = () => {
         <WhoFor />
         <Included onRegister={openModal} />
         <ScheduleInvestment onRegister={openModal} />
-        <Testimonials />
         <FAQ />
 
         <CorporateTraining />
@@ -348,7 +367,6 @@ const TrainingPage = () => {
         onClose={closeModal}
         programmeId={PROGRAMME_ID}
         programmeName={PROGRAMME_NAME}
-        priceLabel={PRICE_LABEL}
       />
     </>
   );
@@ -589,6 +607,25 @@ const ProgrammeHero = ({ onRegister }) => {
                 style={{ backgroundColor: "#FFC72C" }}
                 aria-hidden="true"
               />
+
+              <p className="text-[10px] font-bold tracking-[0.26em] uppercase text-[#0A1A36]/50 mb-1.5">
+                Reserve your seat from
+              </p>
+              <div className="flex items-baseline gap-2 mb-1">
+                <span className="text-[44px] md:text-[48px] font-extrabold leading-none tracking-[-0.02em] text-[#0A1A36]">
+                  {PRICING.registration}
+                </span>
+                <span className="text-[12px] font-bold text-[#0A1A36]/55">
+                  registration fee
+                </span>
+              </div>
+              <p className="text-[12.5px] leading-[1.6] text-[#0A1A36]/70 mb-6">
+                Then {PRICING.course} course fee — pay in full or across{" "}
+                <span className="font-bold text-[#0A1A36]">
+                  {PRICING.instalments} weekly instalments of {PRICING.instalmentAmount}
+                </span>
+                . {PRICING.total} total.
+              </p>
 
               <ul className="space-y-2 mb-7">
                 {[
@@ -1018,6 +1055,36 @@ const ScheduleInvestment = ({ onRegister }) => {
 
             <div className="lg:col-span-5 p-8 md:p-12 lg:p-14 bg-gradient-to-br from-[#06122A] to-[#0A1A36] lg:border-l border-white/10 flex flex-col justify-center">
 
+              <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-4">
+                Your Investment
+              </p>
+
+              <dl className="space-y-3 mb-5">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-[13px] text-white/75">Registration fee</dt>
+                  <dd className="text-[15px] font-extrabold text-white">{PRICING.registration}</dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-[13px] text-white/75">Course fee</dt>
+                  <dd className="text-[15px] font-extrabold text-white">{PRICING.course}</dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4 pt-3 border-t border-white/10">
+                  <dt className="text-[11px] font-bold tracking-[0.18em] uppercase text-[#FFC72C]">Total</dt>
+                  <dd className="text-[22px] font-extrabold text-white leading-none">{PRICING.total}</dd>
+                </div>
+              </dl>
+
+              <div className="flex items-start gap-2.5 mb-7 p-3.5 rounded-sm bg-[#FFC72C]/[0.08] border border-[#FFC72C]/25">
+                <FiCreditCard className="shrink-0 mt-0.5 w-4 h-4" style={{ color: "#FFC72C" }} />
+                <p className="text-[12px] leading-[1.55] text-white/80">
+                  Spread the course fee over{" "}
+                  <span className="font-bold text-white">
+                    {PRICING.instalments} weekly instalments of {PRICING.instalmentAmount}
+                  </span>{" "}
+                  — pay the {PRICING.registration} registration fee today to secure your place.
+                </p>
+              </div>
+
               <button
                 type="button"
                 onClick={onRegister}
@@ -1052,62 +1119,7 @@ const ScheduleInvestment = ({ onRegister }) => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// 10. Testimonials
-// ═══════════════════════════════════════════════════════════════════════
-const Testimonials = () => {
-  return (
-    <section
-      aria-labelledby="testimonials-heading"
-      className="relative bg-white py-20 md:py-28"
-    >
-      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-        <div className="max-w-3xl mb-12 md:mb-16">
-          <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60 mb-6">
-            <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
-            What Past Participants Say
-          </p>
-          <h2
-            id="testimonials-heading"
-            className="font-extrabold leading-[1.02] tracking-[-0.02em] text-[#0A1A36] text-[32px] md:text-[42px] lg:text-[48px]"
-          >
-            Real results from{" "}
-            <span className="font-light italic" style={{ color: "#FFC72C" }}>
-              real careers
-            </span>
-            .
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {TESTIMONIALS.map((t, i) => (
-            <figure
-              key={i}
-              className="relative bg-[#FBF8F1] border border-[#0A1A36]/10 rounded-sm p-8 md:p-10"
-            >
-              <div className="flex items-center gap-1 mb-5">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <svg key={s} className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="#FFC72C" aria-hidden="true">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.366 2.446a1 1 0 00-.364 1.118l1.286 3.957c.3.922-.755 1.688-1.54 1.118l-3.366-2.446a1 1 0 00-1.176 0l-3.366 2.446c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.957z" />
-                  </svg>
-                ))}
-              </div>
-              <blockquote className="text-[16px] md:text-[18px] leading-[1.55] italic text-[#0A1A36]/85 mb-6">
-                "{t.quote}"
-              </blockquote>
-              <figcaption>
-                <div className="text-[13px] font-extrabold text-[#0A1A36]">{t.name}</div>
-                <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-[#FFC72C] mt-1">{t.role}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// ═══════════════════════════════════════════════════════════════════════
-// 11. Programme FAQs
+// 10. Programme FAQs
 // ═══════════════════════════════════════════════════════════════════════
 const FAQ = () => {
   const [openIdx, setOpenIdx] = useState(0);
@@ -1274,7 +1286,7 @@ const FinalCta = ({ onRegister }) => {
           className="group mt-10 inline-flex items-center gap-2 px-9 py-5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[13px] font-extrabold tracking-[0.2em] uppercase shadow-[0_14px_40px_-10px_rgba(255,199,44,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06122A] focus-visible:ring-[#FFC72C] transition-all duration-300"
         >
           <FiCreditCard className="w-5 h-5" />
-          Secure Your Spot Today — {PRICE_LABEL}
+          Secure Your Spot Today
           <FiArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
         </button>
 
@@ -1298,7 +1310,6 @@ const RegistrationModal = ({
   onClose,
   programmeId,
   programmeName,
-  priceLabel,
 }) => {
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState(1);
@@ -1316,6 +1327,7 @@ const RegistrationModal = ({
     motivation: "",
     hearAbout: "LinkedIn",
     consent: false,
+    plan: "registration",
   });
 
   useEffect(() => setMounted(true), []);
@@ -1368,12 +1380,15 @@ const RegistrationModal = ({
     return true;
   };
 
-  const next = () => validateStep1() && setStep(2);
-  const back = () => setStep(1);
+  const next = () => {
+    if (step === 1) return validateStep1() && setStep(2);
+    if (step === 2) return validateStep2() && setStep(3);
+  };
+  const back = () => setStep((s) => Math.max(1, s - 1));
 
   const submit = async (e) => {
     e?.preventDefault();
-    if (!validateStep2()) return;
+    if (!validateStep1() || !validateStep2()) return;
 
     setSubmitting(true);
     try {
@@ -1383,6 +1398,7 @@ const RegistrationModal = ({
         body: JSON.stringify({
           programmeId,
           programmeName,
+          plan: form.plan,
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),
           email: form.email.trim(),
@@ -1456,9 +1472,9 @@ const RegistrationModal = ({
           <div className="mt-5 flex items-center gap-3">
             <Step n={1} active={step >= 1} done={step > 1} label="Your details" />
             <span className="flex-1 h-px bg-[#0A1A36]/15" />
-            <Step n={2} active={step >= 2} done={false} label="Background" />
+            <Step n={2} active={step >= 2} done={step > 2} label="Background" />
             <span className="flex-1 h-px bg-[#0A1A36]/15" />
-            <Step n={3} active={false} done={false} label="Payment" />
+            <Step n={3} active={step >= 3} done={false} label="Payment" />
           </div>
         </div>
 
@@ -1505,6 +1521,86 @@ const RegistrationModal = ({
               </label>
             </div>
           )}
+
+          {step === 3 && (
+            <div key="step-3" className="animate-[stepFade_350ms_ease-out_forwards]">
+              <p className="text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]/65 mb-1">
+                Choose how to pay
+              </p>
+              <p className="text-[13px] leading-[1.6] text-[#0A1A36]/70 mb-5">
+                The programme is{" "}
+                <span className="font-bold text-[#0A1A36]">{PRICING.total}</span> in
+                total — {PRICING.registration} registration fee plus {PRICING.course}{" "}
+                course fee.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4" role="radiogroup" aria-label="Payment plan">
+                {PAYMENT_PLAN_OPTIONS.map((opt) => {
+                  const selected = form.plan === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={selected}
+                      onClick={() => setForm((s) => ({ ...s, plan: opt.id }))}
+                      className={[
+                        "relative text-left p-5 rounded-lg border-2 bg-white transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60",
+                        selected
+                          ? "border-[#FFC72C] shadow-[0_10px_30px_-12px_rgba(255,199,44,0.7)]"
+                          : "border-[#0A1A36]/12 hover:border-[#0A1A36]/30",
+                      ].join(" ")}
+                    >
+                      {opt.highlight && (
+                        <span className="absolute top-3 right-3 inline-flex px-2 py-1 rounded-full bg-[#FFC72C] text-[8.5px] font-extrabold tracking-[0.16em] uppercase text-[#0A1A36]">
+                          Popular
+                        </span>
+                      )}
+                      <span
+                        className={[
+                          "inline-flex items-center justify-center w-5 h-5 rounded-full border-2 mb-3 transition-colors",
+                          selected ? "border-[#FFC72C] bg-[#FFC72C]" : "border-[#0A1A36]/25",
+                        ].join(" ")}
+                        aria-hidden="true"
+                      >
+                        {selected && <FiCheck className="w-3 h-3 text-[#0A1A36]" strokeWidth={3.5} />}
+                      </span>
+                      <div className="text-[13px] font-bold tracking-[-0.01em] text-[#0A1A36] mb-1">
+                        {opt.label}
+                      </div>
+                      <div className="flex items-baseline gap-1.5 mb-1">
+                        <span className="text-[28px] font-extrabold leading-none tracking-[-0.02em] text-[#0A1A36]">
+                          {opt.amount}
+                        </span>
+                      </div>
+                      <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-[#FFC72C] mb-3">
+                        {opt.amountNote}
+                      </div>
+                      <p className="text-[12px] leading-[1.55] text-[#0A1A36]/65">
+                        {opt.blurb}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-5 flex items-start gap-2.5 p-4 rounded-sm bg-[#0A1A36]/[0.04] border border-[#0A1A36]/10">
+                <FiLock className="shrink-0 mt-0.5 w-3.5 h-3.5 text-[#FFC72C]" />
+                <p className="text-[12px] leading-[1.6] text-[#0A1A36]/70">
+                  You'll be redirected to{" "}
+                  <span className="font-bold text-[#0A1A36]">Stripe</span> to pay your{" "}
+                  {form.plan === "full" ? PRICING.total : PRICING.registration} securely.
+                  {form.plan === "registration" && (
+                    <>
+                      {" "}
+                      The remaining {PRICING.course} is then collected in{" "}
+                      {PRICING.instalments} weekly instalments of {PRICING.instalmentAmount}.
+                    </>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
         </form>
 
         {/* Footer */}
@@ -1513,13 +1609,12 @@ const RegistrationModal = ({
             <FiLock className="w-3.5 h-3.5 text-[#FFC72C]" />
             <span>
               Secure checkout via{" "}
-              <span className="font-bold text-[#0A1A36]">Stripe</span>. Total:{" "}
-              <span className="font-extrabold text-[#0A1A36]">{priceLabel}</span>
+              <span className="font-bold text-[#0A1A36]">Stripe</span>
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            {step === 2 && (
+            {step > 1 && (
               <button
                 type="button"
                 onClick={back}
@@ -1529,7 +1624,7 @@ const RegistrationModal = ({
                 Back
               </button>
             )}
-            {step === 1 ? (
+            {step < 3 ? (
               <button
                 type="button"
                 onClick={next}
@@ -1553,7 +1648,7 @@ const RegistrationModal = ({
                 ) : (
                   <>
                     <FiCreditCard className="w-4 h-4" />
-                    Pay {priceLabel}
+                    Pay {form.plan === "full" ? PRICING.total : PRICING.registration}
                   </>
                 )}
               </button>
