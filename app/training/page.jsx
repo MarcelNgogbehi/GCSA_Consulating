@@ -1419,6 +1419,15 @@ const RegistrationModal = ({
         window.location.href = data.url;
         return;
       }
+      // Stripe isn't configured yet — the registration was still captured.
+      if (data?.pending) {
+        toast.success(
+          data.message ||
+            "Registration received! We'll email you shortly to arrange payment."
+        );
+        onClose?.();
+        return;
+      }
       throw new Error("No checkout URL returned");
     } catch (err) {
       toast.error(err.message || "Something went wrong. Please try again.");

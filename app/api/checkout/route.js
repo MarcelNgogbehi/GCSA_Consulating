@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import { randomUUID } from "crypto";
 import Stripe from "stripe";
+import prisma from "@/lib/prisma";
+import { notifyRegistration } from "@/lib/email";
 import {
   getProgramme,
   getCheckoutLineItem,
@@ -9,19 +12,26 @@ import {
 /**
  * POST /api/checkout
  *
- * Creates a Stripe Checkout Session for a programme registration.
+ * Registers a trainee and starts payment.
+ *
+ * The registration is ALWAYS persisted to the database first (as a
+ * "pending" lead) so it appears in the admin dashboard immediately —
+ * even if the visitor never finishes payment, and even if Stripe is not
+ * yet configured. The Stripe webhook later upgrades the same record to
+ * "paid" once payment completes.
  *
  * Request body:
  * {
  *   programmeId: "transition-to-architecture",
- *   programmeName: "...",
+ *   plan: "registration" | "full",
  *   firstName, lastName, email, phone, country,
  *   currentRole, experience, company, linkedin,
  *   motivation, hearAbout
  * }
  *
  * Response:
- *   200 → { url: "https://checkout.stripe.com/..." }
+ *   200 → { url: "https://checkout.stripe.com/..." }   (Stripe configured)
+ *   200 → { pending: true, message: "..." }            (Stripe not configured)
  *   400/500 → { error: "..." }
  *
  * Security:
@@ -30,7 +40,8 @@ import {
  *    and reads it back in the webhook handler when payment succeeds
  *
  * Required env vars:
- *  - STRIPE_SECRET_KEY        (sk_test_... or sk_live_...)
+ *  - STRIPE_SECRET_KEY        (sk_test_... or sk_live_...) — optional; lead is
+ *                             still captured without it
  *  - NEXT_PUBLIC_SITE_URL     (https://www.gcsaconsulting.co.uk)
  */
 
@@ -41,7 +52,7 @@ const SITE_URL =
 
 function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
+  if (!key) return null;
   return new Stripe(key, { apiVersion: "2024-12-18.acacia" });
 }
 
@@ -101,59 +112,93 @@ export async function POST(req) {
       );
     }
 
-    // ── Create Checkout Session ──────────────────────────────────────
-    const session = await getStripe().checkout.sessions.create({
-      mode: "payment",
-      payment_method_types: ["card"],
+    // ── Trainee details (shared by the DB record and Stripe metadata) ──
+    const details = {
+      programmeId: clamp(programme.id, 100),
+      plan: clamp(selectedPlan, 40),
+      firstName: clamp(firstName, 100),
+      lastName: clamp(lastName, 100),
+      email: clamp(String(email).toLowerCase(), 200),
+      phone: clamp(phone, 50),
+      country: clamp(country, 100),
+      currentRole: clamp(currentRole, 100),
+      experience: clamp(experience, 50),
+      company: clamp(company, 200),
+      linkedin: clamp(linkedin, 300),
+      motivation: clamp(motivation, 490),
+      hearAbout: clamp(hearAbout, 100),
+    };
 
-      // Customer info — Stripe will pre-fill these on the hosted checkout
-      customer_email: clamp(email, 200),
+    const stripe = getStripe();
 
-      // Line items — price is server-controlled (derived from the plan)
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: programme.currency,
-            unit_amount: lineItem.unitAmount,
-            product_data: {
-              name: lineItem.name,
-              description: lineItem.description,
-              metadata: { programmeId: programme.id, plan: selectedPlan },
+    // ── Create the Stripe Checkout Session (if Stripe is configured) ──
+    let session = null;
+    if (stripe) {
+      session = await stripe.checkout.sessions.create({
+        mode: "payment",
+        payment_method_types: ["card"],
+        customer_email: details.email,
+
+        // Line items — price is server-controlled (derived from the plan)
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency: programme.currency,
+              unit_amount: lineItem.unitAmount,
+              product_data: {
+                name: lineItem.name,
+                description: lineItem.description,
+                metadata: { programmeId: programme.id, plan: selectedPlan },
+              },
             },
           },
-        },
-      ],
+        ],
 
-      // Where Stripe sends the user back
-      success_url: `${SITE_URL}${programme.successPath}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${SITE_URL}${programme.cancelPath}?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${SITE_URL}${programme.successPath}?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${SITE_URL}${programme.cancelPath}?session_id={CHECKOUT_SESSION_ID}`,
 
-      // Capture full registration in metadata; the webhook reads it back
-      metadata: {
-        programmeId: clamp(programme.id, 100),
-        plan: clamp(selectedPlan, 40),
-        firstName: clamp(firstName, 100),
-        lastName: clamp(lastName, 100),
-        email: clamp(email, 200),
-        phone: clamp(phone, 50),
-        country: clamp(country, 100),
-        currentRole: clamp(currentRole, 100),
-        experience: clamp(experience, 50),
-        company: clamp(company, 200),
-        linkedin: clamp(linkedin, 300),
-        motivation: clamp(motivation, 490),
-        hearAbout: clamp(hearAbout, 100),
+        // Capture full registration in metadata; the webhook reads it back
+        metadata: details,
+
+        locale: "auto",
+        billing_address_collection: "required",
+        allow_promotion_codes: true,
+        submit_type: "pay",
+      });
+    }
+
+    // ── Persist the registration so it shows in the admin dashboard ──
+    // With Stripe: keyed by the real session id → webhook upgrades to "paid".
+    // Without Stripe: keyed by a placeholder → stays "awaiting_payment".
+    const stripeSessionId = session?.id || `pending_${randomUUID()}`;
+    await prisma.registration.upsert({
+      where: { stripeSessionId },
+      update: { ...details },
+      create: {
+        ...details,
+        stripeSessionId,
+        amountTotal: lineItem.unitAmount,
+        currency: programme.currency,
+        paymentStatus: session ? "pending" : "awaiting_payment",
       },
-
-      // Locale + UI niceties
-      locale: "auto",
-      billing_address_collection: "required",
-      allow_promotion_codes: true,
-      submit_type: "pay",
     });
 
-    return NextResponse.json({ url: session.url, id: session.id });
+    if (session) {
+      return NextResponse.json({ url: session.url, id: session.id });
+    }
+
+    // Stripe not configured — the lead is captured; notify the team so they
+    // can follow up to arrange payment.
+    await Promise.allSettled([
+      notifyRegistration({ ...details, paymentStatus: "awaiting_payment" }),
+    ]);
+
+    return NextResponse.json({
+      pending: true,
+      message:
+        "Your registration has been received. Our team will email you shortly to arrange payment and confirm your place.",
+    });
   } catch (err) {
     console.error("[/api/checkout] error:", err);
     return NextResponse.json(

@@ -1,0 +1,78 @@
+// Prisma schema for GCSA Consulting — PostgreSQL.
+//
+// After editing this file:
+//   npx prisma generate     # regenerate the typed client
+//   npx prisma db push      # create/update tables in your database
+//
+// View/edit data in a browser GUI:
+//   npx prisma studio
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// A paid programme registration (written by the Stripe webhook).
+model Registration {
+  id               String   @id @default(cuid())
+  stripeSessionId  String   @unique
+  stripeCustomerId String?
+  paymentIntentId  String?
+  amountTotal      Int? // minor units (pence)
+  currency         String?
+  paymentStatus    String?
+
+  programmeId String?
+  plan        String?
+
+  firstName   String
+  lastName    String
+  email       String
+  phone       String?
+  country     String?
+  currentRole String?
+  experience  String?
+  company     String?
+  linkedin    String?
+  motivation  String?
+  hearAbout   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([programmeId])
+}
+
+/// A newsletter sign-up from the footer form.
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  source    String   @default("footer")
+  status    String   @default("subscribed") // "subscribed" | "unsubscribed"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// A submission from the Contact Us page.
+model ContactMessage {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  company   String?
+  subject   String   @default("General Enquiry")
+  message   String
+  handled   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}

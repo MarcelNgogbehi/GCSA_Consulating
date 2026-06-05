@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import {
   FaLinkedinIn,
   FaXTwitter,
@@ -62,15 +63,34 @@ const Footer = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
 
-  const onSubscribe = (e) => {
+  const onSubscribe = async (e) => {
     e.preventDefault();
     if (!email) return;
-    // TODO: wire to real subscription endpoint
-    setSubmitted(true);
-    setEmail("");
-    setFirstName("");
-    setLastName("");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setSubscribing(true);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, firstName, lastName }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Subscription failed");
+      setSubmitted(true);
+      setEmail("");
+      setFirstName("");
+      setLastName("");
+    } catch (err) {
+      toast.error(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setSubscribing(false);
+    }
   };
 
   return (
@@ -230,9 +250,10 @@ const Footer = () => {
                 />
                 <button
                   type="submit"
-                  className="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-[0_8px_24px_-8px_rgba(255,199,44,0.5)] hover:shadow-[0_12px_32px_-8px_rgba(255,199,44,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06122A] focus-visible:ring-[#FFC72C] transition-all duration-300"
+                  disabled={subscribing}
+                  className="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-[0_8px_24px_-8px_rgba(255,199,44,0.5)] hover:shadow-[0_12px_32px_-8px_rgba(255,199,44,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06122A] focus-visible:ring-[#FFC72C] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Subscribe
+                  {subscribing ? "Subscribing…" : "Subscribe"}
                   <FiArrowUpRight
                     className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     aria-hidden="true"

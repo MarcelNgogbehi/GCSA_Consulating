@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import prisma from "@/lib/prisma";
+import { confirmRegistration, notifyRegistration } from "@/lib/email";
 
 /**
  * POST /api/webhook
@@ -121,39 +123,41 @@ async function handleCheckoutCompleted(session) {
     linkedin: m.linkedin,
     motivation: m.motivation,
     hearAbout: m.hearAbout,
-    createdAt: new Date().toISOString(),
+    plan: m.plan,
   };
 
-  // ── TODO: Persist to your database ───────────────────────────────────
-  // Example with Prisma:
-  //   await prisma.registration.create({ data: registration });
+  // ── Persist to Postgres (idempotent) ─────────────────────────────────
+  // /api/checkout already wrote this registration as "pending" keyed by the
+  // same stripeSessionId, so we UPSERT: upgrade the existing row to "paid"
+  // (or create it if, for any reason, the checkout write didn't land).
   //
-  // Example with Supabase:
-  //   await supabase.from("registrations").insert(registration);
-  //
-  // Example with a simple webhook to Airtable / Notion / Make.com:
-  //   await fetch(process.env.AIRTABLE_WEBHOOK_URL, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(registration),
-  //   });
+  // Stripe may deliver this event more than once. If the row is already
+  // "paid", we've handled it — skip re-emailing.
+  const existing = await prisma.registration.findUnique({
+    where: { stripeSessionId: registration.stripeSessionId },
+  });
+  if (existing?.paymentStatus === "paid") {
+    console.log("[webhook] duplicate event, already paid:", registration.stripeSessionId);
+    return;
+  }
 
-  console.log("[webhook] paid registration:", registration);
+  await prisma.registration.upsert({
+    where: { stripeSessionId: registration.stripeSessionId },
+    update: {
+      stripeCustomerId: registration.stripeCustomerId,
+      paymentIntentId: registration.paymentIntentId,
+      amountTotal: registration.amountTotal,
+      currency: registration.currency,
+      paymentStatus: registration.paymentStatus, // "paid"
+    },
+    create: registration,
+  });
 
-  // ── TODO: Send confirmation email ────────────────────────────────────
-  // Example with Resend:
-  //   await resend.emails.send({
-  //     from: "GCSA Consulting <noreply@gcsaconsulting.co.uk>",
-  //     to: registration.email,
-  //     subject: "Welcome to Transition to Architecture — your seat is confirmed",
-  //     html: welcomeEmailHtml(registration),
-  //   });
+  console.log("[webhook] stored paid registration:", registration.email, registration.programmeId);
 
-  // ── TODO: Notify GCSA team ───────────────────────────────────────────
-  // Example with Slack:
-  //   await fetch(process.env.SLACK_WEBHOOK_URL, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ text: `New registration: ${registration.firstName} ${registration.lastName} — ${registration.programmeId}` }),
-  //   });
+  // ── Notify team + confirm to participant (best-effort) ──────────────
+  await Promise.allSettled([
+    notifyRegistration(registration),
+    confirmRegistration(registration),
+  ]);
 }
