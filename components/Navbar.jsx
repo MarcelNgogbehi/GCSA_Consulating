@@ -147,7 +147,7 @@ const Navbar = () => {
                   className={[
                     "font-extrabold tracking-[0.04em] whitespace-nowrap transition-colors duration-300",
                     scrolled ? "text-[#0A1A36]" : "text-white",
-                    "text-[18px] md:text-[19px] lg:text-[20px]",
+                    "text-[30px] sm:text-[20px] md:text-[21px] lg:text-[22px] xl:text-[35px]",
                   ].join(" ")}
                 >
                   GCSA
@@ -168,7 +168,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden xl:flex items-center gap-1" aria-label="Primary">
+            <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
               {NAV_ITEMS.map((item) => {
                 const hasChildren = !!item.children;
                 const isOpen = openDropdown === item.label;
@@ -183,7 +183,7 @@ const Navbar = () => {
                     <Link
                       href={item.href}
                       className={[
-                        "group relative inline-flex items-center gap-1.5 px-3 py-2 text-[15px] font-semibold tracking-[0.02em] rounded-sm transition-colors duration-200",
+                        "group relative inline-flex items-center gap-1.5 px-3 py-2 text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[20px] font-semibold tracking-[0.02em] rounded-sm transition-colors duration-200",
                         textColor,
                         "hover:text-[#FFC72C] focus:text-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40",
                       ].join(" ")}
@@ -235,11 +235,11 @@ const Navbar = () => {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden xl:flex items-center gap-3 shrink-0">
+            <div className="hidden lg:flex items-center gap-3 shrink-0">
               <Link
                 href="/contact"
                 className={[
-                  "group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[14px] font-bold tracking-[0.14em] uppercase transition-all duration-300",
+                  "group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[15px] md:text-[16px] lg:text-[17px] font-bold tracking-[0.14em] uppercase transition-all duration-300",
                   "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C]",
                   scrolled
                     ? "bg-[#0A1A36] hover:bg-[#06122A] text-white shadow-sm hover:shadow-md focus-visible:ring-offset-white"
@@ -260,7 +260,7 @@ const Navbar = () => {
               type="button"
               onClick={() => setMobileOpen((v) => !v)}
               className={[
-                "xl:hidden inline-flex items-center justify-center w-11 h-11 rounded-sm transition-colors",
+                "lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-sm transition-colors",
                 textColor,
                 "hover:text-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40",
               ].join(" ")}
@@ -282,7 +282,7 @@ const Navbar = () => {
       <div
         id="mobile-nav"
         className={[
-          "fixed inset-0 z-40 xl:hidden transition-opacity duration-300",
+          "fixed inset-0 z-40 lg:hidden transition-opacity duration-300",
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
         ].join(" ")}
         aria-hidden={!mobileOpen}
@@ -294,15 +294,15 @@ const Navbar = () => {
         />
         <div
           className={[
-            "absolute top-0 right-0 bottom-0 w-full sm:w-[420px] bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-out",
+            "absolute top-0 right-0 bottom-0 w-full sm:w-[420px] md:w-[480px] lg:w-[420px] bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-out",
             mobileOpen ? "translate-x-0" : "translate-x-full",
           ].join(" ")}
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <div className="flex items-center justify-between px-6 h-[68px] border-b border-[#0A1A36]/10">
-            <span className="text-[14px] font-extrabold tracking-[0.04em] text-[#0A1A36]">
+            <div className="flex items-center justify-between px-6 h-[68px] border-b border-[#0A1A36]/10">
+            <span className="text-[16px] md:text-[18px] font-extrabold tracking-[0.04em] text-[#0A1A36]">
               GCSA <span className="font-light">CONSULTING</span>
             </span>
             <button
@@ -323,11 +323,11 @@ const Navbar = () => {
             </ul>
           </nav>
 
-          <div className="p-6 border-t border-[#0A1A36]/10 space-y-3">
+            <div className="p-6 border-t border-[#0A1A36]/10 space-y-3">
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] font-bold tracking-[0.14em] uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C]"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[14px] md:text-[15px] font-bold tracking-[0.14em] uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C]"
             >
               Start Now
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
@@ -335,7 +335,7 @@ const Navbar = () => {
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border-2 border-[#0A1A36] text-[#0A1A36] text-[11px] font-bold tracking-[0.14em] uppercase transition-colors hover:bg-[#0A1A36] hover:text-white"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border-2 border-[#0A1A36] text-[#0A1A36] text-[14px] md:text-[15px] font-bold tracking-[0.14em] uppercase transition-colors hover:bg-[#0A1A36] hover:text-white"
             >
               Apply Now
             </Link>
@@ -356,7 +356,7 @@ const MobileNavItem = ({ item, onNavigate }) => {
         <Link
           href={item.href}
           onClick={onNavigate}
-          className="flex items-center justify-between py-3.5 text-[15px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
+          className="flex items-center justify-between py-3.5 text-[17px] md:text-[18px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
         >
           {item.label}
         </Link>
@@ -392,7 +392,7 @@ const MobileNavItem = ({ item, onNavigate }) => {
               <Link
                 href={child.href}
                 onClick={onNavigate}
-                className="block py-2.5 pl-3 text-[13.5px] text-[#0A1A36]/75 hover:text-[#FFC72C] transition-colors"
+                className="block py-2.5 pl-3 text-[15px] text-[#0A1A36]/75 hover:text-[#FFC72C] transition-colors"
               >
                 {child.label}
               </Link>
