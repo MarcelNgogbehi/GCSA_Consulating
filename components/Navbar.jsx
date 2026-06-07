@@ -183,7 +183,7 @@ const Navbar = () => {
                     <Link
                       href={item.href}
                       className={[
-                        "group relative inline-flex items-center gap-1.5 px-3 py-2 text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[20px] font-semibold tracking-[0.02em] rounded-sm transition-colors duration-200",
+                        "group relative inline-flex items-center gap-1.5 px-3 py-2 text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-semibold tracking-[0.02em] rounded-sm transition-colors duration-200",
                         textColor,
                         "hover:text-[#FFC72C] focus:text-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40",
                       ].join(" ")}
@@ -239,7 +239,7 @@ const Navbar = () => {
               <Link
                 href="/contact"
                 className={[
-                  "group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[15px] md:text-[16px] lg:text-[17px] font-bold tracking-[0.14em] uppercase transition-all duration-300",
+                  "group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[14px] md:text-[15px] lg:text-[16px] font-bold tracking-[0.14em] uppercase transition-all duration-300",
                   "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C]",
                   scrolled
                     ? "bg-[#0A1A36] hover:bg-[#06122A] text-white shadow-sm hover:shadow-md focus-visible:ring-offset-white"
@@ -302,7 +302,7 @@ const Navbar = () => {
           aria-label="Mobile navigation"
         >
             <div className="flex items-center justify-between px-6 h-[68px] border-b border-[#0A1A36]/10">
-            <span className="text-[16px] md:text-[18px] font-extrabold tracking-[0.04em] text-[#0A1A36]">
+            <span className="text-[15px] md:text-[16px] font-extrabold tracking-[0.04em] text-[#0A1A36]">
               GCSA <span className="font-light">CONSULTING</span>
             </span>
             <button
@@ -356,7 +356,7 @@ const MobileNavItem = ({ item, onNavigate }) => {
         <Link
           href={item.href}
           onClick={onNavigate}
-          className="flex items-center justify-between py-3.5 text-[17px] md:text-[18px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
+          className="flex items-center justify-between py-3.5 text-[15px] md:text-[16px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
         >
           {item.label}
         </Link>
