@@ -103,24 +103,24 @@ const Navbar = () => {
           <div
             className={[
               "flex items-center justify-between transition-all duration-300",
-              scrolled ? "h-[98px]" : "h-[114px]",
+              scrolled ? "h-[68px]" : "h-[84px]",
             ].join(" ")}
           >
             {/* Wordmark */}
             <Link
               href="/"
-              className="flex items-center gap-3 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60 rounded-sm group"
+              className="flex items-center gap-2.5 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60 rounded-sm group"
               aria-label="GCSA Consulting — home"
               onClick={() => setMobileOpen(false)}
             >
               {/* Shield monogram */}
               <svg
-                width="32"
-                height="32"
+                width="36"
+                height="36"
                 viewBox="0 0 32 32"
                 fill="none"
                 aria-hidden="true"
-                className="shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
+                className="h-8 w-8 md:h-9 md:w-9 shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
               >
                 <path
                   d="M16 2 L28 6 V16 C28 22 22.6 27.5 16 30 C9.4 27.5 4 22 4 16 V6 L16 2 Z"
@@ -145,21 +145,20 @@ const Navbar = () => {
               <div className="flex flex-col leading-none">
                 <span
                   className={[
-                    "font-extrabold tracking-[0.04em] whitespace-nowrap transition-colors duration-300",
+                    "font-extrabold tracking-[0.02em] whitespace-nowrap leading-none transition-colors duration-300",
                     scrolled ? "text-[#0A1A36]" : "text-white",
-                    "text-[30px] sm:text-[20px] md:text-[21px] lg:text-[22px] xl:text-[35px]",
+                    "text-[17px] sm:text-[18px] md:text-[19px] lg:text-[20px]",
                   ].join(" ")}
                 >
                   GCSA
-                  <span className="hidden sm:inline font-light">
+                  <span className="hidden sm:inline font-light tracking-[0.06em]">
                     {" "}
                     CONSULTING
                   </span>
                 </span>
                 <span
                   className={[
-                    "hidden sm:block text-[11px] font-semibold tracking-[0.28em] uppercase mt-1 transition-colors duration-300",
-                    scrolled ? "text-[#FFC72C]" : "text-[#FFC72C]",
+                    "hidden sm:block text-[9px] md:text-[9.5px] font-semibold tracking-[0.3em] uppercase mt-1 text-[#FFC72C] transition-colors duration-300",
                   ].join(" ")}
                 >
                   Business Consultants
