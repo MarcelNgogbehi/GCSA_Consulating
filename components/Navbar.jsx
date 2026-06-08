@@ -2,7 +2,22 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import {
+  ChevronDown,
+  Menu,
+  X,
+  ArrowRight,
+  Home,
+  Users,
+  Briefcase,
+  GraduationCap,
+  Mail,
+  ShieldCheck,
+  Server,
+  Building2,
+  Target,
+  Cpu,
+} from "lucide-react";
 
 /**
  * Navbar — GCSA Consulting UK LTD
@@ -33,24 +48,26 @@ const BRAND = {
 
 // Service pillars link to anchor sections on the services page
 const NAV_ITEMS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+  { label: "Home", href: "/", Icon: Home },
+  { label: "About", href: "/about", Icon: Users },
   {
     label: "Services",
     href: "/services",
+    Icon: Briefcase,
     children: [
-      { label: "Corporate Governance", href: "/services#corporate-governance" },
-      { label: "Infrastructure Consulting", href: "/services#infrastructure-consulting" },
-      { label: "Enterprise Architecture", href: "/services#enterprise-architecture" },
-      { label: "Strategy Management", href: "/services#strategy-management" },
-      { label: "Technology Advisory", href: "/services#technology-advisory" },
+      { label: "Corporate Governance", href: "/services#corporate-governance", Icon: ShieldCheck },
+      { label: "Infrastructure Consulting", href: "/services#infrastructure-consulting", Icon: Server },
+      { label: "Enterprise Architecture", href: "/services#enterprise-architecture", Icon: Building2 },
+      { label: "Strategy Management", href: "/services#strategy-management", Icon: Target },
+      { label: "Technology Advisory", href: "/services#technology-advisory", Icon: Cpu },
     ],
   },
   {
     label: "Training",
     href: "/training",
+    Icon: GraduationCap,
   },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/contact", Icon: Mail },
 ];
 
 const Navbar = () => {
@@ -189,6 +206,14 @@ const Navbar = () => {
                       aria-haspopup={hasChildren ? "true" : undefined}
                       aria-expanded={hasChildren ? isOpen : undefined}
                     >
+                      {item.Icon && (
+                        <item.Icon
+                          className="w-[18px] h-[18px] shrink-0 transition-colors duration-200"
+                          strokeWidth={2}
+                          style={{ color: BRAND.gold }}
+                          aria-hidden="true"
+                        />
+                      )}
                       {item.label}
                       {hasChildren && (
                         <ChevronDown
@@ -219,9 +244,17 @@ const Navbar = () => {
                               key={child.label}
                               href={child.href}
                               role="menuitem"
-                              className="block px-5 py-2.5 text-[16px] text-[#0A1A36] hover:text-[#FFC72C] hover:bg-[#0A1A36]/[0.03] focus:bg-[#0A1A36]/[0.03] focus:text-[#FFC72C] focus:outline-none transition-colors font-medium"
+                              className="group/child flex items-center gap-3 px-5 py-2.5 text-[16px] text-[#0A1A36] hover:text-[#FFC72C] hover:bg-[#0A1A36]/[0.03] focus:bg-[#0A1A36]/[0.03] focus:text-[#FFC72C] focus:outline-none transition-colors font-medium"
                               onClick={() => setOpenDropdown(null)}
                             >
+                              {child.Icon && (
+                                <span
+                                  className="inline-flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-[#FFC72C]/12 text-[#FFC72C] group-hover/child:bg-[#FFC72C] group-hover/child:text-[#0A1A36] transition-colors duration-200"
+                                  aria-hidden="true"
+                                >
+                                  <child.Icon className="w-[18px] h-[18px]" strokeWidth={2} />
+                                </span>
+                              )}
                               {child.label}
                             </Link>
                           ))}
@@ -355,8 +388,11 @@ const MobileNavItem = ({ item, onNavigate }) => {
         <Link
           href={item.href}
           onClick={onNavigate}
-          className="flex items-center justify-between py-3.5 text-[15px] md:text-[16px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
+          className="flex items-center gap-3 py-3.5 text-[15px] md:text-[16px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
         >
+          {item.Icon && (
+            <item.Icon className="w-5 h-5 shrink-0 text-[#FFC72C]" strokeWidth={2} aria-hidden="true" />
+          )}
           {item.label}
         </Link>
       </li>
@@ -371,7 +407,12 @@ const MobileNavItem = ({ item, onNavigate }) => {
         className="w-full flex items-center justify-between py-3.5 text-[15px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10 focus:outline-none"
         aria-expanded={expanded}
       >
-        {item.label}
+        <span className="flex items-center gap-3">
+          {item.Icon && (
+            <item.Icon className="w-5 h-5 shrink-0 text-[#FFC72C]" strokeWidth={2} aria-hidden="true" />
+          )}
+          {item.label}
+        </span>
         <ChevronDown
           className={["w-4 h-4 transition-transform duration-200", expanded ? "rotate-180" : ""].join(" ")}
           strokeWidth={2.5}
@@ -391,8 +432,11 @@ const MobileNavItem = ({ item, onNavigate }) => {
               <Link
                 href={child.href}
                 onClick={onNavigate}
-                className="block py-2.5 pl-3 text-[15px] text-[#0A1A36]/75 hover:text-[#FFC72C] transition-colors"
+                className="flex items-center gap-2.5 py-2.5 pl-3 text-[15px] text-[#0A1A36]/75 hover:text-[#FFC72C] transition-colors"
               >
+                {child.Icon && (
+                  <child.Icon className="w-[18px] h-[18px] shrink-0 text-[#FFC72C]" strokeWidth={2} aria-hidden="true" />
+                )}
                 {child.label}
               </Link>
             </li>
