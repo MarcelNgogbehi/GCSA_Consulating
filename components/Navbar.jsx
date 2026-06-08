@@ -7,11 +7,6 @@ import {
   Menu,
   X,
   ArrowRight,
-  Home,
-  Users,
-  Briefcase,
-  GraduationCap,
-  Mail,
   ShieldCheck,
   Server,
   Building2,
@@ -48,12 +43,11 @@ const BRAND = {
 
 // Service pillars link to anchor sections on the services page
 const NAV_ITEMS = [
-  { label: "Home", href: "/", Icon: Home },
-  { label: "About", href: "/about", Icon: Users },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   {
     label: "Services",
     href: "/services",
-    Icon: Briefcase,
     children: [
       { label: "Corporate Governance", href: "/services#corporate-governance", Icon: ShieldCheck },
       { label: "Infrastructure Consulting", href: "/services#infrastructure-consulting", Icon: Server },
@@ -65,9 +59,8 @@ const NAV_ITEMS = [
   {
     label: "Training",
     href: "/training",
-    Icon: GraduationCap,
   },
-  { label: "Contact", href: "/contact", Icon: Mail },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
@@ -206,14 +199,6 @@ const Navbar = () => {
                       aria-haspopup={hasChildren ? "true" : undefined}
                       aria-expanded={hasChildren ? isOpen : undefined}
                     >
-                      {item.Icon && (
-                        <item.Icon
-                          className="w-[18px] h-[18px] shrink-0 transition-colors duration-200"
-                          strokeWidth={2}
-                          style={{ color: BRAND.gold }}
-                          aria-hidden="true"
-                        />
-                      )}
                       {item.label}
                       {hasChildren && (
                         <ChevronDown
@@ -388,11 +373,8 @@ const MobileNavItem = ({ item, onNavigate }) => {
         <Link
           href={item.href}
           onClick={onNavigate}
-          className="flex items-center gap-3 py-3.5 text-[15px] md:text-[16px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
+          className="flex items-center justify-between py-3.5 text-[15px] md:text-[16px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10"
         >
-          {item.Icon && (
-            <item.Icon className="w-5 h-5 shrink-0 text-[#FFC72C]" strokeWidth={2} aria-hidden="true" />
-          )}
           {item.label}
         </Link>
       </li>
@@ -407,12 +389,7 @@ const MobileNavItem = ({ item, onNavigate }) => {
         className="w-full flex items-center justify-between py-3.5 text-[15px] font-semibold text-[#0A1A36] hover:text-[#FFC72C] transition-colors border-b border-[#0A1A36]/10 focus:outline-none"
         aria-expanded={expanded}
       >
-        <span className="flex items-center gap-3">
-          {item.Icon && (
-            <item.Icon className="w-5 h-5 shrink-0 text-[#FFC72C]" strokeWidth={2} aria-hidden="true" />
-          )}
-          {item.label}
-        </span>
+        {item.label}
         <ChevronDown
           className={["w-4 h-4 transition-transform duration-200", expanded ? "rotate-180" : ""].join(" ")}
           strokeWidth={2.5}
