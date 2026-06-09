@@ -13,17 +13,6 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { PROGRAMMES, formatGBP, totalInPence } from "@/lib/programmes";
-
-// ── Training pricing — derived from the single source of truth ──────────
-const TRAINING = PROGRAMMES["transition-to-architecture"];
-const TRAINING_PRICE = {
-  registration: formatGBP(TRAINING.registrationFeeInPence),
-  course: formatGBP(TRAINING.courseFeeInPence),
-  total: formatGBP(totalInPence(TRAINING)),
-  instalments: TRAINING.instalments,
-  instalmentAmount: formatGBP(TRAINING.instalmentAmountInPence),
-};
 
 /**
  * Plans & Pricing — GCSA Consulting UK LTD
@@ -39,9 +28,8 @@ const TRAINING_PRICE = {
  * Pricing strategy:
  *  - Consulting engagements are quoted bespoke; we show a "starting from"
  *    indicator and lead every tier to /contact for a tailored proposal.
- *  - Training is fixed-price: £300 registration fee + £1,200 course fee
- *    (£1,500 total), with the course fee payable in 4 weekly instalments
- *    of £300. Links to /training for registration.
+ *  - Training is paid via a hosted Stripe Payment Link; the price/instalment
+ *    options are shown on the Stripe checkout page. Links to /training.
  */
 
 function useReveal(options = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }) {
@@ -535,40 +523,24 @@ const TrainingCallout = () => {
               <div className="bg-gradient-to-br from-white to-[#FBF8F1] text-[#0A1A36] rounded-xl p-7 md:p-8 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.4)]">
 
                 <p className="text-[10px] font-bold tracking-[0.26em] uppercase text-[#0A1A36]/50 mb-1.5">
-                  Reserve your seat from
+                  Secure your place
                 </p>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-[44px] md:text-[48px] font-extrabold leading-none tracking-[-0.02em] text-[#0A1A36]">
-                    {TRAINING_PRICE.registration}
-                  </span>
-                  <span className="text-[12px] font-bold text-[#0A1A36]/55">
-                    registration fee
-                  </span>
-                </div>
-
-                <dl className="space-y-2.5 mb-5 pb-5 border-b border-[#0A1A36]/10">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <dt className="text-[12.5px] text-[#0A1A36]/70">Registration fee</dt>
-                    <dd className="text-[13px] font-extrabold text-[#0A1A36]">{TRAINING_PRICE.registration}</dd>
-                  </div>
-                  <div className="flex items-baseline justify-between gap-4">
-                    <dt className="text-[12.5px] text-[#0A1A36]/70">Course fee</dt>
-                    <dd className="text-[13px] font-extrabold text-[#0A1A36]">{TRAINING_PRICE.course}</dd>
-                  </div>
-                  <div className="flex items-baseline justify-between gap-4">
-                    <dt className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#FFC72C]">Total</dt>
-                    <dd className="text-[16px] font-extrabold text-[#0A1A36]">{TRAINING_PRICE.total}</dd>
-                  </div>
-                </dl>
-
-                <p className="text-[12px] leading-[1.6] text-[#0A1A36]/65 mb-6">
-                  Pay the {TRAINING_PRICE.registration} registration fee to secure your
-                  place — the {TRAINING_PRICE.course} course fee can be spread over{" "}
-                  <span className="font-bold text-[#0A1A36]">
-                    {TRAINING_PRICE.instalments} weekly instalments of {TRAINING_PRICE.instalmentAmount}
-                  </span>
-                  .
+                <p className="text-[24px] md:text-[26px] font-extrabold leading-[1.15] tracking-[-0.01em] text-[#0A1A36] mb-3">
+                  Reserve your seat in the next cohort.
                 </p>
+
+                <ul className="space-y-2.5 mb-6 pb-5 border-b border-[#0A1A36]/10">
+                  {[
+                    "Register in one quick step",
+                    "Pay securely online via Stripe",
+                    "Flexible weekly instalment options",
+                  ].map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-[13px] text-[#0A1A36]/75">
+                      <FiCheck className="shrink-0 mt-0.5 w-4 h-4 text-[#FFC72C]" strokeWidth={3} />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
 
                 <Link
                   href="/training"

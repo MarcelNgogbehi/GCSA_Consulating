@@ -26,7 +26,6 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { PROGRAMMES, formatGBP, totalInPence } from "@/lib/programmes";
 
 /**
  * /training — GCSA Training (single-page)
@@ -57,16 +56,6 @@ import { PROGRAMMES, formatGBP, totalInPence } from "@/lib/programmes";
 
 const PROGRAMME_ID = "transition-to-architecture";
 const PROGRAMME_NAME = "Transition to Architecture in 6 Weeks";
-
-// ── Pricing — derived from the single source of truth (lib/programmes.js)
-const PROGRAMME = PROGRAMMES[PROGRAMME_ID];
-const PRICING = {
-  registration: formatGBP(PROGRAMME.registrationFeeInPence), // £300
-  course: formatGBP(PROGRAMME.courseFeeInPence), //             £1,200
-  total: formatGBP(totalInPence(PROGRAMME)), //                 £1,500
-  instalments: PROGRAMME.instalments, //                        4
-  instalmentAmount: formatGBP(PROGRAMME.instalmentAmountInPence), // £300
-};
 
 // ═══════════════════════════════════════════════════════════════════════
 // Reveal-on-scroll hook
@@ -213,8 +202,8 @@ const INCLUDED = [
 
 const FAQS = [
   {
-    q: "How much does the programme cost, and can I pay in instalments?",
-    a: "The programme is £1,500 in total — a £300 registration fee plus a £1,200 course fee. You can pay everything in one go, or pay the £300 registration fee to secure your place and spread the £1,200 course fee across 4 weekly instalments of £300. You choose your plan at checkout.",
+    q: "How do I pay, and can I pay in instalments?",
+    a: "You register in one quick step and pay securely online via Stripe. You can pay in full, or spread the cost across flexible weekly instalments — the options and exact amounts are shown on the secure checkout page.",
   },
   {
     q: "What's the time commitment per week?",
@@ -273,8 +262,6 @@ const COURSE_LD = {
   offers: {
     "@type": "Offer",
     category: "Paid",
-    price: (totalInPence(PROGRAMME) / 100).toFixed(2),
-    priceCurrency: "GBP",
     availability: "https://schema.org/LimitedAvailability",
     url: "https://www.gcsaconsulting.co.uk/training",
   },
@@ -573,22 +560,14 @@ const ProgrammeHero = ({ onRegister }) => {
               />
 
               <p className="text-[10px] font-bold tracking-[0.26em] uppercase text-[#0A1A36]/50 mb-1.5">
-                Reserve your seat from
+                Secure your place
               </p>
-              <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-[44px] md:text-[48px] font-extrabold leading-none tracking-[-0.02em] text-[#0A1A36]">
-                  {PRICING.registration}
-                </span>
-                <span className="text-[12px] font-bold text-[#0A1A36]/55">
-                  registration fee
-                </span>
-              </div>
+              <p className="text-[22px] md:text-[24px] font-extrabold leading-[1.15] tracking-[-0.01em] text-[#0A1A36] mb-2">
+                Reserve your seat in the next cohort.
+              </p>
               <p className="text-[12.5px] leading-[1.6] text-[#0A1A36]/70 mb-6">
-                Then {PRICING.course} course fee — pay in full or across{" "}
-                <span className="font-bold text-[#0A1A36]">
-                  {PRICING.instalments} weekly instalments of {PRICING.instalmentAmount}
-                </span>
-                . {PRICING.total} total.
+                Register in one quick step — pay securely online, with flexible
+                weekly instalment options available.
               </p>
 
               <ul className="space-y-2 mb-7">
@@ -1020,32 +999,23 @@ const ScheduleInvestment = ({ onRegister }) => {
             <div className="lg:col-span-5 p-8 md:p-12 lg:p-14 bg-gradient-to-br from-[#06122A] to-[#0A1A36] lg:border-l border-white/10 flex flex-col justify-center">
 
               <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-4">
-                Your Investment
+                Secure Your Place
               </p>
 
-              <dl className="space-y-3 mb-5">
-                <div className="flex items-baseline justify-between gap-4">
-                  <dt className="text-[13px] text-white/75">Registration fee</dt>
-                  <dd className="text-[15px] font-extrabold text-white">{PRICING.registration}</dd>
-                </div>
-                <div className="flex items-baseline justify-between gap-4">
-                  <dt className="text-[13px] text-white/75">Course fee</dt>
-                  <dd className="text-[15px] font-extrabold text-white">{PRICING.course}</dd>
-                </div>
-                <div className="flex items-baseline justify-between gap-4 pt-3 border-t border-white/10">
-                  <dt className="text-[11px] font-bold tracking-[0.18em] uppercase text-[#FFC72C]">Total</dt>
-                  <dd className="text-[22px] font-extrabold text-white leading-none">{PRICING.total}</dd>
-                </div>
-              </dl>
+              <p className="text-[20px] md:text-[22px] font-extrabold leading-[1.2] tracking-[-0.01em] text-white mb-3">
+                Register in one quick step.
+              </p>
+              <p className="text-[13px] leading-[1.65] text-white/75 mb-7">
+                Enter your details and pay securely online to confirm your seat.
+                Flexible weekly instalment options are available at checkout.
+              </p>
 
               <div className="flex items-start gap-2.5 mb-7 p-3.5 rounded-sm bg-[#FFC72C]/[0.08] border border-[#FFC72C]/25">
                 <FiCreditCard className="shrink-0 mt-0.5 w-4 h-4" style={{ color: "#FFC72C" }} />
                 <p className="text-[12px] leading-[1.55] text-white/80">
-                  Spread the course fee over{" "}
-                  <span className="font-bold text-white">
-                    {PRICING.instalments} weekly instalments of {PRICING.instalmentAmount}
-                  </span>{" "}
-                  — pay the {PRICING.registration} registration fee today to secure your place.
+                  Pay in full or spread the cost over{" "}
+                  <span className="font-bold text-white">flexible weekly instalments</span> —
+                  choose what works for you at the secure checkout.
                 </p>
               </div>
 
@@ -1396,8 +1366,7 @@ const RegistrationModal = ({
           </h2>
 
           <p className="mt-3 text-[13px] leading-[1.6] text-[#0A1A36]/70">
-            One quick step to secure your place — your details, then pay the{" "}
-            <span className="font-bold text-[#0A1A36]">{PRICING.registration} registration fee</span>{" "}
+            One quick step to secure your place — enter your details, then pay
             securely via Stripe.
           </p>
         </div>
@@ -1436,9 +1405,8 @@ const RegistrationModal = ({
               <p className="text-[12.5px] leading-[1.6] text-[#0A1A36]/75">
                 Next you'll go to a{" "}
                 <span className="font-bold text-[#0A1A36]">secure Stripe payment page</span>{" "}
-                to pay the {PRICING.registration} registration fee. The {PRICING.course}{" "}
-                course fee can then be spread over {PRICING.instalments} weekly instalments of{" "}
-                {PRICING.instalmentAmount}.
+                to confirm your place. Pay in full or spread the cost over flexible
+                weekly instalments.
               </p>
             </div>
           </div>
