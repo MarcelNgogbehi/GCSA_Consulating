@@ -113,7 +113,7 @@ const Navbar = () => {
           <div
             className={[
               "flex items-center justify-between transition-all duration-300",
-              scrolled ? "h-[68px]" : "h-[84px]",
+              scrolled ? "h-[88px]" : "h-[108px]",
             ].join(" ")}
           >
             {/* Wordmark */}
@@ -125,12 +125,12 @@ const Navbar = () => {
             >
               {/* Shield monogram */}
               <svg
-                width="36"
-                height="36"
+                width="44"
+                height="44"
                 viewBox="0 0 32 32"
                 fill="none"
                 aria-hidden="true"
-                className="h-8 w-8 md:h-9 md:w-9 shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
+                className="h-10 w-10 md:h-12 md:w-12 shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
               >
                 <path
                   d="M16 2 L28 6 V16 C28 22 22.6 27.5 16 30 C9.4 27.5 4 22 4 16 V6 L16 2 Z"
@@ -157,7 +157,7 @@ const Navbar = () => {
                   className={[
                     "font-extrabold tracking-[0.02em] whitespace-nowrap leading-none transition-colors duration-300",
                     scrolled ? "text-[#0A1A36]" : "text-white",
-                    "text-[17px] sm:text-[18px] md:text-[19px] lg:text-[20px]",
+                    "text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px]",
                   ].join(" ")}
                 >
                   GCSA
@@ -168,7 +168,7 @@ const Navbar = () => {
                 </span>
                 <span
                   className={[
-                    "hidden sm:block text-[9px] md:text-[9.5px] font-semibold tracking-[0.3em] uppercase mt-1 text-[#FFC72C] transition-colors duration-300",
+                    "hidden sm:block text-[10px] md:text-[11px] font-semibold tracking-[0.3em] uppercase mt-1.5 text-[#FFC72C] transition-colors duration-300",
                   ].join(" ")}
                 >
                   Business Consultants
@@ -192,7 +192,7 @@ const Navbar = () => {
                     <Link
                       href={item.href}
                       className={[
-                        "group relative inline-flex items-center gap-1.5 px-3 py-2 text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-semibold tracking-[0.02em] rounded-sm transition-colors duration-200",
+                        "group relative inline-flex items-center gap-1.5 px-3.5 py-2 text-[15px] sm:text-[16px] md:text-[16px] lg:text-[17px] xl:text-[18px] font-semibold tracking-[0.02em] rounded-sm transition-colors duration-200",
                         textColor,
                         "hover:text-[#FFC72C] focus:text-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40",
                       ].join(" ")}
@@ -256,7 +256,7 @@ const Navbar = () => {
               <Link
                 href="/contact"
                 className={[
-                  "group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[14px] md:text-[15px] lg:text-[16px] font-bold tracking-[0.14em] uppercase transition-all duration-300",
+                  "group inline-flex items-center gap-2 px-6 py-3 rounded-full text-[15px] md:text-[16px] lg:text-[17px] font-bold tracking-[0.14em] uppercase transition-all duration-300",
                   "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C]",
                   scrolled
                     ? "bg-[#0A1A36] hover:bg-[#06122A] text-white shadow-sm hover:shadow-md focus-visible:ring-offset-white"

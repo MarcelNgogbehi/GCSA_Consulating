@@ -68,26 +68,6 @@ const PRICING = {
   instalmentAmount: formatGBP(PROGRAMME.instalmentAmountInPence), // £300
 };
 
-// Payment plans offered in the registration modal
-const PAYMENT_PLAN_OPTIONS = [
-  {
-    id: "registration",
-    label: "Secure my place",
-    amount: PRICING.registration,
-    amountNote: "Registration fee · due today",
-    blurb: `Pay the ${PRICING.registration} registration fee now to lock in your seat. The ${PRICING.course} course fee is then spread across ${PRICING.instalments} weekly instalments of ${PRICING.instalmentAmount}.`,
-    highlight: true,
-  },
-  {
-    id: "full",
-    label: "Pay in full",
-    amount: PRICING.total,
-    amountNote: "Registration + course · due today",
-    blurb: `Settle everything in one payment — ${PRICING.registration} registration + ${PRICING.course} course fee. Nothing further to pay.`,
-    highlight: false,
-  },
-];
-
 // ═══════════════════════════════════════════════════════════════════════
 // Reveal-on-scroll hook
 // ═══════════════════════════════════════════════════════════════════════
@@ -263,27 +243,11 @@ const FAQS = [
 ];
 
 // Registration form options
-const ROLE_OPTIONS = [
-  "Business Analyst",
-  "Developer / Engineer",
-  "Project / Programme Manager",
-  "Product Owner",
-  "IT / Operations Professional",
-  "Other",
-];
 const EXPERIENCE_OPTIONS = [
   "Less than 2 years",
   "2–5 years",
   "5–10 years",
   "10+ years",
-];
-const HEAR_ABOUT_OPTIONS = [
-  "LinkedIn",
-  "Search engine",
-  "Referral",
-  "Email / Newsletter",
-  "Social media",
-  "Other",
 ];
 
 // JSON-LD
@@ -1312,32 +1276,16 @@ const RegistrationModal = ({
   programmeName,
 }) => {
   const [mounted, setMounted] = useState(false);
-  const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     phone: "",
-    country: "",
-    currentRole: "Business Analyst",
     experience: "2–5 years",
-    company: "",
-    linkedin: "",
-    motivation: "",
-    hearAbout: "LinkedIn",
     consent: false,
-    plan: "registration",
   });
 
   useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    if (!open) {
-      const t = setTimeout(() => setStep(1), 300);
-      return () => clearTimeout(t);
-    }
-  }, [open]);
 
   useEffect(() => {
     if (open) {
@@ -1363,32 +1311,18 @@ const RegistrationModal = ({
     setForm((s) => ({ ...s, [name]: type === "checkbox" ? checked : value }));
   };
 
-  const validateStep1 = () => {
-    if (!form.firstName.trim()) return toast.error("Please enter your first name."), false;
-    if (!form.lastName.trim()) return toast.error("Please enter your last name."), false;
+  const validate = () => {
+    if (!form.name.trim()) return toast.error("Please enter your name."), false;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim()))
       return toast.error("Please enter a valid email address."), false;
-    if (!form.phone.trim()) return toast.error("Please enter a phone number."), false;
-    if (!form.country.trim()) return toast.error("Please enter your country."), false;
-    return true;
-  };
-
-  const validateStep2 = () => {
-    if (!form.motivation.trim() || form.motivation.trim().length < 20)
-      return toast.error("Please share at least a couple of sentences about your motivation."), false;
+    if (!form.phone.trim()) return toast.error("Please enter your mobile number."), false;
     if (!form.consent) return toast.error("Please confirm you accept the terms to continue."), false;
     return true;
   };
 
-  const next = () => {
-    if (step === 1) return validateStep1() && setStep(2);
-    if (step === 2) return validateStep2() && setStep(3);
-  };
-  const back = () => setStep((s) => Math.max(1, s - 1));
-
   const submit = async (e) => {
     e?.preventDefault();
-    if (!validateStep1() || !validateStep2()) return;
+    if (!validate()) return;
 
     setSubmitting(true);
     try {
@@ -1398,37 +1332,20 @@ const RegistrationModal = ({
         body: JSON.stringify({
           programmeId,
           programmeName,
-          plan: form.plan,
-          firstName: form.firstName.trim(),
-          lastName: form.lastName.trim(),
+          name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
-          country: form.country.trim(),
-          currentRole: form.currentRole,
           experience: form.experience,
-          company: form.company.trim(),
-          linkedin: form.linkedin.trim(),
-          motivation: form.motivation.trim(),
-          hearAbout: form.hearAbout,
         }),
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Could not start checkout");
+      if (!res.ok) throw new Error(data?.error || "Could not start registration");
       if (data?.url) {
-        window.location.href = data.url;
+        window.location.href = data.url; // → Stripe Payment Link
         return;
       }
-      // Stripe isn't configured yet — the registration was still captured.
-      if (data?.pending) {
-        toast.success(
-          data.message ||
-            "Registration received! We'll email you shortly to arrange payment."
-        );
-        onClose?.();
-        return;
-      }
-      throw new Error("No checkout URL returned");
+      throw new Error("No payment link returned");
     } catch (err) {
       toast.error(err.message || "Something went wrong. Please try again.");
       setSubmitting(false);
@@ -1478,138 +1395,53 @@ const RegistrationModal = ({
             {programmeName}
           </h2>
 
-          <div className="mt-5 flex items-center gap-3">
-            <Step n={1} active={step >= 1} done={step > 1} label="Your details" />
-            <span className="flex-1 h-px bg-[#0A1A36]/15" />
-            <Step n={2} active={step >= 2} done={step > 2} label="Background" />
-            <span className="flex-1 h-px bg-[#0A1A36]/15" />
-            <Step n={3} active={step >= 3} done={false} label="Payment" />
-          </div>
+          <p className="mt-3 text-[13px] leading-[1.6] text-[#0A1A36]/70">
+            One quick step to secure your place — your details, then pay the{" "}
+            <span className="font-bold text-[#0A1A36]">{PRICING.registration} registration fee</span>{" "}
+            securely via Stripe.
+          </p>
         </div>
 
-        {/* Body */}
+        {/* Body — single step */}
         <form onSubmit={submit} noValidate className="flex-1 overflow-y-auto px-6 md:px-10 py-6 md:py-8 bg-[#FBF8F1]">
-          {step === 1 && (
-            <div key="step-1" className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 animate-[stepFade_350ms_ease-out_forwards]">
-              <Field label="First Name" name="firstName" value={form.firstName} onChange={onChange} required />
-              <Field label="Last Name" name="lastName" value={form.lastName} onChange={onChange} required />
-              <Field label="Email" name="email" type="email" value={form.email} onChange={onChange} required full />
-              <Field label="Phone (with country code)" name="phone" type="tel" value={form.phone} onChange={onChange} required placeholder="+44 1234 567890" />
-              <Field label="Country of residence" name="country" value={form.country} onChange={onChange} required placeholder="United Kingdom" />
-            </div>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 animate-[stepFade_350ms_ease-out_forwards]">
+            <Field label="Full Name" name="name" value={form.name} onChange={onChange} required full placeholder="Jane Doe" />
+            <Field label="Email" name="email" type="email" value={form.email} onChange={onChange} required placeholder="you@example.com" />
+            <Field label="Mobile Number" name="phone" type="tel" value={form.phone} onChange={onChange} required placeholder="+44 1234 567890" />
+            <SelectField label="Years of experience" name="experience" value={form.experience} onChange={onChange} options={EXPERIENCE_OPTIONS} full />
 
-          {step === 2 && (
-            <div key="step-2" className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 animate-[stepFade_350ms_ease-out_forwards]">
-              <SelectField label="Current role" name="currentRole" value={form.currentRole} onChange={onChange} options={ROLE_OPTIONS} />
-              <SelectField label="Years of experience" name="experience" value={form.experience} onChange={onChange} options={EXPERIENCE_OPTIONS} />
-              <Field label="Company / Organisation" name="company" value={form.company} onChange={onChange} full />
-              <Field label="LinkedIn URL (optional)" name="linkedin" value={form.linkedin} onChange={onChange} full placeholder="https://linkedin.com/in/..." />
-              <Field label="Why do you want to take this programme?" name="motivation" value={form.motivation} onChange={onChange} required full textarea placeholder="Tell us about your goals and what you hope to achieve…" />
-              <SelectField label="How did you hear about GCSA?" name="hearAbout" value={form.hearAbout} onChange={onChange} options={HEAR_ABOUT_OPTIONS} full />
+            <label className="md:col-span-2 flex items-start gap-3 mt-1 cursor-pointer">
+              <input
+                type="checkbox"
+                name="consent"
+                checked={form.consent}
+                onChange={onChange}
+                className="shrink-0 mt-0.5 w-4 h-4 rounded-sm border-2 border-[#0A1A36]/30 accent-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60"
+              />
+              <span className="text-[12.5px] leading-[1.6] text-[#0A1A36]/80">
+                I agree to the GCSA{" "}
+                <a href="/terms-of-use" target="_blank" rel="noopener noreferrer" className="font-bold text-[#0A1A36] underline underline-offset-2 hover:text-[#FFC72C]">
+                  terms of use
+                </a>{" "}
+                and{" "}
+                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-bold text-[#0A1A36] underline underline-offset-2 hover:text-[#FFC72C]">
+                  privacy policy
+                </a>
+                , and consent to GCSA contacting me about this programme.
+              </span>
+            </label>
 
-              <label className="md:col-span-2 flex items-start gap-3 mt-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="consent"
-                  checked={form.consent}
-                  onChange={onChange}
-                  className="shrink-0 mt-0.5 w-4 h-4 rounded-sm border-2 border-[#0A1A36]/30 accent-[#FFC72C] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60"
-                />
-                <span className="text-[12.5px] leading-[1.6] text-[#0A1A36]/80">
-                  I agree to the GCSA{" "}
-                  <a href="/terms-of-use" target="_blank" rel="noopener noreferrer" className="font-bold text-[#0A1A36] underline underline-offset-2 hover:text-[#FFC72C]">
-                    terms of use
-                  </a>{" "}
-                  and{" "}
-                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-bold text-[#0A1A36] underline underline-offset-2 hover:text-[#FFC72C]">
-                    privacy policy
-                  </a>
-                  , and consent to GCSA contacting me about this programme.
-                </span>
-              </label>
-            </div>
-          )}
-
-          {step === 3 && (
-            <div key="step-3" className="animate-[stepFade_350ms_ease-out_forwards]">
-              <p className="text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]/65 mb-1">
-                Choose how to pay
+            <div className="md:col-span-2 flex items-start gap-2.5 p-4 rounded-sm bg-[#FFC72C]/[0.10] border border-[#FFC72C]/30">
+              <FiLock className="shrink-0 mt-0.5 w-4 h-4 text-[#FFC72C]" />
+              <p className="text-[12.5px] leading-[1.6] text-[#0A1A36]/75">
+                Next you'll go to a{" "}
+                <span className="font-bold text-[#0A1A36]">secure Stripe payment page</span>{" "}
+                to pay the {PRICING.registration} registration fee. The {PRICING.course}{" "}
+                course fee can then be spread over {PRICING.instalments} weekly instalments of{" "}
+                {PRICING.instalmentAmount}.
               </p>
-              <p className="text-[13px] leading-[1.6] text-[#0A1A36]/70 mb-5">
-                The programme is{" "}
-                <span className="font-bold text-[#0A1A36]">{PRICING.total}</span> in
-                total — {PRICING.registration} registration fee plus {PRICING.course}{" "}
-                course fee.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4" role="radiogroup" aria-label="Payment plan">
-                {PAYMENT_PLAN_OPTIONS.map((opt) => {
-                  const selected = form.plan === opt.id;
-                  return (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      role="radio"
-                      aria-checked={selected}
-                      onClick={() => setForm((s) => ({ ...s, plan: opt.id }))}
-                      className={[
-                        "relative text-left p-5 rounded-lg border-2 bg-white transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60",
-                        selected
-                          ? "border-[#FFC72C] shadow-[0_10px_30px_-12px_rgba(255,199,44,0.7)]"
-                          : "border-[#0A1A36]/12 hover:border-[#0A1A36]/30",
-                      ].join(" ")}
-                    >
-                      {opt.highlight && (
-                        <span className="absolute top-3 right-3 inline-flex px-2 py-1 rounded-full bg-[#FFC72C] text-[8.5px] font-extrabold tracking-[0.16em] uppercase text-[#0A1A36]">
-                          Popular
-                        </span>
-                      )}
-                      <span
-                        className={[
-                          "inline-flex items-center justify-center w-5 h-5 rounded-full border-2 mb-3 transition-colors",
-                          selected ? "border-[#FFC72C] bg-[#FFC72C]" : "border-[#0A1A36]/25",
-                        ].join(" ")}
-                        aria-hidden="true"
-                      >
-                        {selected && <FiCheck className="w-3 h-3 text-[#0A1A36]" strokeWidth={3.5} />}
-                      </span>
-                      <div className="text-[13px] font-bold tracking-[-0.01em] text-[#0A1A36] mb-1">
-                        {opt.label}
-                      </div>
-                      <div className="flex items-baseline gap-1.5 mb-1">
-                        <span className="text-[28px] font-extrabold leading-none tracking-[-0.02em] text-[#0A1A36]">
-                          {opt.amount}
-                        </span>
-                      </div>
-                      <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-[#FFC72C] mb-3">
-                        {opt.amountNote}
-                      </div>
-                      <p className="text-[12px] leading-[1.55] text-[#0A1A36]/65">
-                        {opt.blurb}
-                      </p>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="mt-5 flex items-start gap-2.5 p-4 rounded-sm bg-[#0A1A36]/[0.04] border border-[#0A1A36]/10">
-                <FiLock className="shrink-0 mt-0.5 w-3.5 h-3.5 text-[#FFC72C]" />
-                <p className="text-[12px] leading-[1.6] text-[#0A1A36]/70">
-                  You'll be redirected to{" "}
-                  <span className="font-bold text-[#0A1A36]">Stripe</span> to pay your{" "}
-                  {form.plan === "full" ? PRICING.total : PRICING.registration} securely.
-                  {form.plan === "registration" && (
-                    <>
-                      {" "}
-                      The remaining {PRICING.course} is then collected in{" "}
-                      {PRICING.instalments} weekly instalments of {PRICING.instalmentAmount}.
-                    </>
-                  )}
-                </p>
-              </div>
             </div>
-          )}
+          </div>
         </form>
 
         {/* Footer */}
@@ -1622,47 +1454,25 @@ const RegistrationModal = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            {step > 1 && (
-              <button
-                type="button"
-                onClick={back}
-                disabled={submitting}
-                className="inline-flex items-center justify-center px-5 py-3 rounded-full border-2 border-[#0A1A36]/15 text-[#0A1A36] text-[11px] font-bold tracking-[0.18em] uppercase hover:border-[#0A1A36] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 transition-colors disabled:opacity-50"
-              >
-                Back
-              </button>
-            )}
-            {step < 3 ? (
-              <button
-                type="button"
-                onClick={next}
-                className="group inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#0A1A36] hover:bg-[#06122A] text-white text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-md hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C] transition-all duration-300"
-              >
-                Continue
-                <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </button>
+          <button
+            type="button"
+            onClick={submit}
+            disabled={submitting}
+            className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {submitting ? (
+              <>
+                <span className="w-3.5 h-3.5 rounded-full border-2 border-[#0A1A36]/30 border-t-[#0A1A36] animate-spin" />
+                Redirecting…
+              </>
             ) : (
-              <button
-                type="button"
-                onClick={submit}
-                disabled={submitting}
-                className="group inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[11.5px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {submitting ? (
-                  <>
-                    <span className="w-3.5 h-3.5 rounded-full border-2 border-[#0A1A36]/30 border-t-[#0A1A36] animate-spin" />
-                    Redirecting…
-                  </>
-                ) : (
-                  <>
-                    <FiCreditCard className="w-4 h-4" />
-                    Pay {form.plan === "full" ? PRICING.total : PRICING.registration}
-                  </>
-                )}
-              </button>
+              <>
+                <FiCreditCard className="w-4 h-4" />
+                Proceed to Secure Payment
+                <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </>
             )}
-          </div>
+          </button>
         </div>
       </div>
 
@@ -1693,31 +1503,6 @@ const RegistrationModal = ({
 // ─────────────────────────────────────────────────────────────────────
 // Modal sub-components
 // ─────────────────────────────────────────────────────────────────────
-const Step = ({ n, active, done, label }) => (
-  <div className="flex items-center gap-2 shrink-0">
-    <span
-      className={[
-        "inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full text-[11px] md:text-[12px] font-extrabold transition-colors",
-        done
-          ? "bg-[#FFC72C] text-[#0A1A36]"
-          : active
-          ? "bg-[#0A1A36] text-white"
-          : "bg-[#0A1A36]/10 text-[#0A1A36]/40",
-      ].join(" ")}
-    >
-      {done ? <FiCheck className="w-3.5 h-3.5" strokeWidth={3} /> : n}
-    </span>
-    <span
-      className={[
-        "hidden sm:inline text-[10.5px] md:text-[11px] font-bold tracking-[0.18em] uppercase",
-        active || done ? "text-[#0A1A36]" : "text-[#0A1A36]/40",
-      ].join(" ")}
-    >
-      {label}
-    </span>
-  </div>
-);
-
 const Field = ({ label, name, type = "text", value, onChange, required, full, textarea, placeholder }) => (
   <div className={full ? "md:col-span-2" : ""}>
     <label htmlFor={name} className="block text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#0A1A36]/65 mb-2">
