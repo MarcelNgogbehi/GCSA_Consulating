@@ -124,61 +124,71 @@ const OUTCOMES = [
 const CURRICULUM = [
   {
     week: "Week 1",
-    title: "End to End Solution Design",
-    summary: "Design scalable, integrated solutions that deliver real business value.",
+    title: "Understanding Architecture Principles, Stakeholders Influence & Communication",
+    summary: "Ground yourself in core architecture principles and learn to influence, align, and communicate with stakeholders at every level.",
     deliverables: [
-      "Solution design canvas",
-      "Stakeholder requirement pack",
-      "First case study walkthrough",
+      "Architecture principles catalogue",
+      "Stakeholder map & engagement plan",
+      "Executive communication brief",
     ],
   },
   {
     week: "Week 2",
-    title: "Architecture Thinking & Modelling",
-    summary: "Apply structured frameworks across business, data, application, and technology layers.",
+    title: "Strategy, Business & Architecture Governance",
+    summary: "Connect business strategy to architecture, and apply the governance that keeps decisions accountable and aligned.",
     deliverables: [
-      "Capability model",
-      "Conceptual architecture diagram",
-      "Framework primer (TOGAF essentials)",
+      "Business strategy alignment canvas",
+      "Architecture governance framework",
+      "Decision & review board kit",
     ],
   },
   {
     week: "Week 3",
-    title: "Data & Integration Architecture",
-    summary: "Design data flows, APIs, integrations and information models that power modern systems.",
+    title: "Architecture Thinking, Frameworks & Modelling",
+    summary: "Apply structured architecture thinking and industry frameworks to model business, data, application, and technology layers.",
     deliverables: [
-      "Data flow diagram",
-      "API contract example",
-      "Integration pattern playbook",
+      "Capability & conceptual architecture model",
+      "Framework primer (TOGAF essentials)",
+      "Layered architecture diagram",
     ],
   },
   {
     week: "Week 4",
-    title: "Platform & Technology Strategy",
-    summary: "Evaluate and align platforms, cloud, and technologies to build future ready solutions.",
+    title: "Data Analysis, AI, Analytics & Business Intelligence",
+    summary: "Design data-driven solutions that harness analytics, AI, and business intelligence to inform real decisions.",
     deliverables: [
-      "Platform comparison matrix",
-      "Cloud strategy one pager",
-      "Tech radar starter",
+      "Data & analytics architecture map",
+      "AI/BI use-case blueprint",
+      "Insight dashboard mock-up",
     ],
   },
   {
     week: "Week 5",
-    title: "Stakeholder Influence & Communication",
-    summary: "Present architectural decisions with clarity, confidence, and executive impact.",
+    title: "Cloud Infrastructure, Secure-by-Design Architecture & End to End High Solution Level Designs",
+    summary: "Architect secure, scalable cloud infrastructure and produce end-to-end high-level solution designs that deliver real business value.",
     deliverables: [
-      "Architecture decision record (ADR) pack",
-      "Executive deck template",
-      "Live presentation rehearsal",
+      "Cloud infrastructure reference design",
+      "Secure-by-design controls checklist",
+      "End-to-end high-level solution design",
     ],
   },
   {
     week: "Week 6",
-    title: "Governance & Best Practices",
-    summary: "Apply standards, principles and decision frameworks used in enterprise environments.",
+    title: "Integration Architecture, Platforms & Technology Transformation Strategies",
+    summary: "Design integration architectures across platforms and shape technology transformation strategies for future-ready organisations.",
     deliverables: [
-      "Architecture review board kit",
-      "Governance scorecard",
+      "Integration pattern playbook",
+      "Platform comparison matrix",
+      "Technology transformation roadmap",
+    ],
+  },
+  {
+    week: "Wrap up",
+    title: "Hands-on What-If Business Scenarios, Design & Analysis",
+    summary: "Bring it all together: tackle hands-on what-if business scenarios, designing and analysing solutions end to end.",
+    deliverables: [
+      "What-if scenario design pack",
+      "Solution analysis & trade-off study",
       "Final capstone presentation",
     ],
   },
@@ -934,6 +944,48 @@ const WhoFor = () => {
               </p>
             </article>
           ))}
+        </div>
+
+        {/* Perfect for (from the flyer) */}
+        <div className="mt-10 md:mt-12 relative overflow-hidden rounded-2xl bg-[#0A1A36] text-white p-8 md:p-10">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-70"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 92% 10%, rgba(255,199,44,0.16), transparent 50%)",
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
+            <div className="shrink-0 lg:max-w-xs">
+              <p className="flex items-center gap-2.5 text-[11px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-3">
+                <FiUsers className="w-4 h-4" strokeWidth={2.4} />
+                Perfect For
+              </p>
+              <p className="text-[19px] md:text-[22px] font-extrabold leading-[1.2] tracking-[-0.01em]">
+                Anyone ready to{" "}
+                <span className="font-light italic text-[#FFC72C]">accelerate</span> their career.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2.5 lg:border-l lg:border-white/10 lg:pl-12">
+              {[
+                "Graduates",
+                "Professionals",
+                "Career changers",
+                "Analysts",
+                "Developers",
+                "Project managers",
+              ].map((aud) => (
+                <span
+                  key={aud}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.06] border border-white/15 text-[13px] font-semibold text-white/90"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC72C]" aria-hidden="true" />
+                  {aud}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

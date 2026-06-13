@@ -119,38 +119,15 @@ const Navbar = () => {
             {/* Wordmark */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60 rounded-sm group"
+              className="flex items-center gap-3 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60 rounded-sm group"
               aria-label="GCSA Consulting, home"
               onClick={() => setMobileOpen(false)}
             >
-              {/* Shield monogram */}
-              <svg
-                width="44"
-                height="44"
-                viewBox="0 0 32 32"
-                fill="none"
+              {/* Gold accent rule */}
+              <span
+                className="block h-8 md:h-10 w-[3px] rounded-full bg-[#FFC72C] transition-all duration-300 group-hover:h-10 md:group-hover:h-12"
                 aria-hidden="true"
-                className="h-10 w-10 md:h-12 md:w-12 shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
-              >
-                <path
-                  d="M16 2 L28 6 V16 C28 22 22.6 27.5 16 30 C9.4 27.5 4 22 4 16 V6 L16 2 Z"
-                  fill={scrolled ? BRAND.navy : BRAND.gold}
-                  stroke={scrolled ? BRAND.gold : "#FFFFFF"}
-                  strokeWidth="1.5"
-                />
-                <text
-                  x="16"
-                  y="20"
-                  textAnchor="middle"
-                  fontSize="9"
-                  fontWeight="800"
-                  fill={scrolled ? BRAND.gold : BRAND.navy}
-                  fontFamily="Montserrat, sans-serif"
-                  letterSpacing="0.5"
-                >
-                  GCSA
-                </text>
-              </svg>
+              />
 
               <div className="flex flex-col leading-none">
                 <span
@@ -340,7 +317,7 @@ const Navbar = () => {
             </ul>
           </nav>
 
-            <div className="p-6 border-t border-[#0A1A36]/10 space-y-3">
+            <div className="p-6 border-t border-[#0A1A36]/10">
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
@@ -348,13 +325,6 @@ const Navbar = () => {
             >
               Start Now
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
-            </Link>
-            <Link
-              href="/contact"
-              onClick={() => setMobileOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border-2 border-[#0A1A36] text-[#0A1A36] text-[14px] md:text-[15px] font-bold tracking-[0.14em] uppercase transition-colors hover:bg-[#0A1A36] hover:text-white"
-            >
-              Apply Now
             </Link>
           </div>
         </div>
