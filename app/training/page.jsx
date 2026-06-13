@@ -16,6 +16,9 @@ import {
   FiCreditCard,
   FiX,
   FiLock,
+  FiBriefcase,
+  FiMessageSquare,
+  FiUserPlus,
 } from "react-icons/fi";
 import {
   LuRocket,
@@ -428,21 +431,33 @@ const PageHero = ({ onRegister }) => {
           </a>
         </div>
 
-        {/* Instant value chips */}
-        <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
-          {[
-            { Icon: FiClock, label: "6 weeks, live online" },
-            { Icon: LuTrendingUp, label: "Earn up to £150k+" },
-            { Icon: FiAward, label: "Portfolio, CV and references" },
-            { Icon: LuRocket, label: "No experience needed" },
-          ].map(({ Icon, label }) => (
-            <div key={label} className="inline-flex items-center gap-2">
-              <Icon className="w-5 h-5" style={{ color: "#FFC72C" }} />
-              <span className="text-[12px] md:text-[13px] font-bold tracking-[0.04em] text-white/85">
-                {label}
-              </span>
-            </div>
-          ))}
+        {/* Additional benefits for selected participants */}
+        <div className="mt-12 pt-9 border-t border-white/10">
+          <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.26em] uppercase text-[#FFC72C] mb-7">
+            <span className="inline-block w-8 h-px bg-[#FFC72C]" aria-hidden="true" />
+            Selected participants may also benefit from
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+            {[
+              { Icon: FiBriefcase, label: "Internship opportunities" },
+              { Icon: FiAward, label: "Professional references based on demonstrated performance" },
+              { Icon: FiUsers, label: "Career coaching and mentoring" },
+              { Icon: FiMessageSquare, label: "Interview preparation" },
+              { Icon: FiUserPlus, label: "Introductions to specialist architecture recruitment partners" },
+            ].map(({ Icon, label }) => (
+              <li
+                key={label}
+                className="group flex items-center gap-3.5 p-4 md:p-[18px] rounded-xl bg-white/[0.035] border border-white/10 hover:border-[#FFC72C]/45 hover:bg-white/[0.06] transition-colors duration-300"
+              >
+                <span className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#FFC72C]/12 text-[#FFC72C] group-hover:bg-[#FFC72C]/20 transition-colors duration-300">
+                  <Icon className="w-[18px] h-[18px]" strokeWidth={2} />
+                </span>
+                <span className="text-[13.5px] md:text-[14px] leading-[1.4] text-white/85 font-medium">
+                  {label}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
