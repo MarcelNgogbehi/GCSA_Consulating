@@ -422,13 +422,6 @@ const PageHero = ({ onRegister }) => {
             Register Today
             <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
-          <a
-            href="#programme"
-            className="group inline-flex items-center gap-2 px-7 md:px-9 py-4 md:py-5 rounded-full bg-white/5 hover:bg-white/10 border border-white/30 hover:border-white/55 text-white text-[12px] md:text-[13px] font-bold tracking-[0.18em] uppercase backdrop-blur-sm transition-all duration-300"
-          >
-            See What You Get
-            <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
         </div>
 
         {/* Additional benefits for selected participants */}
