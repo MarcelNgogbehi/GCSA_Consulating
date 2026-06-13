@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 import toast from "react-hot-toast";
 import {
   FaLinkedinIn,
@@ -145,33 +147,15 @@ const Footer = () => {
                 className="inline-flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm mb-10 md:mb-14"
                 aria-label="GCSA Consulting, home"
               >
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  aria-hidden="true"
-                  className="shrink-0 transition-transform duration-500 group-hover:rotate-[8deg]"
-                >
-                  <path
-                    d="M16 2 L28 6 V16 C28 22 22.6 27.5 16 30 C9.4 27.5 4 22 4 16 V6 L16 2 Z"
-                    fill="#FFC72C"
-                    stroke="#FFFFFF"
-                    strokeWidth="1.5"
+                <span className="inline-flex items-center justify-center shrink-0 bg-white rounded-full p-0.5 ring-1 ring-white/15 shadow-sm overflow-hidden transition-transform duration-500 group-hover:scale-105">
+                  <Image
+                    src={logo}
+                    alt="GCSA Consulting logo"
+                    width={48}
+                    height={48}
+                    className="h-11 w-11 object-contain rounded-full"
                   />
-                  <text
-                    x="16"
-                    y="20"
-                    textAnchor="middle"
-                    fontSize="9"
-                    fontWeight="800"
-                    fill="#0A1A36"
-                    fontFamily="Montserrat, sans-serif"
-                    letterSpacing="0.5"
-                  >
-                    GCSA
-                  </text>
-                </svg>
+                </span>
                 <div className="flex flex-col leading-none">
                   <span className="text-[16px] md:text-[17px] font-extrabold tracking-[0.04em] text-white">
                     GCSA <span className="font-light">CONSULTING</span>

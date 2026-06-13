@@ -124,73 +124,87 @@ const OUTCOMES = [
 const CURRICULUM = [
   {
     week: "Week 1",
-    title: "Understanding Architecture Principles, Stakeholders Influence & Communication",
-    summary: "Ground yourself in core architecture principles and learn to influence, align, and communicate with stakeholders at every level.",
-    deliverables: [
-      "Architecture principles catalogue",
-      "Stakeholder map & engagement plan",
-      "Executive communication brief",
+    title: "Architecture Principles, Stakeholder Influence & Communication",
+    focus: "Understand the foundations of architecture, stakeholder management, and executive communication.",
+    outcomes: [
+      "Understand the role of analysts and architects",
+      "Identify and engage key stakeholders",
+      "Develop influence and communication skills",
+      "Apply architecture principles and decision making techniques",
     ],
+    application: "Influence stakeholders, secure buy in, and communicate effectively across transformation programmes.",
   },
   {
     week: "Week 2",
     title: "Strategy, Business & Architecture Governance",
-    summary: "Connect business strategy to architecture, and apply the governance that keeps decisions accountable and aligned.",
-    deliverables: [
-      "Business strategy alignment canvas",
-      "Architecture governance framework",
-      "Decision & review board kit",
+    focus: "Explore how business strategy, governance, risk, and compliance shape enterprise decisions.",
+    outcomes: [
+      "Understand strategy and operating models",
+      "Analyse business capabilities and value streams",
+      "Apply governance and risk management principles",
+      "Align architecture with business objectives",
     ],
+    application: "Support strategic investment decisions and ensure transformation initiatives deliver measurable value.",
   },
   {
     week: "Week 3",
     title: "Architecture Thinking, Frameworks & Modelling",
-    summary: "Apply structured architecture thinking and industry frameworks to model business, data, application, and technology layers.",
-    deliverables: [
-      "Capability & conceptual architecture model",
-      "Framework primer (TOGAF essentials)",
-      "Layered architecture diagram",
+    focus: "Develop structured architectural thinking using industry frameworks and modelling techniques.",
+    outcomes: [
+      "Apply architecture thinking to business challenges",
+      "Develop business, data, application, and technology models",
+      "Understand capability mapping and target state design",
+      "Create architecture artefacts that support decision making",
     ],
+    application: "Design future state architectures and transformation roadmaps.",
   },
   {
     week: "Week 4",
     title: "Data Analysis, AI, Analytics & Business Intelligence",
-    summary: "Design data-driven solutions that harness analytics, AI, and business intelligence to inform real decisions.",
-    deliverables: [
-      "Data & analytics architecture map",
-      "AI/BI use-case blueprint",
-      "Insight dashboard mock-up",
+    focus: "Understand how data, analytics, and AI drive business performance and decision making.",
+    outcomes: [
+      "Apply data analysis and business intelligence principles",
+      "Explore practical AI use cases",
+      "Identify KPIs and business metrics",
+      "Interpret insights to support strategic decisions",
     ],
+    application: "Use data driven insights to improve performance, customer outcomes, and business growth.",
   },
   {
     week: "Week 5",
-    title: "Cloud Infrastructure, Secure-by-Design Architecture & End to End High Solution Level Designs",
-    summary: "Architect secure, scalable cloud infrastructure and produce end-to-end high-level solution designs that deliver real business value.",
-    deliverables: [
-      "Cloud infrastructure reference design",
-      "Secure-by-design controls checklist",
-      "End-to-end high-level solution design",
+    title: "Cloud Infrastructure, Secure by Design & Solution Architecture",
+    focus: "Learn how modern organisations design secure, scalable, and resilient technology solutions.",
+    outcomes: [
+      "Understand cloud and infrastructure concepts",
+      "Apply secure by design principles",
+      "Assess risk, resilience, and compliance requirements",
+      "Design high level end to end solutions",
     ],
+    application: "Develop solution designs that balance innovation, security, and business value.",
   },
   {
     week: "Week 6",
-    title: "Integration Architecture, Platforms & Technology Transformation Strategies",
-    summary: "Design integration architectures across platforms and shape technology transformation strategies for future-ready organisations.",
-    deliverables: [
-      "Integration pattern playbook",
-      "Platform comparison matrix",
-      "Technology transformation roadmap",
+    title: "Integration Architecture, Platforms & Technology Transformation",
+    focus: "Explore integration, platforms, and technology strategies that enable enterprise agility.",
+    outcomes: [
+      "Understand APIs and integration architecture",
+      "Evaluate platform and ecosystem strategies",
+      "Develop transformation roadmaps",
+      "Assess technology investment decisions",
     ],
+    application: "Design connected technology ecosystems that accelerate innovation and transformation.",
   },
   {
-    week: "Wrap up",
-    title: "Hands-on What-If Business Scenarios, Design & Analysis",
-    summary: "Bring it all together: tackle hands-on what-if business scenarios, designing and analysing solutions end to end.",
-    deliverables: [
-      "What-if scenario design pack",
-      "Solution analysis & trade-off study",
-      "Final capstone presentation",
+    week: "Programme Wrap Up",
+    title: "Hands on Business Scenarios, Design & Analysis",
+    focus: "Apply learning through practical business and transformation scenarios.",
+    outcomes: [
+      "Analyse and solve real world business challenges",
+      "Develop executive level recommendations",
+      "Produce portfolio ready artefacts",
+      "Present solutions to stakeholders",
     ],
+    application: "Experience the role of a Business Analyst, Data Analyst, Solution Architect, or Enterprise Architect through realistic transformation case studies.",
   },
 ];
 
@@ -766,16 +780,23 @@ const Curriculum = () => {
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
             <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
-            The Curriculum
+            Executive Programme Overview
           </p>
           <h2
             id="curriculum-heading"
-            className="font-extrabold leading-[1.02] tracking-[-0.02em] text-white text-[36px] md:text-[48px] lg:text-[56px]"
+            className="font-extrabold leading-[1.05] tracking-[-0.02em] text-white text-[30px] md:text-[40px] lg:text-[48px]"
           >
-            Master the top{" "}
-            <span style={{ color: "#FFC72C" }}>6 architectural</span>{" "}
-            skillsets.
+            6 Week Business Analysis, Data Analytics &{" "}
+            <span style={{ color: "#FFC72C" }}>Enterprise Architecture</span> Accelerator
           </h2>
+          <p className="mt-6 text-[15px] md:text-[16px] leading-[1.8] text-white/75">
+            This intensive programme equips participants with the skills to
+            analyse business challenges, influence stakeholders, design enterprise
+            solutions, and support transformation initiatives. Through practical
+            frameworks, methodologies, and real world scenarios, participants gain
+            exposure to the disciplines of Business Analysis, Data Analytics,
+            Solution Architecture, and Enterprise Architecture.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -853,24 +874,37 @@ const Curriculum = () => {
               <p className="text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-3">
                 {CURRICULUM[active].week}
               </p>
-              <h3 className="font-extrabold leading-[1.05] tracking-[-0.015em] text-white text-[28px] md:text-[34px] mb-4">
+              <h3 className="font-extrabold leading-[1.1] tracking-[-0.015em] text-white text-[24px] md:text-[30px] mb-6">
                 {CURRICULUM[active].title}
               </h3>
-              <p className="text-[15px] md:text-[16px] leading-[1.75] text-white/75 mb-8">
-                {CURRICULUM[active].summary}
+
+              <p className="text-[10.5px] font-bold tracking-[0.26em] uppercase text-[#FFC72C] mb-2">
+                Focus
+              </p>
+              <p className="text-[15px] md:text-[16px] leading-[1.7] text-white/75 mb-7">
+                {CURRICULUM[active].focus}
               </p>
 
-              <p className="text-[10.5px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-3">
-                Deliverables
+              <p className="text-[10.5px] font-bold tracking-[0.26em] uppercase text-[#FFC72C] mb-3">
+                Key Outcomes
               </p>
-              <ul className="space-y-2.5">
-                {CURRICULUM[active].deliverables.map((d) => (
+              <ul className="space-y-2.5 mb-7">
+                {CURRICULUM[active].outcomes.map((d) => (
                   <li key={d} className="flex items-start gap-3 text-[14px] text-white/85">
                     <FiCheck className="shrink-0 mt-0.5 w-4 h-4" style={{ color: "#FFC72C" }} strokeWidth={3} />
                     {d}
                   </li>
                 ))}
               </ul>
+
+              <div className="rounded-xl bg-[#FFC72C]/[0.08] border border-[#FFC72C]/20 p-5">
+                <p className="text-[10.5px] font-bold tracking-[0.26em] uppercase text-[#FFC72C] mb-2">
+                  Real World Application
+                </p>
+                <p className="text-[14px] md:text-[15px] leading-[1.7] text-white/90">
+                  {CURRICULUM[active].application}
+                </p>
+              </div>
             </div>
           </div>
         </div>

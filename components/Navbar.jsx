@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 import {
   ChevronDown,
   Menu,
@@ -123,25 +125,28 @@ const Navbar = () => {
               aria-label="GCSA Consulting, home"
               onClick={() => setMobileOpen(false)}
             >
-              {/* Gold accent rule */}
-              <span
-                className="block h-8 md:h-10 w-[3px] rounded-full bg-[#FFC72C] transition-all duration-300 group-hover:h-10 md:group-hover:h-12"
-                aria-hidden="true"
-              />
+              {/* Logo badge */}
+              <span className="inline-flex items-center justify-center shrink-0 bg-white rounded-full p-0.5 ring-1 ring-[#0A1A36]/10 shadow-sm overflow-hidden">
+                <Image
+                  src={logo}
+                  alt="GCSA Consulting logo"
+                  width={48}
+                  height={48}
+                  priority
+                  className="h-9 w-9 md:h-11 md:w-11 object-contain rounded-full"
+                />
+              </span>
 
               <div className="flex flex-col leading-none">
                 <span
                   className={[
                     "font-extrabold tracking-[0.02em] whitespace-nowrap leading-none transition-colors duration-300",
                     scrolled ? "text-[#0A1A36]" : "text-white",
-                    "text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px]",
+                    "text-[17px] sm:text-[20px] md:text-[24px] lg:text-[26px]",
                   ].join(" ")}
                 >
                   GCSA
-                  <span className="hidden sm:inline font-light tracking-[0.06em]">
-                    {" "}
-                    CONSULTING
-                  </span>
+                  <span className="font-light tracking-[0.06em]"> CONSULTING</span>
                 </span>
                 <span
                   className={[
@@ -295,10 +300,19 @@ const Navbar = () => {
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-            <div className="flex items-center justify-between px-6 h-[68px] border-b border-[#0A1A36]/10">
-            <span className="text-[15px] md:text-[16px] font-extrabold tracking-[0.04em] text-[#0A1A36]">
-              GCSA <span className="font-light">CONSULTING</span>
-            </span>
+            <div className="flex items-center justify-between px-6 h-[72px] border-b border-[#0A1A36]/10">
+            <Link
+              href="/"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm"
+            >
+              <span className="inline-flex items-center justify-center shrink-0 bg-white rounded-full p-0.5 ring-1 ring-[#0A1A36]/10 shadow-sm overflow-hidden">
+                <Image src={logo} alt="GCSA Consulting logo" width={40} height={40} className="h-9 w-9 object-contain rounded-full" />
+              </span>
+              <span className="text-[16px] font-extrabold tracking-[0.04em] text-[#0A1A36]">
+                GCSA <span className="font-light">CONSULTING</span>
+              </span>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
