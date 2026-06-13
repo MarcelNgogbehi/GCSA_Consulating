@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FiLock, FiArrowRight } from "react-icons/fi";
 
 /**
- * Admin login portal — standalone, not linked anywhere on the public site.
+ * Admin login portal, standalone, not linked anywhere on the public site.
  * Reachable only by typing /admin (which redirects here when signed out).
  */
 export default function AdminLoginPage() {
@@ -27,12 +27,27 @@ export default function AdminLoginPage() {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data?.error || "Invalid credentials");
+        // Distinguish a genuine credential rejection (401) from a server-side
+        // failure (e.g. a 500 returning an HTML error page, which has no JSON
+        // body). Falling back to "Invalid credentials" for the latter wrongly
+        // blames the user's password.
+        const message =
+          data?.error ||
+          (res.status === 401
+            ? "Invalid email or password."
+            : "Something went wrong on the server. Please try again in a moment.");
+        throw new Error(message);
       }
       router.replace("/admin");
       router.refresh();
     } catch (err) {
-      setError(err.message || "Login failed");
+      // A thrown TypeError here means the request never reached the server.
+      const isNetworkError = err instanceof TypeError;
+      setError(
+        isNetworkError
+          ? "Can't reach the server. Check your connection and try again."
+          : err.message || "Login failed. Please try again."
+      );
       setLoading(false);
     }
   };

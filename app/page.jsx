@@ -16,23 +16,23 @@ import NewsLetterx from "@/components/NewsLetterx";
 import Footer from "@/components/Footer";
 
 /**
- * Home — GCSA Consulting UK LTD
+ * Home, GCSA Consulting UK LTD
  *
  * Section order (top → bottom):
- *  1. Navbar          — fixed, transparent over hero, white on scroll
- *  2. Hero            — "Taking Your Business to the Next Level"
- *  3. Services        — 5 GCSA pillars
- *  4. About           — Story + 4 differentiators
- *  5. Process         — 4-phase GCSA Method
- *  6. Training        — 🆕 "Transition to Architecture in 6 Weeks"
- *  7. Team            — 🆕 4 team members
- *  8. GlobalReach     — 🆕 Africa · Europe · Asia + London HQ
- *  9. ClosingCTA      — "Let's redefine success, together."
+ *  1. Navbar          - fixed, transparent over hero, white on scroll
+ *  2. Hero            - "Taking Your Business to the Next Level"
+ *  3. Services        - 5 GCSA pillars
+ *  4. About           - Story + 4 differentiators
+ *  5. Process         - 4-phase GCSA Method
+ *  6. Training        - 🆕 "Transition to Architecture in 6 Weeks"
+ *  7. Team            - 🆕 4 team members
+ *  8. GlobalReach     - 🆕 Africa · Europe · Asia + London HQ
+ *  9. ClosingCTA      - "Let's redefine success, together."
  * 10. Footer
  *
  * Overlays:
- *  - NewsLetter — floating bottom-right, every page load (session-dismissable)
- *  - CookieBanner — visits 1, 5, 9, … (every 4th)
+ *  - NewsLetter, floating bottom-right, every page load (session-dismissable)
+ *  - CookieBanner, visits 1, 5, 9, … (every 4th)
  *
  * Brand:
  *  - Navy: #0A1A36
@@ -99,7 +99,7 @@ const HOMEPAGE_LD = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// NewsLetter — floating bottom-right (every page load, session-dismissable)
+// NewsLetter, floating bottom-right (every page load, session-dismissable)
 // ═══════════════════════════════════════════════════════════════════════
 const NewsLetterFloater = () => {
   const [mounted, setMounted] = useState(false);
@@ -246,7 +246,7 @@ const NewsLetterFloater = () => {
                 You&apos;re on the list.
               </h2>
               <p className="text-[13px] leading-relaxed text-white/70">
-                Thank you — our next briefing from{" "}
+                Thank you, our next briefing from{" "}
                 <span style={{ color: "#FFC72C" }}>GCSA Insights</span> will
                 arrive in your inbox.
               </p>
@@ -269,7 +269,7 @@ const NewsLetterFloater = () => {
               </h2>
               <p className="text-[13px] leading-relaxed text-white/70 mb-5">
                 Quarterly perspectives on governance, transformation, and the
-                forces reshaping enterprise — curated for leaders who decide.
+                forces reshaping enterprise, curated for leaders who decide.
               </p>
 
               <form onSubmit={handleSubmit} noValidate className="space-y-3">
@@ -347,7 +347,7 @@ const NewsLetterFloater = () => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// CookieBanner — visits 1, 5, 9, … (every 4th)
+// CookieBanner, visits 1, 5, 9, … (every 4th)
 // ═══════════════════════════════════════════════════════════════════════
 const CookieBanner = () => {
   const [mounted, setMounted] = useState(false);
@@ -428,7 +428,7 @@ const CookieBanner = () => {
                 >
                   GCSA Consulting uses cookies and related technologies to
                   improve site functionality, analyse traffic, and personalise
-                  content. You can control your preferences at any time —
+                  content. You can control your preferences at any time -
                   details in our{" "}
                   <Link
                     href="/privacy-policy"

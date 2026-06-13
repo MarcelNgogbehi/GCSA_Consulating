@@ -16,7 +16,7 @@ async function getTrainees() {
 }
 
 const money = (amount, currency) =>
-  amount != null ? `${(amount / 100).toFixed(2)} ${String(currency || "").toUpperCase()}` : "—";
+  amount != null ? `${(amount / 100).toFixed(2)} ${String(currency || "").toUpperCase()}` : "-";
 
 const STATUS_STYLES = {
   paid: "bg-green-50 text-green-700",
@@ -74,10 +74,10 @@ export default async function TraineesPage() {
                   {d.email}
                 </a>
               </td>
-              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.phone || "—"}</td>
-              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.country || "—"}</td>
-              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.programmeId || "—"}</td>
-              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.plan || "—"}</td>
+              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.phone || "-"}</td>
+              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.country || "-"}</td>
+              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.programmeId || "-"}</td>
+              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{d.plan || "-"}</td>
               <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70 whitespace-nowrap">{money(d.amountTotal, d.currency)}</td>
               <td className="px-4 py-3"><StatusBadge status={d.paymentStatus} /></td>
               <td className="px-4 py-3 text-[12px] text-[#0A1A36]/55 whitespace-nowrap">{fmtDate(d.createdAt)}</td>

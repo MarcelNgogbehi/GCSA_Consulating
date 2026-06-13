@@ -5,8 +5,8 @@ import { notifyNewSubscriber } from "@/lib/email";
 /**
  * POST /api/subscribe
  *
- * Newsletter sign-up from the footer form. Idempotent on email: a repeat
- * sign-up counts as success. Notifies the team only on a genuinely new
+ * Newsletter sign up from the footer form. Idempotent on email: a repeat
+ * sign up counts as success. Notifies the team only on a genuinely new
  * subscriber.
  *
  * Body: { email, firstName?, lastName?, source? }

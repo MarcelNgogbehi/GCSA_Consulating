@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 /**
- * Navbar — GCSA Consulting UK LTD
+ * Navbar, GCSA Consulting UK LTD
  *
  * Brand identity (per training flyer):
  * - Navy:  #0A1A36   (primary dark)
@@ -120,7 +120,7 @@ const Navbar = () => {
             <Link
               href="/"
               className="flex items-center gap-2.5 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60 rounded-sm group"
-              aria-label="GCSA Consulting — home"
+              aria-label="GCSA Consulting, home"
               onClick={() => setMobileOpen(false)}
             >
               {/* Shield monogram */}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 
 /**
- * ClosingCTA — GCSA Consulting | Final call-to-action before footer
+ * ClosingCTA, GCSA Consulting | Final call-to-action before footer
  *
  * Content adapted from gcsaconsulting.co.uk:
  * - "Explore the possibilities with us. Let's redefine success, together."
@@ -144,7 +144,7 @@ const ClosingCTA = () => {
         >
           Whether you're a startup aiming to disrupt the market, an established
           enterprise exploring new geographies in Africa, Europe, or Asia, or a
-          professional ready to transition into your next role —{" "}
+          professional ready to transition into your next role -{" "}
           <span className="text-white font-medium">
             GCSA is your partner for strategic excellence and business transformation.
           </span>

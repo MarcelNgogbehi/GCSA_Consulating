@@ -20,7 +20,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Contact — GCSA Consulting UK LTD
+ * Contact, GCSA Consulting UK LTD
  *
  * Full contact page:
  *  1. Page hero
@@ -44,11 +44,11 @@ const SUBJECTS = [
 const FAQS = [
   {
     q: "How does an engagement begin?",
-    a: "Every engagement starts with a discovery call to understand your goals, context, and constraints. From there we propose a Phase 1 (Diagnose) scope — typically 2–4 weeks — that produces a written assessment and recommended next steps. There's no obligation beyond Phase 1.",
+    a: "Every engagement starts with a discovery call to understand your goals, context, and constraints. From there we propose a Phase 1 (Diagnose) scope, typically 2-4 weeks, that produces a written assessment and recommended next steps. There's no obligation beyond Phase 1.",
   },
   {
     q: "Do you serve clients outside the UK?",
-    a: "Yes. While GCSA is headquartered in London, we serve clients across Africa, Europe, and Asia. We work both on-site and virtually, and we routinely deliver multi-country programmes.",
+    a: "Yes. While GCSA is headquartered in London, we serve clients across Africa, Europe, and Asia. We work both on site and virtually, and we routinely deliver multi-country programmes.",
   },
   {
     q: "What sectors do you work with?",
@@ -56,7 +56,7 @@ const FAQS = [
   },
   {
     q: "How are your training programmes structured?",
-    a: "Programmes like Transition to Architecture in 6 Weeks combine live sessions with practical workshops, run on a small-cohort basis, and conclude with a Certificate of Completion. We can also design custom in-house programmes for corporate clients.",
+    a: "Programmes like Transition to Architecture in 6 Weeks combine live sessions with practical workshops, run on a small-cohort basis, and conclude with a Certificate of Completion. We can also design custom in house programmes for corporate clients.",
   },
   {
     q: "How quickly will you respond to my enquiry?",
@@ -155,7 +155,7 @@ const PageHero = () => {
 
         <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
           Whether you're planning a transformation, exploring a new market, or
-          ready to apply for a training cohort — tell us where you want to go,
+          ready to apply for a training cohort, tell us where you want to go,
           and we'll show you how we can help.
         </p>
       </div>
@@ -232,7 +232,7 @@ const FormAndDetails = () => {
     >
       <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* LEFT — contact methods */}
+          {/* LEFT, contact methods */}
           <aside className="lg:col-span-4 lg:sticky lg:top-32">
             <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60 mb-6">
               <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
@@ -272,7 +272,7 @@ const FormAndDetails = () => {
               <ContactMethod
                 Icon={FiClock}
                 label="Hours"
-                value="Mon–Fri · 9:00–18:00 GMT"
+                value="Mon-Fri · 9:00-18:00 GMT"
               />
             </div>
 
@@ -307,7 +307,7 @@ const FormAndDetails = () => {
             </div>
           </aside>
 
-          {/* RIGHT — form */}
+          {/* RIGHT, form */}
           <div className="lg:col-span-8">
             <form
               onSubmit={onSubmit}
@@ -579,8 +579,8 @@ const HQAddress = () => {
                     Hours
                   </div>
                   <div className="text-[14.5px] text-white">
-                    Monday – Friday<br />
-                    09:00 – 18:00 GMT
+                    Monday, Friday<br />
+                    09:00 to 18:00 GMT
                   </div>
                 </div>
               </div>
@@ -588,7 +588,7 @@ const HQAddress = () => {
 
             <div className="mt-10 pt-8 border-t border-white/10">
               <p className="text-[14px] text-white/70 leading-[1.7] mb-6">
-                Visiting from outside the UK? Let us know in advance — we'll
+                Visiting from outside the UK? Let us know in advance, we'll
                 make sure the right consultants are available to meet with you.
               </p>
               <Link

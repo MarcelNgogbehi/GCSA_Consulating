@@ -19,7 +19,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Cookie Preferences — GCSA Consulting UK LTD
+ * Cookie Preferences, GCSA Consulting UK LTD
  *
  * Interactive consent manager. Persists to localStorage under two keys:
  *
@@ -28,7 +28,7 @@ import Footer from "@/components/Footer";
  *                                 existing homepage cookie banner)
  *
  *   gcsa.cookieCategories        JSON: { necessary, analytics, marketing }
- *                                 — fine-grained per-category state
+ *                                 - fine-grained per-category state
  *
  * On save we dispatch a `cookie-consent-change` CustomEvent that the
  * analytics gate in app/layout.jsx already listens for.
@@ -73,7 +73,7 @@ const COOKIE_CATEGORIES = [
     title: "Marketing & Personalisation",
     required: false,
     description:
-      "Used to deliver relevant content and measure campaign effectiveness across channels. May be set by us or by trusted third-party partners.",
+      "Used to deliver relevant content and measure campaign effectiveness across channels. May be set by us or by trusted third party partners.",
     examples: [
       "Audience-segmentation cookies",
       "Conversion-tracking pixels",
@@ -85,35 +85,35 @@ const COOKIE_CATEGORIES = [
 const COOKIE_TABLE = [
   {
     name: "gcsa.cookieConsent",
-    provider: "GCSA Consulting (first-party)",
+    provider: "GCSA Consulting (first party)",
     purpose: "Stores your overall cookie-consent choice",
     type: "Strictly Necessary",
     expiry: "1 year",
   },
   {
     name: "gcsa.cookieCategories",
-    provider: "GCSA Consulting (first-party)",
+    provider: "GCSA Consulting (first party)",
     purpose: "Stores your fine-grained per-category preferences",
     type: "Strictly Necessary",
     expiry: "1 year",
   },
   {
     name: "gcsa.visitCount",
-    provider: "GCSA Consulting (first-party)",
+    provider: "GCSA Consulting (first party)",
     purpose: "Counts visits so the cookie banner reappears periodically",
     type: "Strictly Necessary",
     expiry: "1 year",
   },
   {
     name: "gcsa.newsletterDismissed",
-    provider: "GCSA Consulting (session-only)",
+    provider: "GCSA Consulting (session only)",
     purpose: "Prevents the newsletter prompt from re-appearing in the same session",
     type: "Strictly Necessary",
     expiry: "Session",
   },
   {
     name: "__stripe_*",
-    provider: "Stripe (third-party)",
+    provider: "Stripe (third party)",
     purpose: "Fraud detection and secure checkout flow",
     type: "Strictly Necessary",
     expiry: "Up to 1 year",
@@ -212,7 +212,7 @@ const CookiePreferencesPage = () => {
     setPrefs(next);
     persist("rejected", next);
     setSaved(true);
-    toast.success("Only strictly-necessary cookies enabled.");
+    toast.success("Only strictly necessary cookies enabled.");
   };
 
   const saveCustom = () => {
@@ -326,7 +326,7 @@ const SettingsSection = ({ mounted, prefs, onToggle, onAllOn, onAllOff, onSave, 
     >
       <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* LEFT — controls + status */}
+          {/* LEFT, controls + status */}
           <aside className="lg:col-span-4 lg:sticky lg:top-32">
             <p className="flex items-center gap-3 text-[10.5px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/55 mb-5">
               <span className="inline-block w-8 h-px" style={{ backgroundColor: "#FFC72C" }} />
@@ -422,7 +422,7 @@ const SettingsSection = ({ mounted, prefs, onToggle, onAllOn, onAllOff, onSave, 
             </p>
           </aside>
 
-          {/* RIGHT — category toggles */}
+          {/* RIGHT, category toggles */}
           <div className="lg:col-span-8">
             <p className="flex items-center gap-3 text-[10.5px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
               <span className="inline-block w-8 h-px" style={{ backgroundColor: "#FFC72C" }} />
@@ -605,7 +605,7 @@ const CookieTableSection = () => {
           <p className="mt-6 text-[14.5px] md:text-[15px] leading-[1.75] text-[#0A1A36]/70 max-w-2xl">
             This list is updated as our tooling changes. Strictly necessary
             cookies are required for core site functionality and cannot be
-            disabled. Third-party cookies are governed by the providers' own
+            disabled. Third party cookies are governed by the providers' own
             terms.
           </p>
         </div>
@@ -697,7 +697,7 @@ const ResourcesSection = () => {
 
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
             <ResourceLink
-              title="ICO — Cookies and similar technologies"
+              title="ICO, Cookies and similar technologies"
               description="The UK Information Commissioner's official guidance for citizens."
               href="https://ico.org.uk/for-the-public/online/cookies/"
             />
@@ -708,7 +708,7 @@ const ResourcesSection = () => {
             />
             <ResourceLink
               title="Your Online Choices (EDAA)"
-              description="Manage interest-based advertising preferences across providers."
+              description="Manage interest based advertising preferences across providers."
               href="https://www.youronlinechoices.com/"
             />
             <ResourceLink

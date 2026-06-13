@@ -43,7 +43,7 @@ export default async function SubscribersPage() {
                 </a>
               </td>
               <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70">
-                {[d.firstName, d.lastName].filter(Boolean).join(" ") || "—"}
+                {[d.firstName, d.lastName].filter(Boolean).join(" ") || "-"}
               </td>
               <td className="px-4 py-3">
                 <span
@@ -57,7 +57,7 @@ export default async function SubscribersPage() {
                   {d.status || "subscribed"}
                 </span>
               </td>
-              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70">{d.source || "—"}</td>
+              <td className="px-4 py-3 text-[13px] text-[#0A1A36]/70">{d.source || "-"}</td>
               <td className="px-4 py-3 text-[12px] text-[#0A1A36]/55 whitespace-nowrap">{fmtDate(d.createdAt)}</td>
             </tr>
           ))}

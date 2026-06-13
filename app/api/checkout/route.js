@@ -11,7 +11,7 @@ import { getProgramme } from "@/lib/programmes";
  *
  * Flow:
  *   1. Capture the trainee (name, email, mobile, experience) to Postgres so
- *      they appear in the admin dashboard immediately — marked
+ *      they appear in the admin dashboard immediately, marked
  *      "awaiting_payment".
  *   2. Return the hosted Stripe Payment Link; the browser redirects there to
  *      take the payment. No Stripe secret key / API checkout session is used.
@@ -105,7 +105,7 @@ export async function POST(req) {
       },
     });
 
-    // Notify the team (best-effort — never blocks the redirect).
+    // Notify the team (best-effort, never blocks the redirect).
     notifyRegistration(details).catch(() => {});
 
     // ── Hand back the Stripe Payment Link (with the email pre-filled) ──

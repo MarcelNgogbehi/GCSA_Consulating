@@ -68,4 +68,4 @@ export const fmtDate = (d) =>
         hour: "2-digit",
         minute: "2-digit",
       })
-    : "—";
+    : "-";

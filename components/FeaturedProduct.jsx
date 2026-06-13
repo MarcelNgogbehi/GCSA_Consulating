@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FiArrowUpRight } from "react-icons/fi";
 import { assets } from "../assets/assets";
 /**
- * About — GCSA Consulting | Our Story + What Sets Us Apart
+ * About, GCSA Consulting | Our Story + What Sets Us Apart
  *
  * Content (per gcsaconsulting.co.uk About page):
  * - "Founded with a passion for transforming businesses, GCSA was born

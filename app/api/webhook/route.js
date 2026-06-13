@@ -7,14 +7,14 @@ import { confirmRegistration, notifyRegistration } from "@/lib/email";
  * POST /api/webhook
  *
  * Stripe webhook handler. Stripe calls this URL with payment events.
- * The most important event is `checkout.session.completed` — this is
+ * The most important event is `checkout.session.completed` - this is
  * where we register the participant after their payment succeeds.
  *
  * Required env vars:
  *  - STRIPE_SECRET_KEY        (sk_test_... or sk_live_...)
- *  - STRIPE_WEBHOOK_SECRET    (whsec_...) — REQUIRED for signature verification
+ *  - STRIPE_WEBHOOK_SECRET    (whsec_...) - REQUIRED for signature verification
  *
- * Local testing (one-time):
+ * Local testing (one time):
  *   1. Install Stripe CLI: https://stripe.com/docs/stripe-cli
  *   2. Login:              stripe login
  *   3. Forward webhooks:   stripe listen --forward-to localhost:3000/api/webhook
@@ -28,9 +28,9 @@ import { confirmRegistration, notifyRegistration } from "@/lib/email";
  *   3. Events: checkout.session.completed, payment_intent.payment_failed
  *   4. Copy the signing secret → set as STRIPE_WEBHOOK_SECRET in your host env
  *
- * IMPORTANT — Next.js App Router:
+ * IMPORTANT, Next.js App Router:
  *   This route uses runtime: "nodejs" and reads the raw body via req.text().
- *   Do NOT use req.json() here — Stripe's signature is calculated against the
+ *   Do NOT use req.json() here, Stripe's signature is calculated against the
  *   raw bytes, so JSON-parsing first will break verification.
  */
 
@@ -83,7 +83,7 @@ export async function POST(req) {
         break;
       }
       default:
-        // Unhandled event type — fine, just ignore.
+        // Unhandled event type, fine, just ignore.
         break;
     }
   } catch (err) {
@@ -98,7 +98,7 @@ export async function POST(req) {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Handler — checkout.session.completed
+// Handler, checkout.session.completed
 // ─────────────────────────────────────────────────────────────────────
 async function handleCheckoutCompleted(session) {
   // Pull metadata we attached in /api/checkout
@@ -132,7 +132,7 @@ async function handleCheckoutCompleted(session) {
   // (or create it if, for any reason, the checkout write didn't land).
   //
   // Stripe may deliver this event more than once. If the row is already
-  // "paid", we've handled it — skip re-emailing.
+  // "paid", we've handled it, skip re-emailing.
   const existing = await prisma.registration.findUnique({
     where: { stripeSessionId: registration.stripeSessionId },
   });

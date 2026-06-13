@@ -12,7 +12,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * About Us — GCSA Consulting UK LTD
+ * About Us, GCSA Consulting UK LTD
  *
  * Full editorial page expanding the homepage About section:
  *  1. Page hero
@@ -62,7 +62,7 @@ const VALUES = [
   {
     Icon: LuTarget,
     title: "Excellence",
-    copy: "Every deliverable held to a single, uncompromising standard — from the first conversation to long after the engagement closes.",
+    copy: "Every deliverable held to a single, uncompromising standard, from the first conversation to long after the engagement closes.",
   },
   {
     Icon: LuLightbulb,
@@ -72,7 +72,7 @@ const VALUES = [
   {
     Icon: LuHandshake,
     title: "Partnership",
-    copy: "Consulting is collaborative, not transactional. We work alongside your team — never above them.",
+    copy: "Consulting is collaborative, not transactional. We work alongside your team, never above them.",
   },
   {
     Icon: LuAward,
@@ -108,7 +108,7 @@ const MILESTONES = [
   {
     year: "Founding",
     title: "Born from a vision",
-    copy: "GCSA was founded with a passion for transforming businesses — a consulting firm that prioritises partnership at every level.",
+    copy: "GCSA was founded with a passion for transforming businesses, a consulting firm that prioritises partnership at every level.",
   },
   {
     year: "Phase I",
@@ -118,12 +118,12 @@ const MILESTONES = [
   {
     year: "Phase II",
     title: "Cross-continent expansion",
-    copy: "Extended our consulting practice across Africa, Europe, and Asia — supporting clients in market entry, governance, and transformation.",
+    copy: "Extended our consulting practice across Africa, Europe, and Asia, supporting clients in market entry, governance, and transformation.",
   },
   {
     year: "Today",
     title: "Five-pillar practice",
-    copy: "Operating across Corporate Governance, Infrastructure, Enterprise Architecture, Strategy Management, and Technology Advisory — plus our flagship training programmes.",
+    copy: "Operating across Corporate Governance, Infrastructure, Enterprise Architecture, Strategy Management, and Technology Advisory, plus our flagship training programmes.",
   },
 ];
 
@@ -207,7 +207,7 @@ const AboutPage = () => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// 1. Page hero — navy band with breadcrumb
+// 1. Page hero, navy band with breadcrumb
 // ═══════════════════════════════════════════════════════════════════════
 const PageHero = () => {
   return (
@@ -384,9 +384,9 @@ const FoundingStory = () => {
                 business transformation.
               </p>
               <p>
-                Today, our consultants operate across five disciplines —
+                Today, our consultants operate across five disciplines -
                 Corporate Governance, Infrastructure, Enterprise Architecture,
-                Strategy Management, and Technology Advisory — alongside our
+                Strategy Management, and Technology Advisory, alongside our
                 flagship training programmes. The work is custom; the standard
                 is constant.
               </p>
@@ -489,8 +489,8 @@ const MissionVisionValues = () => {
               transforming themselves across{" "}
               <span className="italic font-medium" style={{ color: "#FFC72C" }}>
                 Africa, Europe, and Asia
-              </span>{" "}
-              — delivering strategic excellence in every engagement.
+              </span>,{" "}
+              delivering strategic excellence in every engagement.
             </p>
           </article>
         </div>

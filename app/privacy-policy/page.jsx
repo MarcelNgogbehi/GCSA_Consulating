@@ -16,7 +16,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Privacy Policy — GCSA Consulting UK LTD
+ * Privacy Policy, GCSA Consulting UK LTD
  *
  * UK GDPR / Data Protection Act 2018-aligned policy template.
  *
@@ -137,19 +137,19 @@ const PrivacyPolicyPage = () => {
             <Subheading>3.1 Information you provide directly</Subheading>
             <BulletList
               items={[
-                "Identity information — name, job title, employer, professional background",
-                "Contact information — email address, phone number, postal address, country of residence",
-                "Engagement information — details of your enquiry, training application, or consulting brief",
-                "Payment information — billing address and payment confirmation (card details are processed by Stripe and never stored by us)",
-                "Communication preferences — newsletter subscriptions and marketing consents",
+                "Identity information, name, job title, employer, professional background",
+                "Contact information, email address, phone number, postal address, country of residence",
+                "Engagement information, details of your enquiry, training application, or consulting brief",
+                "Payment information, billing address and payment confirmation (card details are processed by Stripe and never stored by us)",
+                "Communication preferences, newsletter subscriptions and marketing consents",
               ]}
             />
             <Subheading>3.2 Information collected automatically</Subheading>
             <BulletList
               items={[
-                "Technical information — IP address, browser type and version, device identifiers, operating system",
-                "Usage information — pages visited, time spent, navigation patterns, referrer URLs",
-                "Cookie and similar tracking data — see Section 10 and our Cookie Preferences page",
+                "Technical information, IP address, browser type and version, device identifiers, operating system",
+                "Usage information, pages visited, time spent, navigation patterns, referrer URLs",
+                "Cookie and similar tracking data, see Section 10 and our Cookie Preferences page",
               ]}
             />
             <Subheading>3.3 Information from third parties</Subheading>
@@ -185,10 +185,10 @@ const PrivacyPolicyPage = () => {
             </p>
             <BulletList
               items={[
-                "Contract — to deliver the services you have requested or to take steps before entering a contract",
-                "Legitimate interests — to operate our business, maintain client relationships, prevent fraud, secure our systems, and conduct limited direct marketing where appropriate",
-                "Consent — for marketing communications, optional cookies, and any sensitive processing",
-                "Legal obligation — for accounting records, tax obligations, and regulatory compliance",
+                "Contract, to deliver the services you have requested or to take steps before entering a contract",
+                "Legitimate interests, to operate our business, maintain client relationships, prevent fraud, secure our systems, and conduct limited direct marketing where appropriate",
+                "Consent, for marketing communications, optional cookies, and any sensitive processing",
+                "Legal obligation, for accounting records, tax obligations, and regulatory compliance",
               ]}
             />
             <p>
@@ -206,15 +206,15 @@ const PrivacyPolicyPage = () => {
             </p>
             <BulletList
               items={[
-                "Stripe Payments Europe Ltd — for processing programme payments (Stripe is the data controller for card data)",
-                "Cloud and email infrastructure providers — for hosting, email delivery, and document storage",
-                "Professional advisers — accountants, auditors, insurers, and legal counsel under appropriate confidentiality obligations",
-                "Regulators, law enforcement, and courts — where we are legally required to disclose information",
-                "Successors in interest — in the event of a merger, acquisition, or restructuring of GCSA",
+                "Stripe Payments Europe Ltd, for processing programme payments (Stripe is the data controller for card data)",
+                "Cloud and email infrastructure providers, for hosting, email delivery, and document storage",
+                "Professional advisers, accountants, auditors, insurers, and legal counsel under appropriate confidentiality obligations",
+                "Regulators, law enforcement, and courts, where we are legally required to disclose information",
+                "Successors in interest, in the event of a merger, acquisition, or restructuring of GCSA",
               ]}
             />
             <p>
-              All third-party processors are bound by written agreements that
+              All third party processors are bound by written agreements that
               include UK GDPR-compliant data protection terms.
             </p>
           </Section>
@@ -249,11 +249,11 @@ const PrivacyPolicyPage = () => {
             </p>
             <BulletList
               items={[
-                "Client engagement records — for the duration of the engagement and up to 7 years thereafter, in line with HMRC and contractual record-keeping requirements",
-                "Training participant records — for 3 years after programme completion, to support certification verification and alumni communications",
-                "Marketing contacts — until you withdraw consent or unsubscribe, plus reasonable suppression-list retention",
-                "Website analytics data — typically up to 26 months",
-                "Enquiry records where no engagement follows — up to 24 months",
+                "Client engagement records, for the duration of the engagement and up to 7 years thereafter, in line with HMRC and contractual record-keeping requirements",
+                "Training participant records, for 3 years after programme completion, to support certification verification and alumni communications",
+                "Marketing contacts, until you withdraw consent or unsubscribe, plus reasonable suppression-list retention",
+                "Website analytics data, typically up to 26 months",
+                "Enquiry records where no engagement follows, up to 24 months",
               ]}
             />
             <p>
@@ -266,14 +266,14 @@ const PrivacyPolicyPage = () => {
             <p>Under UK GDPR you have the following rights:</p>
             <BulletList
               items={[
-                "Right of access — to request a copy of the personal data we hold about you",
-                "Right to rectification — to have inaccurate or incomplete data corrected",
-                "Right to erasure — to request deletion of your personal data in certain circumstances",
-                "Right to restrict processing — to limit how we use your data in certain circumstances",
-                "Right to data portability — to receive your data in a structured, commonly used format",
-                "Right to object — to processing based on legitimate interests, including direct marketing",
-                "Right to withdraw consent — at any time where we rely on consent",
-                "Right not to be subject to solely automated decision-making — we do not currently make decisions about you using solely automated means",
+                "Right of access, to request a copy of the personal data we hold about you",
+                "Right to rectification, to have inaccurate or incomplete data corrected",
+                "Right to erasure, to request deletion of your personal data in certain circumstances",
+                "Right to restrict processing, to limit how we use your data in certain circumstances",
+                "Right to data portability, to receive your data in a structured, commonly used format",
+                "Right to object, to processing based on legitimate interests, including direct marketing",
+                "Right to withdraw consent, at any time where we rely on consent",
+                "Right not to be subject to solely automated decision making, we do not currently make decisions about you using solely automated means",
               ]}
             />
             <p>

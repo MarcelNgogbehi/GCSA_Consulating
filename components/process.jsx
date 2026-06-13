@@ -6,14 +6,14 @@ import Image from "next/image";
 import { FiArrowUpRight } from "react-icons/fi";
 
 /**
- * Process — GCSA Consulting | How We Work
+ * Process, GCSA Consulting | How We Work
  *
  * Content adapted from gcsaconsulting.co.uk service offerings:
  *  Strategic Planning, Organizational Development, Digital Transformation,
  *  Change Management, Market Expansion, Performance Improvement.
  *
  * Reframed as a four-phase engagement methodology that runs through
- * every GCSA project — diagnostic before prescriptive.
+ * every GCSA project, diagnostic before prescriptive.
  */
 
 function useReveal(options = { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }) {
@@ -50,12 +50,12 @@ const PHASES = [
     name: "Diagnose",
     title: "Understand the business before we prescribe a single intervention.",
     summary:
-      "Stakeholder interviews, capability assessments, and a deep review of strategy, operations, and market context. We surface the underlying constraints — not just the symptoms.",
+      "Stakeholder interviews, capability assessments, and a deep review of strategy, operations, and market context. We surface the underlying constraints, not just the symptoms.",
     metric: "01",
     metricLabel: "Discovery",
-    duration: "2–4 weeks",
+    duration: "2-4 weeks",
     quote:
-      "Strategic planning begins with honest diagnosis. Most organisations mistake their symptoms for their disease — we separate the two before recommending anything.",
+      "Strategic planning begins with honest diagnosis. Most organisations mistake their symptoms for their disease, we separate the two before recommending anything.",
     image:
       "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Strategic discovery and diagnostic workshop session",
@@ -65,10 +65,10 @@ const PHASES = [
     name: "Design",
     title: "A bespoke roadmap engineered for your context.",
     summary:
-      "We craft strategic plans, target operating models, and digital transformation roadmaps tailored to your sector, scale, and ambition — never templated, always engineered.",
+      "We craft strategic plans, target operating models, and digital transformation roadmaps tailored to your sector, scale, and ambition, never templated, always engineered.",
     metric: "02",
     metricLabel: "Strategy & Architecture",
-    duration: "3–6 weeks",
+    duration: "3-6 weeks",
     quote:
       "A blueprint is the moment your organisation stops improvising and starts building with intent.",
     image:
@@ -83,7 +83,7 @@ const PHASES = [
       "Side-by-side implementation: change management, programme governance, capability transfer, and the leadership coaching that turns recommendations into operational reality.",
     metric: "03",
     metricLabel: "Implementation",
-    duration: "3–12 months",
+    duration: "3-12 months",
     quote:
       "Strategy only counts when it survives contact with Monday morning. Delivery is where we are most present.",
     image:
@@ -189,7 +189,7 @@ const Process = () => {
               headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
             ].join(" ")}
           >
-            Every engagement follows a four-phase rhythm — diagnostic before
+            Every engagement follows a four-phase rhythm, diagnostic before
             prescriptive, partnership over transaction. From strategic planning
             and organisational development to digital transformation and
             performance improvement, the rhythm is constant; the work is custom.

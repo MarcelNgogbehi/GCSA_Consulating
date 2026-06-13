@@ -5,7 +5,7 @@ import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
 
 /**
- * RootLayout — GCSA Consulting UK LTD
+ * RootLayout, GCSA Consulting UK LTD
  *
  * Brand:
  *  - Navy:  #0A1A36
@@ -81,7 +81,7 @@ export const metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "GCSA Consulting — Taking Your Business to the Next Level",
+        alt: "GCSA Consulting, Taking Your Business to the Next Level",
       },
     ],
   },
@@ -175,7 +175,7 @@ const STRUCTURED_DATA = {
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#service`,
-      name: "GCSA Consulting — Management & Technology Advisory",
+      name: "GCSA Consulting, Management & Technology Advisory",
       parentOrganization: { "@id": `${SITE_URL}/#organization` },
       description:
         "Management consulting services for public and private institutions: corporate governance, infrastructure consulting, enterprise architecture, strategy management, and technology advisory.",

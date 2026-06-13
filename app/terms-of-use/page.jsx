@@ -16,7 +16,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Terms of Use — GCSA Consulting UK LTD
+ * Terms of Use, GCSA Consulting UK LTD
  *
  * General website terms-of-use template, governed by English law.
  *
@@ -43,7 +43,7 @@ const SECTIONS = [
   { id: "accounts-registrations", label: "6. Accounts & registrations" },
   { id: "ip", label: "7. Intellectual property" },
   { id: "user-content", label: "8. User-submitted content" },
-  { id: "third-party", label: "9. Third-party links & services" },
+  { id: "third-party", label: "9. Third party links & services" },
   { id: "training", label: "10. Training programmes & payments" },
   { id: "consulting", label: "11. Consulting engagements" },
   { id: "disclaimers", label: "12. Disclaimers" },
@@ -196,9 +196,9 @@ const TermsPage = () => {
 
           <Section id="ip" heading="7. Intellectual property">
             <p>
-              All content on the Site — including text, graphics, logos, icons,
+              All content on the Site, including text, graphics, logos, icons,
               photographs, frameworks, methodologies, training materials, and
-              software — is owned by or licensed to {COMPANY_NAME} and is
+              software, is owned by or licensed to {COMPANY_NAME} and is
               protected by UK and international intellectual property laws.
             </p>
             <p>
@@ -224,7 +224,7 @@ const TermsPage = () => {
             <BulletList
               items={[
                 "Confirm that you own or have the right to share the content",
-                "Confirm that the content does not infringe any third-party rights or any law",
+                "Confirm that the content does not infringe any third party rights or any law",
                 "Grant us a worldwide, royalty-free licence to use the content for the purposes of operating, promoting, and improving our services, in accordance with our Privacy Policy",
               ]}
             />
@@ -234,16 +234,16 @@ const TermsPage = () => {
             </p>
           </Section>
 
-          <Section id="third-party" heading="9. Third-party links & services">
+          <Section id="third-party" heading="9. Third party links & services">
             <p>
-              The Site may contain links to third-party websites and embedded
+              The Site may contain links to third party websites and embedded
               services (for example, mapping services, social media platforms,
               and payment processors such as Stripe). We do not control these
               third parties and are not responsible for their content,
               practices, or terms.
             </p>
             <p>
-              Your use of any third-party service is subject to that party's
+              Your use of any third party service is subject to that party's
               terms and privacy policy. You should review them before engaging.
             </p>
           </Section>
@@ -334,7 +334,7 @@ const TermsPage = () => {
               items={[
                 "Your breach of these Terms",
                 "Your misuse of the Site",
-                "Your violation of any law or third-party right",
+                "Your violation of any law or third party right",
               ]}
             />
           </Section>

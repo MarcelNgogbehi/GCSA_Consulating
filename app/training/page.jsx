@@ -28,12 +28,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * /training — GCSA Training (single-page)
+ * /training, GCSA Training (single-page)
  *
  * One self-contained page that delivers:
- *   - Training landing/intro                 (was /training)
- *   - Transition to Architecture detail      (was /training/transition-to-architecture)
- *   - Seamless registration modal            (was components/RegistrationModal.jsx)
+ *  , Training landing/intro                 (was /training)
+ *  , Transition to Architecture detail      (was /training/transition-to-architecture)
+ *  , Seamless registration modal            (was components/RegistrationModal.jsx)
  *
  * Sections:
  *   1.  Page hero
@@ -41,12 +41,12 @@ import Footer from "@/components/Footer";
  *   3.  ── DIVIDER ── Active Programme banner
  *   4.  Programme hero (mirrors flyer)
  *   5.  Outcomes
- *   6.  Curriculum (interactive 6-week panel)
+ *   6.  Curriculum (interactive 6 week panel)
  *   7.  Who it's for
  *   8.  What's included
  *   9.  Schedule + Investment block (registration trigger)
  *   10. Programme FAQs
- *   11. Corporate / in-house training
+ *   11. Corporate / in house training
  *   12. Final CTA
  *
  * Plus the embedded RegistrationModal (Stripe Checkout flow).
@@ -94,39 +94,39 @@ function useReveal(options = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
 const WHY_GCSA = [
   {
     Icon: LuTarget,
-    title: "Real-world cases",
+    title: "Real world cases",
     copy: "Every programme is grounded in transformation case studies pulled from live GCSA consulting engagements.",
   },
   {
     Icon: LuGraduationCap,
     title: "Expert mentorship",
-    copy: "Small cohorts. Practising consultants — not career trainers — leading every session.",
+    copy: "Small cohorts. Practising consultants, not career trainers, leading every session.",
   },
   {
     Icon: LuTrendingUp,
-    title: "Career-changing outcomes",
-    copy: "Portfolio-ready deliverables and a roadmap to your next role, not just a certificate of attendance.",
+    title: "Career changing outcomes",
+    copy: "Portfolio ready deliverables and a roadmap to your next role, not just a certificate of attendance.",
   },
 ];
 
 const OUTCOMES = [
-  "Real-world architecture experience",
+  "Real world architecture experience",
   "A portfolio of project deliverables to showcase your skills",
-  "Confidence to apply for architect-level roles",
+  "Confidence to apply for architect level roles",
   "A clear roadmap for your next career step",
-  "Industry-recognised frameworks and templates",
+  "Industry recognised frameworks and templates",
   "Direct mentorship from practising consultants",
 ];
 
 const CURRICULUM = [
   {
     week: "Week 1",
-    title: "End-to-End Solution Design",
+    title: "End to End Solution Design",
     summary: "Design scalable, integrated solutions that deliver real business value.",
     deliverables: [
-      "Solution-design canvas",
+      "Solution design canvas",
       "Stakeholder requirement pack",
-      "First case-study walkthrough",
+      "First case study walkthrough",
     ],
   },
   {
@@ -152,11 +152,11 @@ const CURRICULUM = [
   {
     week: "Week 4",
     title: "Platform & Technology Strategy",
-    summary: "Evaluate and align platforms, cloud, and technologies to build future-ready solutions.",
+    summary: "Evaluate and align platforms, cloud, and technologies to build future ready solutions.",
     deliverables: [
       "Platform comparison matrix",
-      "Cloud-strategy one-pager",
-      "Tech-radar starter",
+      "Cloud strategy one pager",
+      "Tech radar starter",
     ],
   },
   {
@@ -174,7 +174,7 @@ const CURRICULUM = [
     title: "Governance & Best Practices",
     summary: "Apply standards, principles and decision frameworks used in enterprise environments.",
     deliverables: [
-      "Architecture review-board kit",
+      "Architecture review board kit",
       "Governance scorecard",
       "Final capstone presentation",
     ],
@@ -186,32 +186,67 @@ const WHO_FOR = [
   { Icon: LuRocket, title: "Developer / Engineer", copy: "Want to step beyond delivery into architecture leadership." },
   { Icon: LuTrendingUp, title: "Project / Programme Manager", copy: "Seeking the technical depth to lead transformation programmes." },
   { Icon: LuGraduationCap, title: "Product Owner", copy: "Building the architectural vocabulary to shape product platforms." },
-  { Icon: FiUsers, title: "IT / Operations Professional", copy: "Translating ops experience into design-and-decision authority." },
+  { Icon: FiUsers, title: "IT / Operations Professional", copy: "Translating ops experience into design and decision authority." },
 ];
 
 const INCLUDED = [
   "6 weeks of live cohort sessions",
-  "Hands-on weekly workshops",
+  "Hands on weekly workshops",
   "Industry frameworks, tools, and templates",
-  "Real-life transformation case studies",
-  "Portfolio-ready deliverables",
+  "Real life transformation case studies",
+  "Portfolio ready deliverables",
   "Expert mentorship and career guidance",
-  "Small-cohort access to instructors",
+  "Small cohort access to instructors",
   "Certificate of Completion",
+];
+
+// Earning potential (from the programme flyer)
+const EARNINGS = [
+  {
+    role: "Data Analysts earn",
+    annual: "£40k to £85k+",
+    daily: "£400 to £650",
+    featured: false,
+  },
+  {
+    role: "Enterprise Architects earn",
+    annual: "£90k to £150k+",
+    daily: "£500 to £1,500",
+    featured: true,
+  },
+];
+
+// Skill pillars covered (from the flyer)
+const PILLARS = [
+  "AI & Data Analysis",
+  "Solution Architecture",
+  "Business Architecture",
+  "Data Architecture",
+  "Enterprise Architecture",
+];
+
+// What makes us different (from the flyer)
+const DIFFERENTIATORS = [
+  { Icon: LuTarget, title: "Hands on training", copy: "Built on real life case studies, not theory." },
+  { Icon: FiAward, title: "Portfolio & CV development", copy: "Leave with work you can show and a CV that lands interviews." },
+  { Icon: FiUsers, title: "Interview preparation", copy: "Mock interviews and coaching to walk in with confidence." },
+  { Icon: LuRocket, title: "Internship opportunities", copy: "Real world placements, subject to availability." },
+  { Icon: LuGraduationCap, title: "Professional references", copy: "Earned references based on demonstrated capability." },
+  { Icon: LuTrendingUp, title: "Career coaching & mentoring", copy: "Ongoing guidance from practising consultants." },
 ];
 
 const FAQS = [
   {
     q: "How do I pay, and can I pay in instalments?",
-    a: "You register in one quick step and pay securely online via Stripe. You can pay in full, or spread the cost across flexible weekly instalments — the options and exact amounts are shown on the secure checkout page.",
+    a: "You register in one quick step and pay securely online via Stripe. You can pay in full, or spread the cost across flexible weekly instalments, the options and exact amounts are shown on the secure checkout page.",
   },
   {
     q: "What's the time commitment per week?",
-    a: "Plan for around 6–8 hours per week: live sessions, workshops, and self-paced exercises. Sessions are scheduled outside standard working hours where possible to accommodate working professionals.",
+    a: "Plan for around 6 to 8 hours per week: live sessions, workshops, and self paced exercises. Sessions are scheduled outside standard working hours where possible to accommodate working professionals.",
   },
   {
     q: "Do I need a technical background?",
-    a: "Not at a deep-engineering level. The programme is built for professionals from any background — business analysts, project managers, product owners, IT/ops professionals — provided you can solve problems and think structurally. We bring the technical scaffolding.",
+    a: "Not at a deep engineering level. The programme is built for professionals from any background, business analysts, project managers, product owners, IT/ops professionals, provided you can solve problems and think structurally. We bring the technical scaffolding.",
   },
   {
     q: "Is the programme delivered live or recorded?",
@@ -219,23 +254,23 @@ const FAQS = [
   },
   {
     q: "What happens after I register?",
-    a: "You'll be redirected to Stripe to complete payment securely. Once payment is confirmed, you'll receive a welcome email within minutes including your cohort details, pre-work, and access to the participant portal.",
+    a: "You'll be redirected to Stripe to complete payment securely. Once payment is confirmed, you'll receive a welcome email within minutes including your cohort details, joining materials, and access to the participant portal.",
   },
   {
     q: "Do you offer refunds?",
-    a: "Yes — full refunds within 7 days of payment, provided the cohort has not yet started. After the start date, refunds are reviewed case-by-case. See our terms for the full policy.",
+    a: "Yes, full refunds within 7 days of payment, provided the cohort has not yet started. After the start date, refunds are reviewed case by case. See our terms for the full policy.",
   },
   {
     q: "Can my employer be invoiced directly?",
-    a: "Yes. For corporate-funded registrations, contact us at info@gcsaconsulting.co.uk before registering and we'll issue a pro forma invoice and arrange bank transfer.",
+    a: "Yes. For corporate funded registrations, contact us at info@gcsaconsulting.co.uk before registering and we'll issue a pro forma invoice and arrange bank transfer.",
   },
 ];
 
 // Registration form options
 const EXPERIENCE_OPTIONS = [
   "Less than 2 years",
-  "2–5 years",
-  "5–10 years",
+  "2 to 5 years",
+  "5 to 10 years",
   "10+ years",
 ];
 
@@ -246,7 +281,7 @@ const COURSE_LD = {
   "@id": "https://www.gcsaconsulting.co.uk/training/#course",
   name: PROGRAMME_NAME,
   description:
-    "A 6-week intensive, hands-on programme to fast-track professionals into architecture roles. Master 6 architectural skillsets including solution design, architecture thinking, data & integration, platform strategy, stakeholder influence, and governance.",
+    "A 6 week intensive, hands on programme to fast track professionals into architecture roles. Master 6 architectural skillsets including solution design, architecture thinking, data & integration, platform strategy, stakeholder influence, and governance.",
   provider: {
     "@type": "Organization",
     name: "GCSA Consulting UK LTD",
@@ -293,17 +328,16 @@ const TrainingPage = () => {
         className="bg-white"
         style={{ fontFamily: "'Montserrat', ui-sans-serif, system-ui, sans-serif" }}
       >
-        {/* ── Intro / Index ─────────────────────────────────── */}
-        <PageHero />
-        <WhyGCSA />
-
-        {/* ── Active Programme Detail ───────────────────────── */}
+        {/* Register first, then value, audience, and the data */}
+        <PageHero onRegister={openModal} />
         <ProgrammeDivider />
-        <ProgrammeHero onRegister={openModal} />
         <Outcomes />
-        <Curriculum />
         <WhoFor />
+        <EarningsPotential onRegister={openModal} />
+        <WhatMakesUsDifferent />
+        <Curriculum />
         <Included onRegister={openModal} />
+        <WhyGCSA />
         <ScheduleInvestment onRegister={openModal} />
         <FAQ />
 
@@ -326,7 +360,7 @@ const TrainingPage = () => {
 // ═══════════════════════════════════════════════════════════════════════
 // 1. Page hero
 // ═══════════════════════════════════════════════════════════════════════
-const PageHero = () => {
+const PageHero = ({ onRegister }) => {
   return (
     <section
       aria-labelledby="training-hero-heading"
@@ -349,41 +383,66 @@ const PageHero = () => {
           <Link href="/" className="hover:text-[#FFC72C] transition-colors">
             Home
           </Link>
-          <span aria-hidden="true">·</span>
+          <span aria-hidden="true">/</span>
           <span className="text-[#FFC72C]">Training</span>
         </nav>
 
         <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
           <span className="inline-block w-12 h-px" style={{ backgroundColor: "#FFC72C" }} />
-          GCSA Training
+          Empowering People. Transforming Careers.
         </p>
 
         <h1
           id="training-hero-heading"
-          className="font-extrabold leading-[0.98] tracking-[-0.02em] text-white text-[44px] sm:text-[60px] md:text-[80px] lg:text-[96px] max-w-5xl"
+          className="font-extrabold leading-[0.98] tracking-[-0.02em] text-white text-[40px] sm:text-[56px] md:text-[72px] lg:text-[88px] max-w-5xl"
         >
-          Ready to Become an{" "}
+          Become a{" "}
           <span className="font-light italic" style={{ color: "#FFC72C" }}>
-            Architect
+            Data Analyst
           </span>{" "}
-          in Just 6 Weeks?
+          or Enterprise Architect in just 6 weeks.
         </h1>
 
         <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
-          Stop watching others lead transformation programmes while you remain
-          stuck delivering requirements. This is your opportunity to transition
-          into high-impact Architecture roles with real-world, hands-on
-          experience — delivered by practising GCSA consultants.
+          Gain practical, job ready Data Analysis and Enterprise Architecture
+          skills in 6 weeks, taught by practising GCSA consultants.
         </p>
 
+        {/* Register first, the primary action on landing */}
         <div className="mt-10 md:mt-12 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={onRegister}
+            className="group inline-flex items-center gap-2 px-8 md:px-10 py-4 md:py-5 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] md:text-[13px] font-extrabold tracking-[0.18em] uppercase shadow-[0_14px_40px_-10px_rgba(255,199,44,0.7)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A1A36] focus-visible:ring-[#FFC72C] transition-all duration-300"
+          >
+            <FiCreditCard className="w-4 h-4" />
+            Register Today
+            <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
           <a
             href="#programme"
-            className="group inline-flex items-center gap-2 px-7 md:px-9 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] transition-all duration-300"
+            className="group inline-flex items-center gap-2 px-7 md:px-9 py-4 md:py-5 rounded-full bg-white/5 hover:bg-white/10 border border-white/30 hover:border-white/55 text-white text-[12px] md:text-[13px] font-bold tracking-[0.18em] uppercase backdrop-blur-sm transition-all duration-300"
           >
-            View Active Programme
+            See What You Get
             <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
+        </div>
+
+        {/* Instant value chips */}
+        <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+          {[
+            { Icon: FiClock, label: "6 weeks, live online" },
+            { Icon: LuTrendingUp, label: "Earn up to £150k+" },
+            { Icon: FiAward, label: "Portfolio, CV and references" },
+            { Icon: LuRocket, label: "No experience needed" },
+          ].map(({ Icon, label }) => (
+            <div key={label} className="inline-flex items-center gap-2">
+              <Icon className="w-5 h-5" style={{ color: "#FFC72C" }} />
+              <span className="text-[12px] md:text-[13px] font-bold tracking-[0.04em] text-white/85">
+                {label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -454,7 +513,7 @@ const WhyGCSA = () => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// 3. Programme divider — visual handoff between intro and detail
+// 3. Programme divider, visual handoff between intro and detail
 // ═══════════════════════════════════════════════════════════════════════
 const ProgrammeDivider = () => {
   return (
@@ -469,136 +528,10 @@ const ProgrammeDivider = () => {
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-[#0A1A36] text-white">
             <span className="w-2 h-2 rounded-full bg-[#FFC72C] animate-pulse" />
             <span className="text-[10px] md:text-[11px] font-extrabold tracking-[0.22em] uppercase">
-              Limited Cohort · High Demand — Now Enrolling
+              Limited Cohort. High Demand. Now Enrolling
             </span>
           </span>
           <span className="flex-1 h-px bg-[#0A1A36]/15" />
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// ═══════════════════════════════════════════════════════════════════════
-// 4. Programme hero — mirrors the flyer
-// ═══════════════════════════════════════════════════════════════════════
-const ProgrammeHero = ({ onRegister }) => {
-  return (
-    <section
-      aria-labelledby="prog-hero-heading"
-      className="relative bg-[#0A1A36] text-white overflow-hidden pt-16 md:pt-24 pb-20 md:pb-28"
-    >
-      <div
-        className="absolute inset-0 opacity-60 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 88% 15%, rgba(255,199,44,0.18), transparent 50%), radial-gradient(circle at 8% 90%, rgba(255,199,44,0.06), transparent 55%)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
-          <div className="lg:col-span-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-[#FFC72C] mb-7">
-              <LuRocket className="w-3.5 h-3.5 text-[#0A1A36]" strokeWidth={2.5} />
-              <span className="text-[10px] md:text-[11px] font-extrabold tracking-[0.22em] uppercase text-[#0A1A36]">
-                Design the Future. Lead the Change.
-              </span>
-            </div>
-
-            <h2
-              id="prog-hero-heading"
-              className="font-extrabold leading-[0.92] tracking-[-0.025em] text-white text-[42px] sm:text-[60px] md:text-[80px] lg:text-[100px] xl:text-[112px]"
-            >
-              Transition to <br />
-              <span style={{ color: "#FFC72C" }}>Architecture</span>
-              <span className="block mt-3 text-[24px] md:text-[34px] lg:text-[40px] font-bold text-white/90 tracking-[-0.01em]">
-                in just 6 weeks!
-              </span>
-            </h2>
-
-            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3">
-              {[
-                { Icon: LuTarget, label: "High-Impact Career" },
-                { Icon: LuTrendingUp, label: "High-Demand Roles" },
-                { Icon: LuGraduationCap, label: "Higher Influence" },
-              ].map(({ Icon, label }) => (
-                <div key={label} className="inline-flex items-center gap-2">
-                  <Icon className="w-5 h-5" style={{ color: "#FFC72C" }} />
-                  <span className="text-[12px] md:text-[13px] font-bold tracking-[0.14em] uppercase text-white/85">
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
-              This is your opportunity to transition into high-impact
-              Architecture roles with real-world, hands-on experience across
-              Solution, Business, Data, Application, Platform, and Technology
-              Architecture — led by practising GCSA consultants.
-            </p>
-          </div>
-
-          {/* Right — investment / CTA card */}
-          <div className="lg:col-span-4">
-            <div className="relative bg-gradient-to-br from-white to-[#FBF8F1] text-[#0A1A36] rounded-2xl p-7 md:p-8 shadow-[0_30px_80px_-20px_rgba(255,199,44,0.4)] overflow-hidden">
-              <div
-                className="absolute top-0 left-0 right-0 h-1.5"
-                style={{ backgroundColor: "#FFC72C" }}
-                aria-hidden="true"
-              />
-
-              <p className="text-[10px] font-bold tracking-[0.26em] uppercase text-[#0A1A36]/50 mb-1.5">
-                Secure your place
-              </p>
-              <p className="text-[22px] md:text-[24px] font-extrabold leading-[1.15] tracking-[-0.01em] text-[#0A1A36] mb-2">
-                Reserve your seat in the next cohort.
-              </p>
-              <p className="text-[12.5px] leading-[1.6] text-[#0A1A36]/70 mb-6">
-                Register in one quick step — pay securely online, with flexible
-                weekly instalment options available.
-              </p>
-
-              <ul className="space-y-2 mb-7">
-                {[
-                  "6 weeks of live sessions",
-                  "Hands-on workshops",
-                  "Certificate of completion",
-                  "Career-ready portfolio",
-                ].map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-[13px] text-[#0A1A36]/80">
-                    <FiCheck className="shrink-0 mt-0.5 w-4 h-4" style={{ color: "#FFC72C" }} strokeWidth={3} />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                type="button"
-                onClick={onRegister}
-                className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FFC72C] transition-all duration-300"
-              >
-                <FiCreditCard className="w-4 h-4" />
-                Secure Your Spot Today
-                <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
-
-              <p className="mt-4 text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#0A1A36]/55 text-center">
-                Limited Cohort · High Demand
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -634,7 +567,7 @@ const Outcomes = () => {
             </h2>
             <p className="mt-6 text-[15px] md:text-[16px] leading-[1.75] text-[#0A1A36]/75 max-w-md">
               Every week produces a portfolio piece you can show in an interview
-              — not just lecture notes. By Week 6, you have the experience,
+             , not just lecture notes. By Week 6, you have the experience,
               language, and confidence of an architect.
             </p>
           </div>
@@ -670,7 +603,127 @@ const Outcomes = () => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// 6. Curriculum — interactive 6-week panel
+// 5b. Earning potential + skill pillars (mirrors the flyer data)
+// ═══════════════════════════════════════════════════════════════════════
+const EarningsPotential = ({ onRegister }) => {
+  const [ref, visible] = useReveal();
+
+  return (
+    <section
+      ref={ref}
+      aria-labelledby="earnings-heading"
+      className="relative bg-[#0A1A36] text-white py-20 md:py-28 lg:py-32 overflow-hidden"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 85% 12%, rgba(255,199,44,0.14), transparent 55%), radial-gradient(circle at 10% 95%, rgba(255,199,44,0.06), transparent 55%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
+        <div className="max-w-3xl mb-12 md:mb-16">
+          <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
+            <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+            High Demand, High Paying Careers
+          </p>
+          <h2
+            id="earnings-heading"
+            className="font-extrabold leading-[1.02] tracking-[-0.02em] text-white text-[36px] md:text-[48px] lg:text-[56px]"
+          >
+            What you could{" "}
+            <span className="font-light italic" style={{ color: "#FFC72C" }}>earn</span>.
+          </h2>
+          <p className="mt-6 text-[15px] md:text-[16px] leading-[1.75] text-white/75 max-w-2xl">
+            UK market rates for the roles this programme prepares you for. Build
+            the skills, portfolio, and references to step into them.
+          </p>
+        </div>
+
+        {/* Earnings cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {EARNINGS.map((e, i) => (
+            <article
+              key={e.role}
+              className={[
+                "relative rounded-2xl overflow-hidden p-8 md:p-10 transition-all duration-700",
+                e.featured
+                  ? "bg-gradient-to-br from-[#FFC72C] to-[#E6B324] text-[#0A1A36]"
+                  : "bg-white/[0.04] border border-white/12 text-white",
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+              ].join(" ")}
+              style={{ transitionDelay: visible ? `${130 * i}ms` : "0ms" }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <span
+                  className={[
+                    "inline-flex items-center justify-center w-11 h-11 rounded-full",
+                    e.featured ? "bg-[#0A1A36] text-[#FFC72C]" : "bg-[#FFC72C] text-[#0A1A36]",
+                  ].join(" ")}
+                >
+                  <LuTrendingUp className="w-5 h-5" strokeWidth={2.4} />
+                </span>
+                <h3 className="text-[14px] md:text-[15px] font-extrabold tracking-[0.04em] uppercase">
+                  {e.role}
+                </h3>
+              </div>
+
+              <div className="flex items-end gap-2">
+                <span className="text-[44px] md:text-[60px] font-extrabold leading-[0.95] tracking-[-0.03em]">
+                  {e.annual}
+                </span>
+                <span className={["mb-2 text-[13px] font-bold", e.featured ? "text-[#0A1A36]/70" : "text-white/60"].join(" ")}>
+                  per annum
+                </span>
+              </div>
+
+              <div className={["mt-5 pt-5 border-t flex items-baseline gap-2", e.featured ? "border-[#0A1A36]/15" : "border-white/12"].join(" ")}>
+                <span className="text-[26px] md:text-[32px] font-extrabold tracking-[-0.02em]">
+                  {e.daily}
+                </span>
+                <span className={["text-[13px] font-bold", e.featured ? "text-[#0A1A36]/70" : "text-white/60"].join(" ")}>
+                  / day
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Skill pillars */}
+        <div className="mt-12 md:mt-16">
+          <p className="text-[11px] font-bold tracking-[0.28em] uppercase text-white/50 mb-5">
+            Practical skills you will gain
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {PILLARS.map((p) => (
+              <span
+                key={p}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.06] border border-white/15 text-[13px] font-bold text-white/90"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FFC72C]" />
+                {p}
+              </span>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={onRegister}
+            className="group mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#FFC72C] hover:bg-[#E6B324] text-[#0A1A36] text-[12px] font-extrabold tracking-[0.18em] uppercase shadow-[0_10px_30px_-8px_rgba(255,199,44,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A1A36] focus-visible:ring-[#FFC72C] transition-all duration-300"
+          >
+            Start Your Career Switch
+            <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ═══════════════════════════════════════════════════════════════════════
+// 6. Curriculum, interactive 6 week panel
 // ═══════════════════════════════════════════════════════════════════════
 const Curriculum = () => {
   const [ref, visible] = useReveal();
@@ -708,7 +761,7 @@ const Curriculum = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left — week list */}
+          {/* Left, week list */}
           <div className="lg:col-span-5">
             <ul className="space-y-2">
               {CURRICULUM.map((c, i) => {
@@ -768,7 +821,7 @@ const Curriculum = () => {
             </ul>
           </div>
 
-          {/* Right — week detail */}
+          {/* Right, week detail */}
           <div className="lg:col-span-7">
             <div
               key={active}
@@ -880,6 +933,72 @@ const WhoFor = () => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
+// 7b. What makes us different (mirrors the flyer)
+// ═══════════════════════════════════════════════════════════════════════
+const WhatMakesUsDifferent = () => {
+  const [ref, visible] = useReveal();
+
+  return (
+    <section
+      ref={ref}
+      aria-labelledby="different-heading"
+      className="relative bg-white py-20 md:py-28 lg:py-32"
+    >
+      <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto">
+        <div className="max-w-3xl mb-12 md:mb-16">
+          <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#0A1A36]/60 mb-6">
+            <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
+            What Makes Us Different
+          </p>
+          <h2
+            id="different-heading"
+            className="font-extrabold leading-[1.02] tracking-[-0.02em] text-[#0A1A36] text-[36px] md:text-[48px] lg:text-[56px]"
+          >
+            More than a course. A{" "}
+            <span className="font-light italic" style={{ color: "#FFC72C" }}>career launchpad</span>.
+          </h2>
+          <p className="mt-6 text-[15px] md:text-[16px] leading-[1.75] text-[#0A1A36]/75 max-w-2xl">
+            No experience? No problem. We help bridge the gap between learning and
+            employment, with everything you need to get hired.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {DIFFERENTIATORS.map((d, i) => (
+            <article
+              key={d.title}
+              className={[
+                "group relative p-7 bg-[#FBF8F1] border border-[#0A1A36]/10 rounded-sm hover:border-[#FFC72C] hover:-translate-y-1 transition-all duration-500",
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+              ].join(" ")}
+              style={{ transitionDelay: visible ? `${90 * i}ms` : "0ms" }}
+            >
+              <span
+                className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                style={{ backgroundColor: "#FFC72C" }}
+                aria-hidden="true"
+              />
+              <div
+                className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-5"
+                style={{ backgroundColor: "#FFC72C" }}
+              >
+                <d.Icon className="w-5 h-5 text-[#0A1A36]" strokeWidth={2.2} />
+              </div>
+              <h3 className="font-extrabold tracking-[-0.01em] text-[#0A1A36] text-[18px] md:text-[19px] mb-2">
+                {d.title}
+              </h3>
+              <p className="text-[13.5px] leading-[1.65] text-[#0A1A36]/70">
+                {d.copy}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ═══════════════════════════════════════════════════════════════════════
 // 8. What's included
 // ═══════════════════════════════════════════════════════════════════════
 const Included = ({ onRegister }) => {
@@ -969,7 +1088,7 @@ const ScheduleInvestment = ({ onRegister }) => {
               >
                 Six weeks to a{" "}
                 <span className="font-light italic" style={{ color: "#FFC72C" }}>
-                  career-changing
+                  career changing
                 </span>{" "}
                 future.
               </h2>
@@ -977,7 +1096,7 @@ const ScheduleInvestment = ({ onRegister }) => {
               <div className="grid grid-cols-2 gap-6 md:gap-8">
                 {[
                   { Icon: FiCalendar, label: "Next Cohort", value: "Starting Soon" },
-                  { Icon: FiClock, label: "Duration", value: "6 weeks · 6–8h/wk" },
+                  { Icon: FiClock, label: "Duration", value: "6 weeks, 6 to 8h per week" },
                   { Icon: FiUsers, label: "Format", value: "Live online + workshops" },
                   { Icon: FiAward, label: "Outcome", value: "Certificate + portfolio" },
                 ].map(({ Icon, label, value }) => (
@@ -1014,7 +1133,7 @@ const ScheduleInvestment = ({ onRegister }) => {
                 <FiCreditCard className="shrink-0 mt-0.5 w-4 h-4" style={{ color: "#FFC72C" }} />
                 <p className="text-[12px] leading-[1.55] text-white/80">
                   Pay in full or spread the cost over{" "}
-                  <span className="font-bold text-white">flexible weekly instalments</span> —
+                  <span className="font-bold text-white">flexible weekly instalments</span> -
                   choose what works for you at the secure checkout.
                 </p>
               </div>
@@ -1030,7 +1149,7 @@ const ScheduleInvestment = ({ onRegister }) => {
               </button>
 
               <p className="mt-4 text-[11px] text-white/55 text-center">
-                Secure checkout via Stripe · Cards accepted globally
+                Secure checkout via Stripe. Cards accepted globally
               </p>
 
               <div className="mt-6 pt-5 border-t border-white/10 space-y-2">
@@ -1130,7 +1249,7 @@ const FAQ = () => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// 12. Corporate / in-house training
+// 12. Corporate / in house training
 // ═══════════════════════════════════════════════════════════════════════
 const CorporateTraining = () => {
   return (
@@ -1165,9 +1284,9 @@ const CorporateTraining = () => {
                 ?
               </h2>
               <p className="text-[15px] md:text-[16px] leading-[1.75] text-white/75 max-w-2xl">
-                We design and deliver custom in-house programmes — architecture
-                upskilling, governance bootcamps, leadership academies — tailored
-                to your sector, scale, and standards. Cohorts of 8–40, on-site or virtual.
+                We design and deliver custom in house programmes, architecture
+                upskilling, governance bootcamps, leadership academies, tailored
+                to your sector, scale, and standards. Cohorts of 8 to 40, on site or virtual.
               </p>
             </div>
             <div className="lg:col-span-4 lg:flex lg:justify-end">
@@ -1203,7 +1322,7 @@ const FinalCta = ({ onRegister }) => {
       <div className="relative px-6 md:px-10 lg:px-16 xl:px-20 max-w-[1440px] mx-auto py-20 md:py-28 lg:py-32 text-center">
         <p className="flex items-center justify-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-6">
           <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
-          Limited Cohort · High Demand
+          Limited Cohort. High Demand
           <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
         </p>
         <h2 className="font-extrabold leading-[0.98] tracking-[-0.025em] text-white text-[44px] md:text-[68px] lg:text-[88px] max-w-4xl mx-auto">
@@ -1226,7 +1345,7 @@ const FinalCta = ({ onRegister }) => {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-[13px] text-white/60">
           <span>📍 Classes in London, Wales, Scotland &amp; North Ireland</span>
-          <span className="hidden sm:inline text-white/30">·</span>
+          <span className="hidden sm:inline text-white/30">/</span>
           <a href="mailto:info@gcsaconsulting.co.uk" className="font-bold text-[#FFC72C] hover:text-white transition-colors">
             📩 info@gcsaconsulting.co.uk
           </a>
@@ -1237,7 +1356,7 @@ const FinalCta = ({ onRegister }) => {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-// REGISTRATION MODAL — embedded in the same file
+// REGISTRATION MODAL, embedded in the same file
 // ═══════════════════════════════════════════════════════════════════════
 const RegistrationModal = ({
   open,
@@ -1251,7 +1370,7 @@ const RegistrationModal = ({
     name: "",
     email: "",
     phone: "",
-    experience: "2–5 years",
+    experience: "2 to 5 years",
     consent: false,
   });
 
@@ -1366,12 +1485,12 @@ const RegistrationModal = ({
           </h2>
 
           <p className="mt-3 text-[13px] leading-[1.6] text-[#0A1A36]/70">
-            One quick step to secure your place — enter your details, then pay
+            One quick step to secure your place, enter your details, then pay
             securely via Stripe.
           </p>
         </div>
 
-        {/* Body — single step */}
+        {/* Body, single step */}
         <form onSubmit={submit} noValidate className="flex-1 overflow-y-auto px-6 md:px-10 py-6 md:py-8 bg-[#FBF8F1]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 animate-[stepFade_350ms_ease-out_forwards]">
             <Field label="Full Name" name="name" value={form.name} onChange={onChange} required full placeholder="Jane Doe" />

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FiArrowRight } from "react-icons/fi";
 
 /**
- * Hero — GCSA Consulting | Homepage Hero
+ * Hero, GCSA Consulting | Homepage Hero
  *
  * Content (per gcsaconsulting.co.uk):
  * - Headline: "Taking Your Business to the Next Level"
@@ -34,15 +34,15 @@ import { FiArrowRight } from "react-icons/fi";
 const SCOPE_STATEMENTS = [
   "Strategic excellence meets innovative solutions in management consulting",
   "Helping organisations adapt, grow, and gain a competitive advantage",
-  "From the boardroom to the global stage — Africa · Europe · Asia",
+  "From the boardroom to the global stage, Africa · Europe · Asia",
 ];
 
-// Hero image — replace with your own asset in /public when available
+// Hero image, replace with your own asset in /public when available
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2400&q=85";
 
 const HERO_IMAGE_ALT =
-  "Business leaders in strategic discussion — the context in which GCSA Consulting partners with organisations to drive transformation";
+  "Business leaders in strategic discussion, the context in which GCSA Consulting partners with organisations to drive transformation";
 
 const Hero = () => {
   const [statementIndex, setStatementIndex] = useState(0);
@@ -81,7 +81,7 @@ const Hero = () => {
           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
         />
 
-        {/* Navy gradient overlay — matches flyer aesthetic */}
+        {/* Navy gradient overlay, matches flyer aesthetic */}
         <div
           className="absolute inset-0"
           style={{
@@ -154,7 +154,7 @@ const Hero = () => {
               GCSA Consulting · Business Consultants
             </p>
 
-            {/* H1 — Taking Your Business to the Next Level */}
+            {/* H1 - Taking Your Business to the Next Level */}
             <h1
               id="hero-heading"
               className="text-white font-extrabold leading-[0.98] tracking-[-0.02em] text-[42px] sm:text-[58px] md:text-[76px] lg:text-[92px] xl:text-[104px] opacity-0 animate-[heroReveal_900ms_cubic-bezier(0.22,1,0.36,1)_500ms_forwards]"
@@ -214,7 +214,7 @@ const Hero = () => {
               </Link>
             </div>
 
-            {/* Stat strip — global reach signal */}
+            {/* Stat strip, global reach signal */}
             <div className="mt-14 md:mt-20 grid grid-cols-3 gap-4 md:gap-12 max-w-2xl border-t border-white/15 pt-8 opacity-0 animate-[heroReveal_900ms_cubic-bezier(0.22,1,0.36,1)_1100ms_forwards]">
               {[
                 { value: "3", label: "Continents Served" },

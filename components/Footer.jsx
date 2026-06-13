@@ -11,7 +11,7 @@ import {
 import { FiArrowUpRight, FiMapPin, FiMail, FiPhone } from "react-icons/fi";
 
 /**
- * Footer — GCSA Consulting UK LTD
+ * Footer, GCSA Consulting UK LTD
  *
  * Content (per gcsaconsulting.co.uk):
  * - Brand: GCSA Consulting · Business Consultants
@@ -100,7 +100,7 @@ const Footer = () => {
       aria-labelledby="footer-heading"
     >
       <h2 id="footer-heading" className="sr-only">
-        GCSA Consulting — site footer
+        GCSA Consulting, site footer
       </h2>
 
       {/* Ambient glow */}
@@ -143,7 +143,7 @@ const Footer = () => {
               <Link
                 href="/"
                 className="inline-flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/40 rounded-sm mb-10 md:mb-14"
-                aria-label="GCSA Consulting — home"
+                aria-label="GCSA Consulting, home"
               >
                 <svg
                   width="36"
@@ -200,7 +200,7 @@ const Footer = () => {
 
               <p className="mt-6 md:mt-8 text-[14px] md:text-[15px] leading-[1.75] text-white/65 max-w-lg">
                 Trusted partner for strategic excellence and business
-                transformation — from corporate governance and enterprise
+                transformation, from corporate governance and enterprise
                 architecture to performance improvement and technology advisory.
               </p>
             </div>
@@ -379,7 +379,7 @@ const Footer = () => {
                 ))}
               </ul>
               <p className="mt-6 text-[11.5px] leading-[1.6] text-white/50">
-                Insights from our consultants — delivered weekly.
+                Insights from our consultants, delivered weekly.
               </p>
             </div>
           </div>

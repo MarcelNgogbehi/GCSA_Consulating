@@ -5,14 +5,14 @@ import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 
 /**
- * GlobalReach — GCSA Consulting | Three-Continent Coverage
+ * GlobalReach, GCSA Consulting | Three-Continent Coverage
  *
  * NEW SECTION on the homepage. The original site mentions:
  * "Whether you're a startup aiming to disrupt the market or an
  *  established enterprise seeking to explore new geographic locations
  *  in Africa, Europe and Asia..."
  *
- * This section makes that explicit — three continents, one HQ, one
+ * This section makes that explicit, three continents, one HQ, one
  * standard of work.
  */
 
@@ -115,8 +115,8 @@ const GlobalReach = () => {
             >
               Whether you&rsquo;re a startup aiming to disrupt the market or an
               established enterprise seeking to explore new geographic locations
-              in Africa, Europe and Asia — or you want to elevate your
-              performance — GCSA is your trusted partner for strategic
+              in Africa, Europe and Asia, or you want to elevate your
+              performance, GCSA is your trusted partner for strategic
               excellence and business transformation.
               <br /><br />
               Explore the possibilities with us. Let&rsquo;s redefine success, together.

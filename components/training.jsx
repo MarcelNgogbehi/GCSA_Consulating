@@ -6,9 +6,9 @@ import { FiArrowUpRight, FiCheck, FiClock, FiUsers, FiAward } from "react-icons/
 import { LuGraduationCap, LuRocket, LuTarget, LuTrendingUp } from "react-icons/lu";
 
 /**
- * Training — GCSA Consulting | Training Programmes
+ * Training, GCSA Consulting | Training Programmes
  *
- * NEW SECTION (per client brief — talk about training offerings).
+ * NEW SECTION (per client brief, talk about training offerings).
  * Highlights the flagship "Transition to Architecture in 6 Weeks"
  * programme from the latest training flyer.
  *
@@ -56,7 +56,7 @@ function useReveal(options = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
 const SKILLSETS = [
   {
     n: "1",
-    title: "End-to-End Solution Design",
+    title: "End to End Solution Design",
     copy: "Design scalable, integrated solutions that deliver real business value.",
   },
   {
@@ -95,8 +95,8 @@ const TARGET_ROLES = [
 ];
 
 const PROGRAMME_BENEFITS = [
-  "Intensive hands-on training with industry experts",
-  "Real-life enterprise case studies",
+  "Intensive hands on training with industry experts",
+  "Real life enterprise case studies",
   "Portfolio-ready architecture artefacts",
   "Expert-led coaching & mentorship",
   "Designed for professionals ready to level up",
@@ -158,8 +158,8 @@ const Training = () => {
           >
             Stop watching others lead transformation programmes while you remain
             stuck delivering requirements. This is your opportunity to
-            transition into high-impact Architecture roles with real-world,
-            hands-on experience.
+            transition into high impact Architecture roles with real world,
+            hands on experience.
           </p>
         </div>
 
@@ -192,9 +192,9 @@ const Training = () => {
             />
 
             <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-0">
-              {/* LEFT — Programme details */}
+              {/* LEFT, Programme details */}
               <div className="lg:col-span-7 p-8 md:p-12 lg:p-14 xl:p-16">
-                {/* Tag bar — mirrors flyer "DESIGN THE FUTURE. LEAD THE CHANGE." */}
+                {/* Tag bar, mirrors flyer "DESIGN THE FUTURE. LEAD THE CHANGE." */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-[#FFC72C] mb-8">
                   <LuRocket className="w-3.5 h-3.5 text-[#0A1A36]" strokeWidth={2.5} />
                   <span className="text-[10px] md:text-[11px] font-extrabold tracking-[0.22em] uppercase text-[#0A1A36]">
@@ -202,7 +202,7 @@ const Training = () => {
                   </span>
                 </div>
 
-                {/* Programme title — mirrors flyer headline */}
+                {/* Programme title, mirrors flyer headline */}
                 <h3 className="font-extrabold leading-[0.95] tracking-[-0.025em] text-white text-[40px] md:text-[54px] lg:text-[64px] xl:text-[72px]">
                   Transition to{" "}
                   <span style={{ color: "#FFC72C" }}>Architecture</span>
@@ -211,7 +211,7 @@ const Training = () => {
                   in just 6 weeks!
                 </p>
 
-                {/* Triple-benefit row — mirrors flyer */}
+                {/* Triple-benefit row, mirrors flyer */}
                 <div className="mt-7 md:mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 pb-7 md:pb-9 border-b border-white/15">
                   {[
                     { Icon: LuTarget, label: "High-Impact Career" },
@@ -227,7 +227,7 @@ const Training = () => {
                   ))}
                 </div>
 
-                {/* Description box — mirrors flyer "rocket" callout */}
+                {/* Description box, mirrors flyer "rocket" callout */}
                 <div className="mt-7 md:mt-9 flex items-start gap-4 p-5 md:p-6 rounded-lg bg-white/5 border border-white/15 backdrop-blur-sm">
                   <LuRocket
                     className="shrink-0 w-7 h-7 md:w-8 md:h-8 mt-1"
@@ -237,13 +237,13 @@ const Training = () => {
                   <p className="text-[14px] md:text-[16px] leading-[1.65] text-white/90 font-medium">
                     This is your opportunity to transition into{" "}
                     <span className="font-extrabold" style={{ color: "#FFC72C" }}>
-                      high-impact Architecture roles
+                      high impact Architecture roles
                     </span>{" "}
-                    with hands-on experience across Solution, Business, Data, Application, Platform, and Technology Architecture.
+                    with hands on experience across Solution, Business, Data, Application, Platform, and Technology Architecture.
                   </p>
                 </div>
 
-                {/* Built for — target roles */}
+                {/* Built for, target roles */}
                 <div className="mt-9 md:mt-11">
                   <p className="text-[10.5px] md:text-[11px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-4">
                     Built for Professionals from Any Background
@@ -356,9 +356,9 @@ const Training = () => {
                 </p>
               </div>
 
-              {/* RIGHT — Skillsets panel */}
+              {/* RIGHT, Skillsets panel */}
               <div className="relative lg:col-span-5 bg-gradient-to-br from-[#06122A] via-[#0A1A36] to-[#06122A] p-8 md:p-12 lg:p-12 xl:p-14 lg:border-l border-white/10">
-                {/* Top headline strip — mirrors flyer "MASTER THE TOP 6" */}
+                {/* Top headline strip, mirrors flyer "MASTER THE TOP 6" */}
                 <div className="mb-10 pb-6 border-b border-[#FFC72C]/30">
                   <p className="text-[10.5px] md:text-[11px] font-bold tracking-[0.28em] uppercase text-[#FFC72C] mb-3">
                     The Curriculum
@@ -403,7 +403,7 @@ const Training = () => {
                   ))}
                 </ul>
 
-                {/* Footer strip — mirrors flyer testimonial vibe */}
+                {/* Footer strip, mirrors flyer testimonial vibe */}
                 <div className="mt-10 pt-6 border-t border-white/10">
                   <div className="flex items-center gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -423,13 +423,13 @@ const Training = () => {
                     confidence I needed to step into an Architecture role."
                   </blockquote>
                   <p className="mt-3 text-[10px] font-bold tracking-[0.22em] uppercase text-white/50">
-                    — Past Participant
+                    Past Participant
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Bottom strip — limited seats / urgency, mirrors flyer */}
+            {/* Bottom strip, limited seats / urgency, mirrors flyer */}
             <div className="relative bg-[#FFC72C] px-8 md:px-12 lg:px-14 xl:px-16 py-5 md:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div className="flex items-center gap-3">
                 <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#0A1A36]">

@@ -15,7 +15,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Plans & Pricing — GCSA Consulting UK LTD
+ * Plans & Pricing, GCSA Consulting UK LTD
  *
  * Sections:
  *  1. Page hero
@@ -69,12 +69,12 @@ const TIERS = [
       "Expert infrastructure consulting for complex, large-scale projects. Our team provides strategic guidance, architecture design, and implementation support across enterprise infrastructure workstreams.",
     features: [
       "Weekly engagement model",
-      "£1,000 engagement fee (one-time)",
+      "£1,000 engagement fee (one time)",
       "Senior infrastructure architect assigned",
       "Strategic planning and roadmap development",
       "Implementation oversight and governance",
       "Risk assessment and mitigation planning",
-      "Post-delivery support retainer available",
+      "Post delivery support retainer available",
     ],
     bestFor: "Organisations executing major infrastructure transformation",
     ctaLabel: "Discuss your project",
@@ -87,12 +87,12 @@ const TIERS = [
     name: "Governance & Strategy Consulting",
     headline: "Governance frameworks and strategic alignment.",
     priceFrom: "£15,000",
-    priceUnit: "per week (7-day free trial)",
+    priceUnit: "per week (7 day free trial)",
     description:
-      "Transform your governance structures and align strategy across the enterprise. Includes governance framework design, risk management setup, and strategic planning. Try risk-free for 7 days.",
+      "Transform your governance structures and align strategy across the enterprise. Includes governance framework design, risk management setup, and strategic planning. Try risk free for 7 days.",
     features: [
       "Weekly consulting engagement",
-      "7-day free trial (no commitment)",
+      "7 day free trial (no commitment)",
       "Governance framework design",
       "Strategic roadmap development",
       "Risk and compliance framework",
@@ -110,12 +110,12 @@ const TIERS = [
     name: "Enterprise Architecture",
     headline: "Holistic architecture transformation programme.",
     priceFrom: "£10,000",
-    priceUnit: "per month (1-day free trial)",
+    priceUnit: "per month (1 day free trial)",
     description:
-      "Full enterprise architecture consulting with ongoing monthly retainer model. Includes architecture reviews, technology strategy, and continuous optimisation. Start with a complimentary 1-day discovery session.",
+      "Full enterprise architecture consulting with ongoing monthly retainer model. Includes architecture reviews, technology strategy, and continuous optimisation. Start with a complimentary 1 day discovery session.",
     features: [
       "Monthly retainer model",
-      "1-day free trial consultation",
+      "1 day free trial consultation",
       "Enterprise architecture reviews",
       "Technology roadmap development",
       "Architecture governance framework",
@@ -131,35 +131,35 @@ const TIERS = [
 
 const COMPARISON_ROWS = [
   { feature: "Pricing model", infrastructure: "Weekly (£50k/week)", governance: "Weekly (£15k/week)", enterprise: "Monthly (£10k/month)" },
-  { feature: "Engagement fee", infrastructure: "£1,000 (one-time)", governance: "7-day free trial", enterprise: "1-day free trial" },
+  { feature: "Engagement fee", infrastructure: "£1,000 (one time)", governance: "7 day free trial", enterprise: "1 day free trial" },
   { feature: "Senior resource allocation", infrastructure: "Dedicated architect", governance: "Senior strategist", enterprise: "Enterprise architect" },
   { feature: "Governance framework", infrastructure: "Within infrastructure scope", governance: "Full framework design", enterprise: "Governance practice setup" },
   { feature: "Strategic roadmap", infrastructure: "Infrastructure-focused", governance: "Enterprise-wide", enterprise: "Architecture-focused" },
   { feature: "Implementation support", infrastructure: "Included", governance: "Strategy translation", enterprise: "Continuous support" },
   { feature: "Risk & compliance", infrastructure: "Infrastructure risks", governance: "Full coverage", enterprise: "Architecture risks" },
-  { feature: "Ongoing retainer", infrastructure: "Available post-engagement", governance: "Quarterly reviews", enterprise: "Continuous included" },
+  { feature: "Ongoing retainer", infrastructure: "Available post engagement", governance: "Quarterly reviews", enterprise: "Continuous included" },
 ];
 
 const FAQS = [
   {
     q: "Why don't you publish fixed prices for consulting?",
-    a: "Because no two engagements are alike. The diagnose-design-deliver scope for a 200-person fintech is different from a national infrastructure programme. We publish 'starting from' figures so you can budget, then quote bespoke after a discovery call.",
+    a: "Because no two engagements are alike. The diagnose design deliver scope for a 200-person fintech is different from a national infrastructure programme. We publish 'starting from' figures so you can budget, then quote bespoke after a discovery call.",
   },
   {
     q: "What does the discovery call cover?",
-    a: "30–45 minutes. We learn about your goals, constraints, and timeline; you learn about our approach. There's no charge and no obligation. If we're a fit, we follow up with a written proposal within 5 business days.",
+    a: "30 to 45 minutes. We learn about your goals, constraints, and timeline; you learn about our approach. There's no charge and no obligation. If we're a fit, we follow up with a written proposal within 5 business days.",
   },
   {
     q: "Can engagements be paid in instalments?",
     a: "Yes. Engagement and Transformation tiers are typically invoiced monthly against milestones. Advisory tier is invoiced 50% on signing and 50% on delivery.",
   },
   {
-    q: "Do you offer fixed-price training?",
-    a: "Yes. Public training programmes (like Transition to Architecture in 6 Weeks) are fixed-price per seat. Custom in-house cohorts are quoted bespoke based on cohort size and scope.",
+    q: "Do you offer fixed price training?",
+    a: "Yes. Public training programmes (like Transition to Architecture in 6 Weeks) are fixed price per seat. Custom in house cohorts are quoted bespoke based on cohort size and scope.",
   },
   {
-    q: "Are prices VAT-inclusive?",
-    a: "Prices shown exclude UK VAT (currently 20%). VAT is added on UK-registered invoices where applicable. Reverse-charge rules apply for valid EU/international VAT registrations.",
+    q: "Are prices VAT inclusive?",
+    a: "Prices shown exclude UK VAT (currently 20%). VAT is added on UK registered invoices where applicable. Reverse-charge rules apply for valid EU/international VAT registrations.",
   },
   {
     q: "What's your refund policy?",
@@ -258,9 +258,9 @@ const PageHero = () => {
         </h1>
 
         <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
-          Three consulting tiers and one fixed-price training programme.
+          Three consulting tiers and one fixed price training programme.
           Every consulting engagement is quoted bespoke after a discovery
-          call — what's published here is your starting point.
+          call, what's published here is your starting point.
         </p>
       </div>
     </section>
@@ -488,7 +488,7 @@ const TrainingCallout = () => {
             <div className="lg:col-span-7">
               <p className="flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-5">
                 <span className="inline-block w-10 h-px" style={{ backgroundColor: "#FFC72C" }} />
-                Fixed-Price Training
+                Fixed Price Training
               </p>
               <h2
                 id="training-pricing-heading"
@@ -501,7 +501,7 @@ const TrainingCallout = () => {
                 .
               </h2>
               <p className="text-[15px] md:text-[16px] leading-[1.75] text-white/75 max-w-2xl mb-7">
-                A 6-week intensive, hands-on programme that fast-tracks
+                A 6-week intensive, hands on programme that fast tracks
                 professionals from any background into architecture roles.
                 Live sessions, practical workshops, and a Certificate of
                 Completion. Pay once, secure your seat instantly.
@@ -630,13 +630,13 @@ const Comparison = () => {
                     {row.feature}
                   </td>
                   <td className="py-5 px-4 text-[13.5px] text-[#0A1A36]/75">
-                    {row.infrastructure === "—" ? <span className="text-[#0A1A36]/30">—</span> : row.infrastructure}
+                    {row.infrastructure === "-" ? <span className="text-[#0A1A36]/30">-</span> : row.infrastructure}
                   </td>
                   <td className="py-5 px-4 text-[13.5px] text-[#0A1A36]/75 bg-[#FFC72C]/[0.06]">
-                    {row.governance === "—" ? <span className="text-[#0A1A36]/30">—</span> : row.governance}
+                    {row.governance === "-" ? <span className="text-[#0A1A36]/30">-</span> : row.governance}
                   </td>
                   <td className="py-5 px-4 text-[13.5px] text-[#0A1A36]/75">
-                    {row.enterprise === "—" ? <span className="text-[#0A1A36]/30">—</span> : row.enterprise}
+                    {row.enterprise === "-" ? <span className="text-[#0A1A36]/30">-</span> : row.enterprise}
                   </td>
                 </tr>
               ))}

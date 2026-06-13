@@ -19,7 +19,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 /**
- * Services — GCSA Consulting UK LTD
+ * Services, GCSA Consulting UK LTD
  *
  * Full-detail services page expanding the homepage Services section.
  * Sections:
@@ -69,7 +69,7 @@ const SERVICES = [
     title: "Corporate Governance",
     Icon: FiShield,
     summary:
-      "Frameworks, policies, and board-level advisory that strengthen accountability and protect long-term value.",
+      "Frameworks, policies, and board level advisory that strengthen accountability and protect long term value.",
     body: "We help organisations design and operate governance structures that satisfy regulators, reassure investors, and align leadership with strategic intent. From board effectiveness reviews to enterprise risk frameworks and ethics programmes, our work strengthens the foundation on which every other decision rests.",
     deliverables: [
       "Board effectiveness reviews",
@@ -106,13 +106,13 @@ const SERVICES = [
     Icon: FiLayers,
     summary:
       "Align business, data, application, and technology layers into one coherent operating model.",
-    body: "We translate strategy into structure — designing target architectures and governance frameworks that make complex enterprises easier to run and faster to evolve. Our architects bring industry frameworks (TOGAF, Zachman) plus the practical judgement to apply them well.",
+    body: "We translate strategy into structure, designing target architectures and governance frameworks that make complex enterprises easier to run and faster to evolve. Our architects bring industry frameworks (TOGAF, Zachman) plus the practical judgement to apply them well.",
     deliverables: [
       "Target operating-model design",
       "Business, data, application, and technology architectures",
       "Architecture governance and review boards",
       "Capability roadmaps",
-      "Architecture upskilling for in-house teams",
+      "Architecture upskilling for in house teams",
     ],
     image:
       "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1600&q=85",
@@ -124,7 +124,7 @@ const SERVICES = [
     Icon: FiTrendingUp,
     summary:
       "Craft and execute strategy with the discipline to translate vision into measurable outcomes.",
-    body: "Strategy fails not from lack of ambition but from a lack of operating cadence. We help leadership teams write strategies that survive contact with reality — and build the planning, performance, and review rhythms that keep them on track every quarter.",
+    body: "Strategy fails not from lack of ambition but from a lack of operating cadence. We help leadership teams write strategies that survive contact with reality, and build the planning, performance, and review rhythms that keep them on track every quarter.",
     deliverables: [
       "Strategic planning and refresh cycles",
       "Market entry and expansion advisory",
@@ -142,7 +142,7 @@ const SERVICES = [
     Icon: FiCpu,
     summary:
       "Independent counsel on digital transformation, platform selection, and emerging technologies.",
-    body: "We help leadership teams make confident technology decisions — from cloud strategy and data platforms to enterprise applications, integration, and security posture. Our advice is vendor-independent and grounded in the operating reality of your sector.",
+    body: "We help leadership teams make confident technology decisions, from cloud strategy and data platforms to enterprise applications, integration, and security posture. Our advice is vendor-independent and grounded in the operating reality of your sector.",
     deliverables: [
       "Digital transformation strategy",
       "Cloud and platform selection",
@@ -281,7 +281,7 @@ const PageHero = () => {
         <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] text-white/75 font-light">
           GCSA provides a range of management consulting services in both
           public and private institutions, across diverse industries and
-          sectors. Every engagement is tailored — because every business is
+          sectors. Every engagement is tailored, because every business is
           unique.
         </p>
 
@@ -352,7 +352,7 @@ const Overview = () => {
             </p>
             <p>
               Our consultants operate across five disciplines that, together,
-              cover the operating reality of a modern enterprise — from the
+              cover the operating reality of a modern enterprise, from the
               boardroom (governance) to the engine room (infrastructure and
               technology). Every engagement begins with diagnosis and ends with
               measurable outcomes.
@@ -421,7 +421,7 @@ const ServiceBlock = ({ service, reverse }) => {
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-[#0A1A36] group">
             <Image
               src={image}
-              alt={`${title} — GCSA Consulting service`}
+              alt={`${title}, GCSA Consulting service`}
               fill
               sizes="(max-width: 1024px) 100vw, 42vw"
               className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
@@ -621,7 +621,7 @@ const Method = () => {
             .
           </h2>
           <p className="mt-6 text-[15px] md:text-[16px] leading-[1.75] text-white/70 max-w-2xl">
-            Whatever the pillar, the engagement rhythm is constant — diagnostic
+            Whatever the pillar, the engagement rhythm is constant, diagnostic
             before prescriptive, partnership over transaction.
           </p>
         </div>

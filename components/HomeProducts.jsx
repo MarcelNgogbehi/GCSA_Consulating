@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 
 /**
- * Services — GCSA Consulting | Five Service Pillars
+ * Services, GCSA Consulting | Five Service Pillars
  *
  * Content (per gcsaconsulting.co.uk):
  *   01 Corporate Governance
@@ -57,7 +57,7 @@ const SERVICES = [
     number: "01",
     title: "Corporate Governance",
     summary:
-      "Frameworks, policies, and board-level advisory that strengthen accountability and protect long-term value.",
+      "Frameworks, policies, and board level advisory that strengthen accountability and protect long term value.",
     detail:
       "We help organisations design and operate governance structures that satisfy regulators, reassure investors, and align leadership with strategic intent.",
     href: "/services#corporate-governance",
@@ -77,7 +77,7 @@ const SERVICES = [
     summary:
       "Align business, data, application, and technology layers into one coherent operating model.",
     detail:
-      "We translate strategy into structure — designing target architectures and governance frameworks that make complex enterprises easier to run and faster to evolve.",
+      "We translate strategy into structure, designing target architectures and governance frameworks that make complex enterprises easier to run and faster to evolve.",
     href: "/services#enterprise-architecture",
   },
   {
@@ -95,7 +95,7 @@ const SERVICES = [
     summary:
       "Independent counsel on digital transformation, platform selection, and the adoption of emerging technologies.",
     detail:
-      "We help leadership teams make confident technology decisions — from cloud strategy and data platforms to enterprise applications and security posture.",
+      "We help leadership teams make confident technology decisions, from cloud strategy and data platforms to enterprise applications and security posture.",
     href: "/services#technology-advisory",
   },
 ];
@@ -161,7 +161,7 @@ const Services = () => {
             >
               GCSA provides a range of management consulting services in both
               public and private institutions, across diverse industries and
-              sectors. Every engagement is tailored — because every business
+              sectors. Every engagement is tailored, because every business
               is unique.
             </p>
 
