@@ -52,7 +52,7 @@ import Footer from "@/components/Footer";
  *   11. Corporate / in house training
  *   12. Final CTA
  *
- * Plus the embedded RegistrationModal (Stripe Checkout flow).
+ * Plus the embedded RegistrationModal (data-capture flow, no online payment).
  *
  * Brand: navy #0A1A36 + gold #FFC72C + Montserrat
  */
@@ -265,7 +265,7 @@ const DIFFERENTIATORS = [
 const FAQS = [
   {
     q: "How do I pay, and can I pay in instalments?",
-    a: "You register in one quick step and pay securely online via Stripe. You can pay in full, or spread the cost across flexible weekly instalments, the options and exact amounts are shown on the secure checkout page.",
+    a: "Registration is free and takes one quick step, no payment is taken online. Once you register, our team contacts you with the fee details and payment options. You can pay in full or spread the cost across flexible weekly instalments, whichever works best for you.",
   },
   {
     q: "What's the time commitment per week?",
@@ -281,7 +281,7 @@ const FAQS = [
   },
   {
     q: "What happens after I register?",
-    a: "You'll be redirected to Stripe to complete payment securely. Once payment is confirmed, you'll receive a welcome email within minutes including your cohort details, joining materials, and access to the participant portal.",
+    a: "You'll get an instant confirmation email, and a member of our team will reach out personally with your cohort details, joining materials, and how to confirm your seat. No payment is required to register.",
   },
   {
     q: "Do you offer refunds?",
@@ -1219,8 +1219,8 @@ const ScheduleInvestment = ({ onRegister }) => {
                 Register in one quick step.
               </p>
               <p className="text-[13px] leading-[1.65] text-white/75 mb-7">
-                Enter your details and pay securely online to confirm your seat.
-                Flexible weekly instalment options are available at checkout.
+                Enter your details to reserve your seat. No payment is taken now,
+                our team will follow up with joining details and payment options.
               </p>
 
               <div className="flex items-start gap-2.5 mb-7 p-3.5 rounded-sm bg-[#FFC72C]/[0.08] border border-[#FFC72C]/25">
@@ -1228,7 +1228,7 @@ const ScheduleInvestment = ({ onRegister }) => {
                 <p className="text-[12px] leading-[1.55] text-white/80">
                   Pay in full or spread the cost over{" "}
                   <span className="font-bold text-white">flexible weekly instalments</span> -
-                  choose what works for you at the secure checkout.
+                  we'll walk you through the options when we get in touch.
                 </p>
               </div>
 
@@ -1243,7 +1243,7 @@ const ScheduleInvestment = ({ onRegister }) => {
               </button>
 
               <p className="mt-4 text-[11px] text-white/55 text-center">
-                Secure checkout via Stripe. Cards accepted globally
+                No payment now. Your details are kept private &amp; secure
               </p>
 
               <div className="mt-6 pt-5 border-t border-white/10 space-y-2">
@@ -1460,6 +1460,7 @@ const RegistrationModal = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [done, setDone] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -1469,6 +1470,14 @@ const RegistrationModal = ({
   });
 
   useEffect(() => setMounted(true), []);
+
+  // Reset to a clean form whenever the modal is (re)opened.
+  useEffect(() => {
+    if (open) {
+      setDone(false);
+      setSubmitting(false);
+    }
+  }, [open]);
 
   useEffect(() => {
     if (open) {
@@ -1509,7 +1518,7 @@ const RegistrationModal = ({
 
     setSubmitting(true);
     try {
-      const res = await fetch("/api/checkout", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1523,17 +1532,18 @@ const RegistrationModal = ({
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Could not start registration");
-      if (data?.url) {
-        window.location.href = data.url; // → Stripe Payment Link
-        return;
-      }
-      throw new Error("No payment link returned");
+      if (!res.ok) throw new Error(data?.error || "Could not complete registration");
+
+      toast.success("Registration received, we'll be in touch shortly.");
+      setDone(true);
     } catch (err) {
       toast.error(err.message || "Something went wrong. Please try again.");
+    } finally {
       setSubmitting(false);
     }
   };
+
+  const firstName = form.name.trim().split(/\s+/)[0] || "there";
 
   if (!mounted || !open) return null;
 
@@ -1555,6 +1565,55 @@ const RegistrationModal = ({
       <div className="relative w-full md:max-w-[820px] md:max-h-[90vh] bg-white md:rounded-2xl shadow-[0_40px_120px_-20px_rgba(10,26,54,0.6)] overflow-hidden flex flex-col animate-[modalPop_400ms_cubic-bezier(0.22,1,0.36,1)_forwards]">
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#FFC72C]" aria-hidden="true" />
 
+        {done ? (
+          /* ── Success state ─────────────────────────────────────────── */
+          <div className="relative px-6 md:px-12 py-12 md:py-16 text-center flex flex-col items-center">
+            <button
+              type="button"
+              onClick={() => onClose?.()}
+              aria-label="Close"
+              className="absolute top-5 right-5 md:top-7 md:right-7 inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#0A1A36]/[0.05] hover:bg-[#0A1A36]/10 text-[#0A1A36] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC72C]/60"
+            >
+              <FiX className="w-5 h-5" />
+            </button>
+
+            <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#FFC72C]/15 mb-6">
+              <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#FFC72C]">
+                <FiCheck className="w-6 h-6 text-[#0A1A36]" strokeWidth={3} />
+              </span>
+            </span>
+
+            <p className="text-[10.5px] font-bold tracking-[0.32em] uppercase text-[#FFC72C] mb-3">
+              You're registered
+            </p>
+            <h2 className="font-extrabold leading-[1.15] tracking-[-0.01em] text-[#0A1A36] text-[24px] md:text-[30px] max-w-md">
+              Thank you, {firstName}, your place is reserved.
+            </h2>
+            <p className="mt-4 max-w-md text-[14px] leading-[1.7] text-[#0A1A36]/70">
+              We've received your registration for{" "}
+              <span className="font-bold text-[#0A1A36]">{programmeName}</span>.
+              A confirmation is on its way to your inbox, and a member of our team
+              will be in touch shortly with the next steps and joining details.
+            </p>
+
+            <div className="mt-8 flex flex-col sm:flex-row items-center gap-3">
+              <button
+                type="button"
+                onClick={() => onClose?.()}
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#0A1A36] hover:bg-[#06122A] text-white text-[11.5px] font-extrabold tracking-[0.18em] uppercase transition-all duration-300"
+              >
+                Done
+              </button>
+              <a
+                href="mailto:info@gcsaconsulting.co.uk"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border border-[#0A1A36]/15 hover:border-[#FFC72C] text-[#0A1A36] text-[11.5px] font-extrabold tracking-[0.18em] uppercase transition-all duration-300"
+              >
+                Ask a question
+              </a>
+            </div>
+          </div>
+        ) : (
+        <>
         {/* Header */}
         <div className="relative px-6 md:px-10 pt-7 md:pt-9 pb-5 border-b border-[#0A1A36]/10 bg-white">
           <button
@@ -1579,8 +1638,8 @@ const RegistrationModal = ({
           </h2>
 
           <p className="mt-3 text-[13px] leading-[1.6] text-[#0A1A36]/70">
-            One quick step to secure your place, enter your details, then pay
-            securely via Stripe.
+            One quick step to reserve your place, enter your details and our team
+            will be in touch with the next steps.
           </p>
         </div>
 
@@ -1616,10 +1675,10 @@ const RegistrationModal = ({
             <div className="md:col-span-2 flex items-start gap-2.5 p-4 rounded-sm bg-[#FFC72C]/[0.10] border border-[#FFC72C]/30">
               <FiLock className="shrink-0 mt-0.5 w-4 h-4 text-[#FFC72C]" />
               <p className="text-[12.5px] leading-[1.6] text-[#0A1A36]/75">
-                Next you'll go to a{" "}
-                <span className="font-bold text-[#0A1A36]">secure Stripe payment page</span>{" "}
-                to confirm your place. Pay in full or spread the cost over flexible
-                weekly instalments.
+                Once you register, a member of our team will{" "}
+                <span className="font-bold text-[#0A1A36]">reach out personally</span>{" "}
+                with joining details, fees, and flexible payment options, no
+                payment is taken now.
               </p>
             </div>
           </div>
@@ -1630,8 +1689,8 @@ const RegistrationModal = ({
           <div className="flex items-center gap-3 text-[11.5px] text-[#0A1A36]/65">
             <FiLock className="w-3.5 h-3.5 text-[#FFC72C]" />
             <span>
-              Secure checkout via{" "}
-              <span className="font-bold text-[#0A1A36]">Stripe</span>
+              Your details are kept{" "}
+              <span className="font-bold text-[#0A1A36]">private &amp; secure</span>
             </span>
           </div>
 
@@ -1644,17 +1703,19 @@ const RegistrationModal = ({
             {submitting ? (
               <>
                 <span className="w-3.5 h-3.5 rounded-full border-2 border-[#0A1A36]/30 border-t-[#0A1A36] animate-spin" />
-                Redirecting…
+                Submitting…
               </>
             ) : (
               <>
-                <FiCreditCard className="w-4 h-4" />
-                Proceed to Secure Payment
+                <FiCheck className="w-4 h-4" />
+                Complete Registration
                 <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </>
             )}
           </button>
         </div>
+        </>
+        )}
       </div>
 
       <style jsx global>{`

@@ -28,8 +28,8 @@ import Footer from "@/components/Footer";
  * Pricing strategy:
  *  - Consulting engagements are quoted bespoke; we show a "starting from"
  *    indicator and lead every tier to /contact for a tailored proposal.
- *  - Training is paid via a hosted Stripe Payment Link; the price/instalment
- *    options are shown on the Stripe checkout page. Links to /training.
+ *  - Training registration is free and captured on /training; the team then
+ *    follows up with fees and flexible instalment options. Links to /training.
  */
 
 function useReveal(options = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }) {
@@ -532,7 +532,7 @@ const TrainingCallout = () => {
                 <ul className="space-y-2.5 mb-6 pb-5 border-b border-[#0A1A36]/10">
                   {[
                     "Register in one quick step",
-                    "Pay securely online via Stripe",
+                    "No payment taken online, we follow up personally",
                     "Flexible weekly instalment options",
                   ].map((b) => (
                     <li key={b} className="flex items-start gap-2.5 text-[13px] text-[#0A1A36]/75">
@@ -551,7 +551,7 @@ const TrainingCallout = () => {
                 </Link>
 
                 <p className="mt-4 text-[11px] text-[#0A1A36]/55 text-center">
-                  Secure checkout via Stripe
+                  Free to register. Your details are kept private &amp; secure
                 </p>
               </div>
             </div>

@@ -19,11 +19,13 @@ const money = (amount, currency) =>
   amount != null ? `${(amount / 100).toFixed(2)} ${String(currency || "").toUpperCase()}` : "-";
 
 const STATUS_STYLES = {
+  registered: "bg-blue-50 text-blue-700",
   paid: "bg-green-50 text-green-700",
   pending: "bg-amber-50 text-amber-700",
   awaiting_payment: "bg-amber-50 text-amber-700",
 };
 const STATUS_LABELS = {
+  registered: "Registered",
   paid: "Paid",
   pending: "Pending payment",
   awaiting_payment: "Awaiting payment",

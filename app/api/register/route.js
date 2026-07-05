@@ -1,34 +1,28 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import prisma from "@/lib/prisma";
-import { notifyRegistration } from "@/lib/email";
+import { notifyRegistration, confirmRegistration } from "@/lib/email";
 import { getProgramme } from "@/lib/programmes";
 
 /**
- * POST /api/checkout
+ * POST /api/register
  *
- * One-step trainee registration.
+ * One-step training registration (data capture only, no payment).
  *
  * Flow:
  *   1. Capture the trainee (name, email, mobile, experience) to Postgres so
- *      they appear in the admin dashboard immediately, marked
- *      "awaiting_payment".
- *   2. Return the hosted Stripe Payment Link; the browser redirects there to
- *      take the payment. No Stripe secret key / API checkout session is used.
+ *      they appear in the admin dashboard immediately, marked "registered".
+ *   2. Email the team + the dedicated registrations inbox, and send the
+ *      registrant a confirmation. All emails are best-effort and never block
+ *      the response.
+ *   3. Return { ok: true }; the browser shows an in-place confirmation.
  *
  * Request body:
- *   {
- *     programmeId: "transition-to-architecture",
- *     name: "Jane Doe",          // or firstName / lastName
- *     email, phone, experience
- *   }
+ *   { programmeId, name (or firstName/lastName), email, phone, experience }
  *
  * Response:
- *   200 → { url: "https://buy.stripe.com/..." }
+ *   200 → { ok: true }
  *   400/404/500 → { error: "..." }
- *
- * Required env vars:
- *  - NEXT_PUBLIC_SITE_URL  (used only for absolute links in notifications)
  */
 
 export const runtime = "nodejs";
@@ -94,29 +88,24 @@ export async function POST(req) {
     };
 
     // Persist so it shows in the admin dashboard. Each submission is its own
-    // lead (keyed by a generated id); the Payment Link itself takes the money.
+    // lead, keyed by a generated id in the (still unique) stripeSessionId column.
     await prisma.registration.create({
       data: {
         ...details,
-        stripeSessionId: `link_${randomUUID()}`,
-        amountTotal: programme.registrationFeeInPence,
-        currency: programme.currency,
-        paymentStatus: "awaiting_payment",
+        stripeSessionId: `reg_${randomUUID()}`,
+        paymentStatus: "registered",
       },
     });
 
-    // Notify the team (best-effort, never blocks the redirect).
+    // Notify the team + registrant (best-effort, never blocks the response).
     notifyRegistration(details).catch(() => {});
+    confirmRegistration(details).catch(() => {});
 
-    // ── Hand back the Stripe Payment Link (with the email pre-filled) ──
-    const url = new URL(programme.paymentLink);
-    url.searchParams.set("prefilled_email", details.email);
-
-    return NextResponse.json({ url: url.toString() });
+    return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[/api/checkout] error:", err);
+    console.error("[/api/register] error:", err);
     return NextResponse.json(
-      { error: err?.message || "Could not start registration" },
+      { error: err?.message || "Could not complete registration" },
       { status: 500 }
     );
   }
