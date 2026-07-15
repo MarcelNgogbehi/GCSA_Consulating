@@ -237,10 +237,9 @@ const TermsPage = () => {
           <Section id="third-party" heading="9. Third party links & services">
             <p>
               The Site may contain links to third party websites and embedded
-              services (for example, mapping services, social media platforms,
-              and payment processors such as Stripe). We do not control these
-              third parties and are not responsible for their content,
-              practices, or terms.
+              services (for example, mapping services and social media
+              platforms). We do not control these third parties and are not
+              responsible for their content, practices, or terms.
             </p>
             <p>
               Your use of any third party service is subject to that party's
@@ -250,12 +249,13 @@ const TermsPage = () => {
 
           <Section id="training" heading="10. Training programmes & payments">
             <p>
-              When you register and pay for a training programme:
+              When you register for a training programme:
             </p>
             <BulletList
               items={[
-                "Payments are processed by Stripe Payments Europe Ltd. By submitting payment, you also agree to Stripe's terms of service",
-                "Programme places are confirmed only once payment has been successfully processed",
+                "Registration is free and no payment is taken through the Site. Submitting the registration form reserves a provisional place and does not create a binding contract",
+                "Our team will contact you after you register to confirm the applicable fees and arrange payment directly, for example by invoice or bank transfer",
+                "Programme places are confirmed only once the fees have been settled, or once alternative arrangements have been agreed with us in writing",
                 "Programme content, schedule, and instructors are subject to reasonable change. Material changes will be communicated in advance",
                 "Refunds are governed by the refund policy displayed on the relevant programme page (typically full refund within 7 days of payment, provided the cohort has not yet started)",
                 "Certificates of Completion are issued on satisfactory programme participation, at our reasonable discretion",

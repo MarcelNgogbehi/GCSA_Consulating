@@ -140,7 +140,7 @@ const PrivacyPolicyPage = () => {
                 "Identity information, name, job title, employer, professional background",
                 "Contact information, email address, phone number, postal address, country of residence",
                 "Engagement information, details of your enquiry, training application, or consulting brief",
-                "Payment information, billing address and payment confirmation (card details are processed by Stripe and never stored by us)",
+                "Billing information, billing address and payment confirmation. We do not take card payments through this website and never collect or store card details here; programme fees are arranged directly with our team",
                 "Communication preferences, newsletter subscriptions and marketing consents",
               ]}
             />
@@ -157,7 +157,6 @@ const PrivacyPolicyPage = () => {
               items={[
                 "Public business directories and professional networks (e.g. LinkedIn) where you have made information publicly available",
                 "Referrals from existing clients or partners",
-                "Payment confirmation data from Stripe (our payment processor)",
               ]}
             />
           </Section>
@@ -167,7 +166,7 @@ const PrivacyPolicyPage = () => {
             <BulletList
               items={[
                 "Respond to enquiries and deliver the consulting or training services you have requested",
-                "Process payments and send confirmation, receipts, and onboarding materials",
+                "Administer programme fees and send confirmation, receipts, and onboarding materials",
                 "Manage our contractual relationship and provide ongoing client support",
                 "Send service communications (cohort logistics, schedule changes, important programme updates)",
                 "Send newsletters and marketing communications where you have consented or where there is a legitimate interest under PECR's soft opt-in",
@@ -206,8 +205,8 @@ const PrivacyPolicyPage = () => {
             </p>
             <BulletList
               items={[
-                "Stripe Payments Europe Ltd, for processing programme payments (Stripe is the data controller for card data)",
                 "Cloud and email infrastructure providers, for hosting, email delivery, and document storage",
+                "Banks and payment providers, where you settle programme fees directly by invoice or bank transfer",
                 "Professional advisers, accountants, auditors, insurers, and legal counsel under appropriate confidentiality obligations",
                 "Regulators, law enforcement, and courts, where we are legally required to disclose information",
                 "Successors in interest, in the event of a merger, acquisition, or restructuring of GCSA",

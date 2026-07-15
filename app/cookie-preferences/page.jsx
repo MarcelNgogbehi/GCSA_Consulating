@@ -46,12 +46,11 @@ const COOKIE_CATEGORIES = [
     title: "Strictly Necessary",
     required: true,
     description:
-      "Required for the website to function. These enable core features such as page navigation, form submission, secure checkout, and access to protected areas.",
+      "Required for the website to function. These enable core features such as page navigation, form submission, and access to protected areas.",
     examples: [
       "Session cookies (login state, form continuity)",
       "Cookie-consent state itself",
       "CSRF / security tokens",
-      "Stripe checkout session identifiers",
     ],
   },
   {
@@ -110,13 +109,6 @@ const COOKIE_TABLE = [
     purpose: "Prevents the newsletter prompt from re-appearing in the same session",
     type: "Strictly Necessary",
     expiry: "Session",
-  },
-  {
-    name: "__stripe_*",
-    provider: "Stripe (third party)",
-    purpose: "Fraud detection and secure checkout flow",
-    type: "Strictly Necessary",
-    expiry: "Up to 1 year",
   },
 ];
 
